@@ -1,0 +1,24 @@
+#include AOC_HEADER
+
+#include <fstream>
+#include <iostream>
+
+int main() {
+    std::ifstream input_file;
+    input_file.open(AOC_TASK ".input");
+    if (!input_file.is_open()) {
+        std::cout << "couldn't read file" << std::endl;
+        return -1;
+    }
+    std::string line;
+    std::vector<int> instructions;
+    while (getline(input_file, line)) {
+        instructions.push_back(std::stoi(line));
+    }
+
+    auto [part1, part2] = solve(instructions);
+    std::cout << part1 << std::endl;
+    std::cout << part2 << std::endl;
+
+    return 0;
+}
