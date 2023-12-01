@@ -29,7 +29,7 @@ add_compile_options(
     -Wwrite-strings
     -Wformat=2
     -Wcast-align
-    -Wswitch-enum  # handles enums even when default is present
+    # -Wswitch-enum  # handles enums even when default is present
     $<$<CONFIG:RELEASE>:-Ofast>
     $<$<CONFIG:DEBUG>:-O0>
     $<$<CONFIG:DEBUG>:-ggdb3>
