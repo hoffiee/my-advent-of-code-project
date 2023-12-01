@@ -1,5 +1,7 @@
 # Collect third party libraries and tools here, for now keep everything in this
 # file but split into directories when it makes sense
+# TODO: Hmm, I've had a few issues with this setup, dig a bit whether this is
+# actually a good idea
 
 
 # == Icecream-cpp
@@ -32,7 +34,11 @@ FetchContent_Declare(
   URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
 )
 Fetchcontent_MakeAvailable(googletest)
-include(GoogleTest)
+add_library(gtest-wrapper INTERFACE EXCLUDE_FROM_ALL)
+target_link_libraries(gtest-wrapper
+    INTERFACE
+    GTest::gtest_main
+)
 
 
 # == OpenMP
@@ -43,7 +49,7 @@ include(GoogleTest)
 # it, but later on it should probably be done in a better way.
 find_package(OpenMP)
 add_library(openmp-wrapper INTERFACE EXCLUDE_FROM_ALL)
-target_include_directories(openmp-wrapper
+target_link_libraries(openmp-wrapper
     INTERFACE
     OpenMP::OpenMP_CXX
 )

@@ -28,6 +28,4 @@ int main() {
     std::cout << part2 << std::endl;
 
     return 0;
-
-    return 0;
 }

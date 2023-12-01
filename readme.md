@@ -34,8 +34,7 @@ cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake ..
 
 ## TODO
 
-- [ ] Fix gtest, seems like it's a bit problematic at the moment and I'm not
-  sure why it broke when I moved this into it's own repository
+- [ ] Fix so that all targets builds
 - [ ] Can I make the headerguard to be generic and steered from variables set
   in cmake?
 - [ ] refactor targets for 2022 so that targets adheres to the same pattern.

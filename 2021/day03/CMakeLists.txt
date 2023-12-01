@@ -43,9 +43,7 @@ add_custom_target(${TASK}-run
 add_executable(${TASK}-test test_${AOC_DAY}.cpp)
 
 target_link_libraries(${TASK}-test
-    ${GTEST_LIBRARIES}
-    ${GTEST_MAIN_LIBRARIES}
-    pthread
+    gtest-wrapper
 
     # lib under test
     lib-${TASK}

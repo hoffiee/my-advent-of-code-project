@@ -6,12 +6,12 @@ add_definitions(
     -DAOC_TEST=year_${TASK}
     -DAOC_TASK="${TASK}"
     -DAOC_INPUT="${AOC_DAY}.input"
-    -DAOC_HEADER="${TASK}.h"
+    -DAOC_HEADER="${AOC_DAY}.h"
 )
 
 add_library(lib-${TASK}
     EXCLUDE_FROM_ALL
-    ${TASK}.cpp
+    ${AOC_DAY}.cpp
 )
 
 target_include_directories(lib-${TASK}
@@ -39,13 +39,10 @@ add_custom_target(${TASK}-run
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
 
-
-add_executable(${TASK}-test test_${TASK}.cpp)
+add_executable(${TASK}-test test_${AOC_DAY}.cpp)
 
 target_link_libraries(${TASK}-test
-    ${GTEST_LIBRARIES}
-    ${GTEST_MAIN_LIBRARIES}
-    pthread
+    gtest-wrapper
 
     # lib under test
     lib-${TASK}
