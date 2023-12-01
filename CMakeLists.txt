@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 project(aoc-cpp C CXX)
 
@@ -7,6 +7,8 @@ set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(helpers)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Make Clang Debug info compatible with GDB
 set(CMAKE_CXX_FLAGS_DEBUG  "-gdwarf-4")
@@ -36,35 +38,12 @@ add_link_options(-fsanitize=undefined,address)
 # execute with gdb and ASAN_OPTIONS=abort_on_error=1, see
 # https://www.reddit.com/r/C_Programming/comments/ycaexu/easy_c_debugging/?utm_name=androidcss
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-# TODO: Decide where to have this, this isn't neat.
-# https://stackoverflow.com/questions/65586352/is-it-possible-to-use-fetchcontent-or-an-equivalent-to-add-a-library-that-has-no
-# header only lib, no configure or build steps, this one fails with the
-# compiler flag pedantic, my current solution is to "patch" and remove the
-# superfluous ; that the library has in two lines
-include(FetchContent)
-FetchContent_Declare(icecream
-    GIT_REPOSITORY https://github.com/renatoGarcia/icecream-cpp
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND ""
-)
-Fetchcontent_MakeAvailable(icecream)
-add_library(icecream INTERFACE EXCLUDE_FROM_ALL)
-target_include_directories(icecream
-    INTERFACE
-    ${icecream_SOURCE_DIR}/
-)
-
 
 # https://stackoverflow.com/questions/50861636/using-google-tests-with-cmake-ctest-with-the-new-command-gtest-discover-tests
 enable_testing()
 # include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
-find_package(GTest REQUIRED)
-include(GoogleTest)
 
-find_package(OpenMP)
-
+add_subdirectory(libs)
 add_subdirectory(tools)
 
 add_subdirectory(2015)

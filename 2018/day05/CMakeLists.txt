@@ -15,7 +15,7 @@ add_library(lib-${TASK}
 
 target_link_libraries(lib-${TASK}
     PRIVATE
-    OpenMP::OpenMP_CXX
+    openmp-wrapper
 )
 
 target_include_directories(lib-${TASK}

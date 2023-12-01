@@ -3,6 +3,7 @@ add_custom_target(status
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+# TODO: move these to cmake directory?
 add_custom_target(cppcheck
     COMMAND find . -name '*.cpp' -o -name '*.h'
         | grep -v ccls-cache
