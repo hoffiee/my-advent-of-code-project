@@ -21,6 +21,7 @@ target_include_directories(lib-${TASK}
 
 target_link_libraries(lib-${TASK}
     PRIVATE
+    string-utils
     icecream
 )
 
