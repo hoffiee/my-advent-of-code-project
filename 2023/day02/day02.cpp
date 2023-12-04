@@ -6,12 +6,12 @@
  */
 #include AOC_HEADER
 
+#include <string_utils.h>
+
 #include <algorithm>
 #include <icecream.hpp>
 #include <numeric>
 #include <sstream>
-
-#include <string_utils.h>
 
 static std::vector<int> get_counts(std::string hand) {
     int cubes = 0;

@@ -14,5 +14,4 @@ std::vector<std::string> split_string(std::string str, char delim) {
     return out;
 }
 
-
-}
+}  // namespace string_utils
