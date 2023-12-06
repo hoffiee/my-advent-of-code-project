@@ -48,7 +48,7 @@ void Map::add_range(int64_t destination_start, int64_t source_start, int64_t len
 bool Map::in_range(int64_t x) {
     for (auto& [key, range] : map) {
         // since keys are sorted, exit early if we've passed it and there are
-        // future values for which it will fit
+        // no future values in which it fits
         if (x < key) {
             return false;
         }

@@ -21,7 +21,7 @@ static int64_t calculate_possibilities(int64_t T, int64_t d) {
      *
      * t = T/2 +- sqrt( T*T/4 - S)
      *
-     * t must be integers in the non inclusive range (T/2 - sqrt(T*T/4 - S), T/2 - sqrt(T*T/4 - S))
+     * t must be integers in the non inclusive range (T/2 - sqrt(T*T/4 - S), T/2 + sqrt(T*T/4 - S))
      */
     double diff = std::sqrt(static_cast<double>(T) * static_cast<double>(T) / 4 - static_cast<double>(d));
     double lower = static_cast<double>(T) / 2.0 - diff;
