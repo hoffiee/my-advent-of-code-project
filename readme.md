@@ -1,6 +1,6 @@
 # Advent of code
 
-Here are my repository for when I play around with [Advent of
+Here is my repository for when I play around with [Advent of
 Code](https://adventofcode.com/)
 
 This project has morphed over the years, for me advent of code has always been
