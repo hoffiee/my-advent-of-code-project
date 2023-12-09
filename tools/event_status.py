@@ -4,7 +4,7 @@ from typing import Final
 
 def main() -> None:
     events_stars = {
-        2023: 14,
+        2023: 16,
         2022: 26,
         2021: 8,
         2020: 22,
