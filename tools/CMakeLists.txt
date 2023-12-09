@@ -21,7 +21,7 @@ add_custom_target(py-check
 
 add_custom_target(cpp-format
     COMMAND git ls-files .
-        | grep -E  '\\.cpp|\\.h'
+        | grep -E  '\\.cpp$$|\\.h$$'
         | xargs clang-format -Werror -i -style=file
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
