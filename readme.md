@@ -31,7 +31,6 @@ cd build
 cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake ..
 ```
 
-
 ## TODO
 
 - [ ] Fix so that all targets builds
