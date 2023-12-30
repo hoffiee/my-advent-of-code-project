@@ -53,3 +53,11 @@ target_link_libraries(openmp-wrapper
     INTERFACE
     OpenMP::OpenMP_CXX
 )
+
+# == Eigen
+find_package(Eigen3 3.3 REQUIRED NO_MODULE)
+add_library(eigen-wrapper INTERFACE EXCLUDE_FROM_ALL)
+target_link_libraries(eigen-wrapper
+    INTERFACE
+    Eigen3::Eigen
+)
