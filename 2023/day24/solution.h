@@ -5,7 +5,7 @@
 #include <vector>
 
 int solve_1(std::vector<std::string> inp, int64_t min, int64_t max);
-int solve_2(std::vector<std::string> inp);
+int64_t solve_2(std::vector<std::string> inp);
 
 namespace internal {
 
