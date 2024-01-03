@@ -2,3 +2,4 @@
 build
 CMakeUserPresets.json
 aoc-puzzle-inputs
+.ipynb_checkpoints
