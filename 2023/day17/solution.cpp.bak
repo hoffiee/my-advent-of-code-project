@@ -1,0 +1,215 @@
+/**
+ * https://adventofcode.com/2023/day/17
+ *
+ * My first ever implementation of Dijkstras, yay!
+ *
+ * Resources:
+ *  Graphs: Dijkstra's algorithm: https://youtu.be/09_LlHjoEiY?si=AukSVeCqkwerjHWO&t=6198
+ *  Graphs on grids: https://youtu.be/09_LlHjoEiY?si=cJefFleWLxIKINJf&t=2442
+ *
+ *  - Not going too great, let's skip using std::complex and go with Node & pair
+ *  for grids instead?
+ *
+ *  - rethink method for picking neighbours, is that a valid approach?
+ *
+ * Attempts:
+ * p1: 975  -- runtests fails with this approach
+ * p1: 979  -- too high
+ * p1: 984  -- too high
+ */
+#include AOC_HEADER
+
+#include <string_utils.h>
+
+#include <icecream.hpp>
+#include <complex>
+#include <climits>
+#include <queue>
+#include <unordered_map>
+
+const std::complex<int64_t> coord_ignore{-99, -99};
+
+char dir_to_char(std::complex<int64_t> inp) {
+    if (inp == std::complex<int64_t>{-1, 0}) { return '<'; }
+    if (inp == std::complex<int64_t>{1, 0}) { return '>'; }
+    if (inp == std::complex<int64_t>{0, -1}) { return '^'; }
+    if (inp == std::complex<int64_t>{0, 1}) { return 'v'; }
+    return '*';
+}
+
+struct ComplexHasher {
+    std::size_t operator()(const std::complex<int64_t>& a) const {
+        // std::size_t h1 = std::hash<int64_t>{}(a.real());
+        // std::size_t h2 = std::hash<int64_t>{}(a.imag());
+        // return h1 ^ (h2 << 1);
+
+        // With the knowledge that the grid is bounded by 141x141, we hash it
+        // in this way. This speeds it up quite alot
+        return static_cast<size_t>(a.real() + a.imag()*1000);
+    }
+};
+
+using qNode = std::pair<int64_t, std::complex<int64_t>>;
+struct customGreater {
+    bool operator()(const qNode& lhs, const qNode& rhs) {
+        return std::get<0>(lhs) > std::get<0>(rhs);
+    };
+};
+
+std::vector<qNode> neighbours(std::vector<std::string>& inp, std::complex<int64_t> src,
+        std::unordered_map<std::complex<int64_t>, std::complex<int64_t>, ComplexHasher>& prev) {
+    std::vector<qNode> out;
+
+    // Get where we were 3 steps back
+    auto src_z3 = prev[prev[prev[src]]];
+
+    // TODO: Ok, so depending on which order I have these I get different results, that's not good, Why?
+    for (auto dir: std::vector<std::complex<int64_t>>{
+            { 0,  1},
+            { 0, -1},
+            { 1,  0},
+            {-1,  0},
+    }) {
+        auto candidate = src + dir;
+
+        // candidate outside map
+        if (candidate.real() < 0 || static_cast<int64_t>(inp.front().size()) <= candidate.real()
+                || candidate.imag() < 0 || static_cast<int64_t>(inp.size()) <= candidate.imag()) {
+            continue;
+        }
+
+        // Candidate can't be reversing
+        //
+        // TODO: Is this necessary to set as reversing will always be
+        // increasing the cost? i.e we have no negative cycles blabla
+        //
+        // if (prev.contains(src) && prev[src] == candidate) {
+        //     // std::cout << src << "cand: " << candidate << ": " << "reversing!" << std::endl;
+        //     continue;
+        // }
+
+        // candidate can't be more than 3 moves in the same direction, so if
+        // the candidate yields 4 steps in one direction, skip it
+        if (src_z3 != coord_ignore) {
+            auto tot = candidate - src_z3;
+            // IC(src, candidate, src_z3, tot);
+            int dist = 4;
+            if (std::abs(tot.real()) == dist || std::abs(tot.imag()) == dist) {
+                continue;
+            }
+        }
+
+        if (candidate.real() < 0 || candidate.imag() < 0) {
+            throw std::logic_error(" oh no");
+        }
+        out.emplace_back(qNode{static_cast<int64_t>(inp.at(candidate.imag()).at(candidate.real()) - '0'),
+                std::complex<int64_t>{candidate.real(), candidate.imag()}});
+    }
+    return out;
+}
+
+__attribute__((unused))
+void print_inp(std::vector<std::string>& inp) {
+    for (auto& row: inp) {
+        for (auto ch: row) {
+            std::cout << ch;
+        }
+        std::cout << std::endl;
+    }
+}
+
+__attribute__((unused))
+void draw_grid(std::vector<std::string> inp, std::unordered_map<std::complex<int64_t>, std::complex<int64_t>, ComplexHasher>& prev) {
+    auto it = std::complex<int64_t>{static_cast<int64_t>(inp.front().size() - 1), static_cast<int64_t>(inp.size() - 1)};
+    while (it != std::complex<int64_t>{0,0}) {
+        inp.at(it.imag()).at(it.real()) = dir_to_char(it - prev[it]);
+        it = prev[it];
+        if (it == coord_ignore) {
+            throw std::logic_error("oh my, shouldn't get here");
+        }
+    }
+    print_inp(inp);
+}
+
+template<typename T>
+void print_map( std::vector<std::string>& inp, std::unordered_map<std::complex<int64_t>, T, ComplexHasher>& map) {
+    std::cout << "\t";
+    for (int64_t y = 0; y < static_cast<int64_t>(inp.size()); y++) {
+        std::cout << y << "\t";
+    }
+    std::cout << std::endl;
+    for (int64_t y = 0; y < static_cast<int64_t>(inp.size()); y++) {
+        for (int64_t x = 0; x < static_cast<int64_t>(inp.front().size()); x++) {
+            if (x == 0) {
+                std::cout << y << "\t";
+            }
+            std::complex<int64_t> it{x, y};
+            std::cout << map.at(it) << "\t";
+        }
+        std::cout << std::endl;
+    }
+}
+
+int solve_1(std::vector<std::string> inp) {
+    icecream::ic.line_wrap_width(120);
+
+    IC(inp);
+
+    std::complex<int64_t> src{0,0};
+    std::complex<int64_t> dst{static_cast<int64_t>(inp.front().size() - 1), static_cast<int64_t>(inp.size() - 1)};
+
+    // https://en.wikipedia.org/wiki/Dijkstra's_algorithm#Using_a_priority_queue
+    // Leave empty for now, use with [] to create with default false when checking
+    std::unordered_map<std::complex<int64_t>, int64_t, ComplexHasher> dist;
+    std::unordered_map<std::complex<int64_t>, bool, ComplexHasher> visited;
+    std::unordered_map<std::complex<int64_t>, std::complex<int64_t>, ComplexHasher> prev;
+    prev[coord_ignore] = coord_ignore;
+
+    // TODO: Make it more space efficient and have one queue for each dimension?
+    std::priority_queue<qNode, std::vector<qNode>, customGreater> Q;
+
+    for (int64_t y = 0; y < static_cast<int64_t>(inp.size()); y++) {
+        for (int64_t x = 0; x < static_cast<int64_t>(inp.front().size()); x++) {
+            std::complex<int64_t> cand{x, y};
+            dist[cand] = 999999999;
+            prev[cand] = coord_ignore;
+            visited[cand] = false;
+            Q.push(qNode{dist[cand], cand});
+        }
+    }
+    dist[src] = 0;
+    prev[src] = coord_ignore;
+    Q.push(qNode{dist[src], src});
+    while (!Q.empty()) {
+        auto [d, u] = Q.top();
+        if (u == dst) {
+            break;
+        }
+        Q.pop();
+
+        if (visited[u]) {
+            continue;
+        }
+        visited[u] = true;
+
+        for (auto [dv, v]: neighbours(inp, u, prev)) {
+            int64_t alt = d + dv;
+            // int64_t alt = dist[u] + dv;
+            IC(u, d, v, dv, dist[v], alt, alt < dist[v]);
+            if (alt < dist[v]) {
+                dist[v] = alt;
+                prev[v] = u;
+            }
+            Q.push(qNode{alt, v});
+        }
+    }
+    draw_grid(inp, prev);
+    print_map(inp, dist);
+    // print_map(inp, prev);
+    return static_cast<int>(dist[dst]);
+}
+
+int solve_2(std::vector<std::string> inp) {
+    // IC(inp);
+    return 0;
+}
