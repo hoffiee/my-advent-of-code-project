@@ -17,6 +17,14 @@ To see the status of advent of code and what remains in order to reach my
 targets, update `tools/tasks_left.py` and run `ninja status`.
 
 
+## Dependencies
+
+- Cmake
+- ninja
+- conan
+- probably a few more...
+
+
 ## Development setup
 
 Current way of setting this repo up, still includes a lot of manual work for
@@ -44,7 +52,7 @@ cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake ..
 
 ## Puzzle inputs
 
-The puzzle creator, has if I recall correctly, mentioned that puzzle input
+The puzzle creator has, if I recall correctly, mentioned that puzzle input
 shouldn't be shared since he spends a great time designing these puzzles and
 want to keep them secret. For that purpose I have broken out my puzzle input
 and placed them in their own repository which I self-host, which I then inlude
