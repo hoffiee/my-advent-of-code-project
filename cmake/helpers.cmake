@@ -8,9 +8,9 @@ macro(aoc_copy_input_file)
     )
 endmacro()
 
-# Usage: aoc_add_python_target(${TASk} ${AOC_DAY})
+# Usage: aoc_add_python_target(${TASK} ${AOC_DAY})
 macro(aoc_add_python_target)
-    add_custom_target(${ARGV0}
+    add_custom_target(${ARGV0}-py
         COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/${ARGV1}.py
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     )

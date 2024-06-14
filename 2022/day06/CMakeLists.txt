@@ -1,5 +1,5 @@
 get_filename_component(AOC_DAY ${CMAKE_CURRENT_SOURCE_DIR} NAME)
-set(TASK "day6")
+set(TASK "day06")
 
 add_executable(${TASK} ${TASK}.cpp)
 

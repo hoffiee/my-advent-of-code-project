@@ -43,11 +43,11 @@ static std::vector<int64_t> read_and_process_data(std::string filename) {
 }
 
 int main(void) {
-    auto sample_input = read_and_process_data("day1-sample.input");
+    auto sample_input = read_and_process_data("day01-sample.input");
     solution_1(sample_input);
     solution_2(sample_input);
 
-    auto input = read_and_process_data("day1.input");
+    auto input = read_and_process_data("day01.input");
     solution_1(input);
     solution_2(input);
 }

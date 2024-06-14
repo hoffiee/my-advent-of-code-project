@@ -41,8 +41,8 @@ def read_and_parse(filename: str) -> list[tuple[set[int], set[int]]]:
 
 
 def main() -> None:
-    sample = read_and_parse("day4-sample.input")
-    puzzle = read_and_parse("day4.input")
+    sample = read_and_parse("day04-sample.input")
+    puzzle = read_and_parse("day04.input")
 
     print(solution_1(sample))
     print(solution_1(puzzle))

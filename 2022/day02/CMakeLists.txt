@@ -1,6 +1,6 @@
 get_filename_component(AOC_DAY ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 
-set(TASK "day2")
+set(TASK "day02")
 
 # add_custom_target(${TASK}-awk
 #     COMMAND ./day2.awk day2-sample.input
