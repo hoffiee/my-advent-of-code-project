@@ -18,12 +18,14 @@ add_custom_target(${TASK}-bench
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
 
-add_custom_target(${TASK}-py
-    COMMAND python3 ${TASK}.py
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-)
+# add_custom_target(${TASK}-py
+#     COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/${TASK}.py
+#     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
+# )
 
 add_custom_target(${TASK}-py-bench
-    COMMAND hyperfine python3 ${TASK}.py
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    COMMAND hyperfine python3 ${CMAKE_CURRENT_SOURCE_DIR}/${TASK}.py
+    WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
+
+aoc_add_python_target(${TASK} ${AOC_DAY})
