@@ -27,8 +27,8 @@ struct Connection {
 
         auto op = std::get<Connection::Operator>(signal);
 
-        uint16_t left = 0;
-        uint16_t right = 0;
+        uint16_t left{0};
+        uint16_t right{0};
 
         auto get_or_parse = [&g = get](std::string& input) {
             if (std::isdigit(input.at(0))) {
@@ -41,25 +41,25 @@ struct Connection {
         if (op.op == "AND") {
             left = get_or_parse(op.left);
             right = get_or_parse(op.right);
-            signal = (left & right);
+            signal = static_cast<uint16_t>(left & right);
         } else if (op.op == "OR") {
             left = get_or_parse(op.left);
             right = get_or_parse(op.right);
-            signal = (left | right);
+            signal = static_cast<uint16_t>(left | right);
         } else if (op.op == "LSHIFT") {
             left = get_or_parse(op.left);
             right = get_or_parse(op.right);
-            signal = left << right;
+            signal = static_cast<uint16_t>(left << right);
         } else if (op.op == "RSHIFT") {
             left = get_or_parse(op.left);
             right = get_or_parse(op.right);
-            signal = left >> right;
+            signal = static_cast<uint16_t>(left >> right);
         } else if (op.op == "NOT") {
             right = get_or_parse(op.right);
-            signal = ~right;
+            signal = static_cast<uint16_t>(~right);
         } else if (op.op == "MAP") {
             right = get_or_parse(op.right);
-            signal = right;
+            signal = static_cast<uint16_t>(right);
         } else {
             throw std::logic_error("Rethink this one too");
         }
