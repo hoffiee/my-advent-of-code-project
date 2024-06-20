@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <cassert>
 #include <numeric>
+#include <optional>
 #include <sstream>
 
 struct Position {

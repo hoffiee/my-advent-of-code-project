@@ -1,4 +1,3 @@
-# TODO: Fix setup
 get_filename_component(AOC_DAY ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 set(TASK ${AOC_YEAR}_${AOC_DAY})
 
@@ -14,11 +13,6 @@ add_definitions(
 
 add_executable(${TASK} ${AOC_DAY}.cpp)
 add_executable(${TASK}-2 ${AOC_DAY}_2.cpp)
-
-# add_compile_options(-Wall -Werror -pedantic -g -O3 -pthread)
-
-# add threading
-list(APPEND CMAKE_CXX_FLAGS "-pthread")
 
 add_custom_target(${TASK}-preprocess
     COMMAND ./preprocess.awk ${TASK}-sample.input > ${TASK}-sample.prep.input;

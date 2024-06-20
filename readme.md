@@ -8,7 +8,7 @@ a moment to learn. I've converged towards running this as a CMake project, and
 are mainly using C++ with some pre-processing with awk/python at this point.
 I'm doing this as a larger project to learn and improve my knowledge within
 CMake and build and concepts. I have a lot to learn so let's see where this
-goes :)
+goes :).
 
 
 ## Status
@@ -41,10 +41,8 @@ cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake ..
 
 ## TODO
 
-- [ ] Fix so that all targets builds
 - [ ] Can I make the headerguard to be generic and steered from variables set
   in cmake?
-- [ ] refactor targets for 2022 so that targets adheres to the same pattern.
 - [ ] Simplify folder structure, it's a bit of a hassle to use tbh.
 - [ ] Fix linting faults in python
 - [ ] Python: setup config for pylint, mypy, black
@@ -95,4 +93,4 @@ inspiration from elsewhere, for me Advent of code is to learn and only to
 learn, so I more often than not look into other solutions to see how I could
 improve mine. But the result of this is that I may have some solutions that are
 actually not entirelly mine. With this in mind I have in the last years been
-more explicit in the solution about this.
+more explicit about mentioning this in the solution.
