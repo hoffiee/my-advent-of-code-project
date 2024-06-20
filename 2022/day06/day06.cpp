@@ -69,6 +69,6 @@ int main(void) {
         std::cout << solution_1(test) << ", " << solution_2(test) << std::endl;
     }
 
-    run_and_check_solutions("day6-sample.input", solution_1, 7, solution_2, 19);
-    run_and_check_solutions("day6.input", solution_1, 1100, solution_2, 2421);
+    run_and_check_solutions("day06-sample.input", solution_1, 7, solution_2, 19);
+    run_and_check_solutions("day06.input", solution_1, 1100, solution_2, 2421);
 }

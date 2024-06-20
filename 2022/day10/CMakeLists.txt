@@ -5,6 +5,7 @@ set(TASK "${AOC_YEAR}_${AOC_DAY}")
 add_definitions(
     -DAOC_TEST=year_${TASK}
     -DAOC_TASK="${TASK}"
+    -DAOC_INPUT="${AOC_DAY}.input"
     -DAOC_HEADER="${TASK}.h"
 )
 

@@ -95,6 +95,6 @@ static void run_and_check_solutions(string task, string (*solution_1)(stacks_t, 
 }
 
 int main(void) {
-    run_and_check_solutions("day5-sample.input", solution_1, "CMZ", solution_2, "MCD");
-    run_and_check_solutions("day5.input", solution_1, "FCVRLMVQP", solution_2, "RWLWGJGFD");
+    run_and_check_solutions("day05-sample.input", solution_1, "CMZ", solution_2, "MCD");
+    run_and_check_solutions("day05.input", solution_1, "FCVRLMVQP", solution_2, "RWLWGJGFD");
 }

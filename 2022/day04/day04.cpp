@@ -64,6 +64,6 @@ static void run_and_check_solutions(string task, int (*solution_1)(vector<tuple<
 }
 
 int main(void) {
-    run_and_check_solutions("day4-sample.input", solution_1, 2, solution_2, 4);
-    run_and_check_solutions("day4.input", solution_1, 466, solution_2, 865);
+    run_and_check_solutions("day04-sample.input", solution_1, 2, solution_2, 4);
+    run_and_check_solutions("day04.input", solution_1, 466, solution_2, 865);
 }

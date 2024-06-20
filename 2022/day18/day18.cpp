@@ -279,8 +279,8 @@ int main(void) {
     auto solution_2_sample = [](scans in) { return solution_2(in); };
     run_and_check_solutions("day18-sample.input", solution_1_sample, 64, solution_2_sample, 58);
 
-    // auto solution_1_puzzle = [](scans in){ return solution_1(in); };
-    // auto solution_2_puzzle = [](scans in){ return solution_2(in); };
-    // run_and_check_solutions("day18.input", solution_1_puzzle, 3500,
-    // solution_2_puzzle, 0);
+    auto solution_1_puzzle = [](scans in){ return solution_1(in); };
+    auto solution_2_puzzle = [](scans in){ return solution_2(in); };
+    run_and_check_solutions("day18.input", solution_1_puzzle, 3500,
+    solution_2_puzzle, 0);
 }

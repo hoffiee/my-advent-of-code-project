@@ -98,6 +98,6 @@ static void run_and_check_solutions(string task, int (*solution_1)(vector<string
 }
 
 int main(void) {
-    run_and_check_solutions("day3-sample.input", solution_1, 157, solution_2, 70);
-    run_and_check_solutions("day3.input", solution_1, 8153, solution_2, 2342);
+    run_and_check_solutions("day03-sample.input", solution_1, 157, solution_2, 70);
+    run_and_check_solutions("day03.input", solution_1, 8153, solution_2, 2342);
 }

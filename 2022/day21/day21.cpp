@@ -5,7 +5,7 @@
  *
  * I ran this in python and sympy instead which gave me 3882224466191 for part
  * 2 so it seems that perhaps there's multiple possible answers or there's
- * something I have done wrong here, probably the latter. WHen I search for
+ * something I have done wrong here, probably the latter. When I search for
  * that it seems to be correct in this solution as well though. so I don't know
  * why it considers the numbers above to be correct too.
  *
@@ -168,8 +168,9 @@ static Description read_and_parse_data(string filename) {
 
 int main(void) {
     for (auto& it : {
-             "day21-sample.input",
-             "day21-sample.input",
+            // TODO: Fix, sample input takes forever...
+             // "day21-sample.input",
+             "day21.input",
          }) {
         auto desc = read_and_parse_data(it);
         cout << desc.root() << endl;

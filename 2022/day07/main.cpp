@@ -5,9 +5,9 @@
 
 int main() {
     std::ifstream input_file;
-    input_file.open(AOC_TASK ".input");
+    input_file.open(AOC_INPUT);
     if (!input_file.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
+        std::cout << AOC_INPUT <<  " couldn't read file" << std::endl;
         return -1;
     }
     std::string line;

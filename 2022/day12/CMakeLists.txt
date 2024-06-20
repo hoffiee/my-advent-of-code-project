@@ -1,11 +1,17 @@
 get_filename_component(AOC_DAY ${CMAKE_CURRENT_SOURCE_DIR} NAME)
-set(TASK "day12")
-
-add_executable(${TASK} ${TASK}.cpp)
+set(TASK ${AOC_YEAR}_${AOC_DAY})
 
 aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY})
-aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY})
-aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY})
+aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY}-sample)
+
+add_definitions(
+    -DAOC_TEST=year_${TASK}
+    -DAOC_TASK="${TASK}"
+    -DAOC_INPUT="${AOC_DAY}.input"
+    -DAOC_HEADER="${AOC_DAY}.h"
+)
+
+add_executable(${TASK} ${AOC_DAY}.cpp)
 
 # add_custom_target(${TASK}-preprocess
 #     COMMAND ./preprocess.awk ${TASK}-sample.input > ${TASK}-sample.prep.input;

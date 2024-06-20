@@ -9,7 +9,7 @@ using std::string;
 using std::vector;
 
 static std::pair<std::vector<int>, std::vector<int>> read_and_parse_data(string filename) {
-    std::ifstream input;
+    std::ifstream input{};
     input.open(filename);
 
     if (!input.is_open()) {
@@ -17,9 +17,9 @@ static std::pair<std::vector<int>, std::vector<int>> read_and_parse_data(string 
         return {};
     }
 
-    string line;
-    std::vector<int> player_1;
-    std::vector<int> player_2;
+    string line{};
+    std::vector<int> player_1{};
+    std::vector<int> player_2{};
     while (getline(input, line)) {
         player_1.push_back(static_cast<int>(line.front() - 'A' + 1));
         player_2.push_back(static_cast<int>(line.back() - 'X' + 1));
@@ -65,8 +65,8 @@ static int solution_2(pair<vector<int>, vector<int>> input) {
 }
 
 int main(void) {
-    auto sample = read_and_parse_data("day2-sample.input");
-    auto input = read_and_parse_data("day2.input");
+    auto sample = read_and_parse_data("day02-sample.input");
+    auto input = read_and_parse_data("day02.input");
 
     std::cout << "Sample solution 1:\t" << solution_1(sample) << std::endl;
     std::cout << "solution 1:\t\t" << solution_1(input) << std::endl;

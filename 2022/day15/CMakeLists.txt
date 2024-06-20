@@ -1,17 +1,24 @@
+# TODO: Fix setup
 get_filename_component(AOC_DAY ${CMAKE_CURRENT_SOURCE_DIR} NAME)
-set(TASK  "day15")
-
-add_executable(${TASK} ${TASK}.cpp)
-add_executable(${TASK}-2 ${TASK}_2.cpp)
+set(TASK ${AOC_YEAR}_${AOC_DAY})
 
 aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY})
 aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY}-sample)
+
+add_definitions(
+    -DAOC_TEST=year_${TASK}
+    -DAOC_TASK="${TASK}"
+    -DAOC_INPUT="${AOC_DAY}.input"
+    -DAOC_HEADER="${AOC_DAY}.h"
+)
+
+add_executable(${TASK} ${AOC_DAY}.cpp)
+add_executable(${TASK}-2 ${AOC_DAY}_2.cpp)
 
 # add_compile_options(-Wall -Werror -pedantic -g -O3 -pthread)
 
 # add threading
 list(APPEND CMAKE_CXX_FLAGS "-pthread")
-
 
 add_custom_target(${TASK}-preprocess
     COMMAND ./preprocess.awk ${TASK}-sample.input > ${TASK}-sample.prep.input;
