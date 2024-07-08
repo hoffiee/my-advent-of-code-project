@@ -110,6 +110,5 @@ def main() -> None:
     print(f"solut. 2: {sol2(sam)}")
 
 
-
 if __name__ == "__main__":
     main()

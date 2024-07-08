@@ -53,7 +53,7 @@ class keypad:
     def multiple_sequences(self, inp):
         for i in range(len(inp)):
             self.sequence(inp[i])
-            print(self.current_number(), end='')
+            print(self.current_number(), end="")
         print("")
 
     def reset(self):

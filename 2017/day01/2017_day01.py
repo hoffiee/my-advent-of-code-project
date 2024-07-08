@@ -11,6 +11,7 @@ def calc_checksum(num) -> None:
             output += int(dig)
     return output
 
+
 def main() -> None:
     test_list = [1122, 1111, 1234, 91212129]
     print(calc_checksum(test_list))
@@ -18,6 +19,7 @@ def main() -> None:
     with open(filename, "r") as f:
         num = f.read()
     print(calc_checksum(num))
+
 
 if __name__ == "__main__":
     main()

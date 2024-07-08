@@ -6,7 +6,7 @@ def solution_1(input):
 
 
 def solution_2(input):
-    return input-1
+    return input - 1
 
 
 def main():

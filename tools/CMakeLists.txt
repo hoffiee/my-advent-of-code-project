@@ -43,7 +43,7 @@ add_custom_target(lint-py
 
 add_custom_target(format-py
     COMMAND find . -name '*.py'
-        | xargs black
+        | xargs ${PROJECT_BINARY_DIR}/venv/bin/black
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 

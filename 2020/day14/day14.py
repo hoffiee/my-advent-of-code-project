@@ -43,5 +43,6 @@ def main() -> None:
     print(f"sample 1: {sol1(sam)}\tcorrect: 165")
     print(f"solut. 1: {sol1(inp)}\tcorrect: 8566770985168")
 
+
 if __name__ == "__main__":
     main()

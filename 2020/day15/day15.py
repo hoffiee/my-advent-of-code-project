@@ -52,6 +52,7 @@ def sol1(l, turns):
             if i == turns:
                 return new_n
 
+
 def main() -> None:
     sam = [0, 3, 6]
     prob = [2, 1, 10, 11, 0, 6]
@@ -59,6 +60,7 @@ def main() -> None:
     print(f"sample 1: {sol1(sam, 2020)}\tcorrect: 436")
     print(f"solut. 1: {sol1(prob, 2020)}\tcorrect: 232")
     print(f"solut. 2: {sol1(prob, 30000000)}\tcorrect: [1892917, inf]")
+
 
 if __name__ == "__main__":
     main()

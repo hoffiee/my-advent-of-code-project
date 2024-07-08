@@ -82,6 +82,8 @@ def main() -> None:
     print(f"sample 1:\t{sol1(sam)}")
     print(f"solution 1:\t{sol1(inp)}")
     print(f"sample 2:\t{sol2(sam)}")
+
+
 # print(f"solution 2:\t{sol2(inp)},\tcorrect: ?")
 
 if __name__ == "__main__":

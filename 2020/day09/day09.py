@@ -45,7 +45,6 @@ def main() -> None:
     sam = read_and_parse_lines("day09-sample.input")
     inp = read_and_parse_lines("day09.input")
 
-
     print(f"sample 1:\t{sol1(sam, 5)}\t\tcorrect: 127")
     print(f"solution 1:\t{sol1(inp, 25)}\tcorrect: 1124361034")
     print(f"sample 2:\t{sol2(sam, 5)},\t\tcorrect: 62")
