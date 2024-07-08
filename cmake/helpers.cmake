@@ -9,11 +9,31 @@ macro(aoc_copy_input_file)
 endmacro()
 
 # Usage: aoc_add_python_target(${TASK} ${AOC_DAY})
+# macro(aoc_add_python_target)
+#     add_custom_target(${ARGV0}-py
+#         COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/${ARGV1}.py
+#         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+#     )
+# endmacro()
+
+
 macro(aoc_add_python_target)
-    add_custom_target(${ARGV0}-py
-        COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/${ARGV1}.py
+    add_custom_target(${ARGV0}
+        COMMAND ${VENV_PYTHON} ${CMAKE_CURRENT_SOURCE_DIR}/${ARGV1}
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     )
 endmacro()
 
+macro(aoc_add_python_test)
+    add_custom_target(${ARGV0}
+        COMMAND ${VENV_PYTEST} ${CMAKE_CURRENT_SOURCE_DIR}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+endmacro()
 
+macro(aoc_add_python_benchmark)
+    add_custom_target(${ARGV0}
+        COMMAND hyperfine ${VENV_PYTHON} ${CMAKE_CURRENT_SOURCE_DIR}/${ARGV1}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+endmacro()
