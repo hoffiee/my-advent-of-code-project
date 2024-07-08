@@ -3,32 +3,18 @@ add_custom_target(status
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-# TODO: move these to cmake directory?
-add_custom_target(cppcheck
+# C++ tooling
+add_custom_target(check-cpp
     COMMAND find . -name '*.cpp' -o -name '*.h'
         | grep -v ccls-cache
         | xargs cppcheck --project=compile_commands.json 1> /dev/null
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
-add_custom_target(py-check
-    COMMAND find . -name '*.py'
-        | xargs mypy --strict --ignore-missing-imports ||
-     find . -name '*.py'
-        | xargs pylint
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-)
-
-add_custom_target(cpp-format
+add_custom_target(format-cpp
     COMMAND git ls-files .
         | grep -E  '\\.cpp$$|\\.h$$'
         | xargs clang-format -Werror -i -style=file
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-)
-
-add_custom_target(py-format
-    COMMAND find . -name '*.py'
-        | xargs black
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
@@ -38,4 +24,28 @@ add_custom_target(all-runtest
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
 )
 
+
+# Python tooling
+add_custom_target(lint-pylint
+    COMMAND find . -name '*.py' | grep -v build | xargs ${PROJECT_BINARY_DIR}/venv/bin/pylint
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+)
+
+add_custom_target(lint-mypy
+    COMMAND find . -name '*.py' | grep -v build | xargs ${PROJECT_BINARY_DIR}/venv/bin/mypy --strict --ignore-missing-imports
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+)
+
+add_custom_target(lint-py
+    DEPENDS lint-pylint lint-mypy
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+)
+
+add_custom_target(format-py
+    COMMAND find . -name '*.py'
+        | xargs black
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+)
+
+# Add examples etc
 add_subdirectory(python-example)
