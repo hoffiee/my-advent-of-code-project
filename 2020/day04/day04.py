@@ -98,7 +98,7 @@ def main() -> None:
     strict_invalid_passports = read_and_parse("invalid.input")
     print(f"sample 2 invalid: {sol2(strict_invalid_passports)}")
 
-    inp = read_and_parse("2020_day04.input")
+    inp = read_and_parse("day04.input")
     print(f"problem 1: {sol1(inp)}")
     print(f"problem 2: {sol2(inp)}")
 

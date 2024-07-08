@@ -16,7 +16,6 @@ endmacro()
 #     )
 # endmacro()
 
-
 macro(aoc_add_python_target)
     add_custom_target(${ARGV0}
         COMMAND ${VENV_PYTHON} ${CMAKE_CURRENT_SOURCE_DIR}/${ARGV1}

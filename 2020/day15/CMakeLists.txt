@@ -8,4 +8,4 @@ add_definitions(
     -DAOC_HEADER="${TASK}.h"
 )
 
-aoc_add_python_target(${TASK} ${AOC_DAY})
+aoc_add_python_target(${TASK}-run ${AOC_DAY}.py)

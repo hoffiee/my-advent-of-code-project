@@ -11,4 +11,4 @@ add_definitions(
 aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY})
 aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY}-sample)
 
-aoc_add_python_target(${TASK} ${AOC_DAY})
+aoc_add_python_target(${TASK}-run ${AOC_DAY}.py)

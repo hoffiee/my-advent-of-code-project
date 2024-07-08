@@ -32,4 +32,4 @@ add_custom_target(${TASK}-py-bench
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
 
-aoc_add_python_target(${TASK}-py ${AOC_DAY})
+aoc_add_python_target(${TASK}-py ${AOC_DAY}.py)

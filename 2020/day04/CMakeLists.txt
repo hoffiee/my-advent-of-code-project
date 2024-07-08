@@ -8,6 +8,10 @@ add_definitions(
     -DAOC_HEADER="${TASK}.h"
 )
 
+# TODO: Fix sample files so that it is correct with date
 aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY})
+aoc_copy_input_file(${AOC_YEAR} sample)
+aoc_copy_input_file(${AOC_YEAR} invalid)
+aoc_copy_input_file(${AOC_YEAR} valid)
 
-aoc_add_python_target(${TASK} ${AOC_DAY})
+aoc_add_python_target(${TASK}-py ${AOC_DAY}.py)
