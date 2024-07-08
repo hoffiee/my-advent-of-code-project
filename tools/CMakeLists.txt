@@ -37,3 +37,5 @@ add_custom_target(all-runtest
     DEPENDS all
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
 )
+
+add_subdirectory(python-example)
