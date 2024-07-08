@@ -4,11 +4,9 @@ add_custom_target(status
 )
 
 # C++ tooling
-add_custom_target(check-cpp
-    COMMAND find . -name '*.cpp' -o -name '*.h'
-        | grep -v ccls-cache
-        | xargs cppcheck --project=compile_commands.json 1> /dev/null
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+add_custom_target(lint-cpp
+    COMMAND xargs cppcheck --project=compile_commands.json --suppressions-list=cppcheck_suppressions.txt . 1> /dev/null
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
 add_custom_target(format-cpp
