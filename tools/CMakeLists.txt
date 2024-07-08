@@ -18,13 +18,6 @@ add_custom_target(format-cpp
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
-add_custom_target(all-runtest
-    COMMAND ctest --output-on-failure -j2
-    DEPENDS all
-    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-)
-
-
 # Python tooling
 add_custom_target(lint-pylint
     COMMAND find . -name '*.py' | grep -v build | xargs ${PROJECT_BINARY_DIR}/venv/bin/pylint
@@ -44,6 +37,18 @@ add_custom_target(lint-py
 add_custom_target(format-py
     COMMAND find . -name '*.py'
         | xargs ${PROJECT_BINARY_DIR}/venv/bin/black
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+)
+
+# all
+add_custom_target(all-runtest
+    COMMAND ctest --output-on-failure -j2
+    DEPENDS all
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+)
+
+add_custom_target(format
+    DEPENDS format-cpp format-py
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 

@@ -5,16 +5,16 @@
 
 #include <string_utils.h>
 
+#include <Eigen/Dense>
+#include <cstdint>
 #include <icecream.hpp>
 #include <sstream>
-#include <cstdint>
-#include <Eigen/Dense>
 
 struct Vec3 {
     int64_t x;
     int64_t y;
     int64_t z;
-    Vec3(int64_t x, int64_t y, int64_t z): x(x), y(y), z(z) {};
+    Vec3(int64_t x, int64_t y, int64_t z) : x(x), y(y), z(z){};
     friend std::ostream& operator<<(std::ostream& os, const Vec3& obj);
 };
 
@@ -26,7 +26,7 @@ std::ostream& operator<<(std::ostream& os, const Vec3& obj) {
 struct Line {
     Vec3 pos;
     Vec3 vel;
-    Line(Vec3 pos, Vec3 vel): pos(pos), vel(vel) {};
+    Line(Vec3 pos, Vec3 vel) : pos(pos), vel(vel){};
     friend std::ostream& operator<<(std::ostream& os, const Line& obj);
 };
 
@@ -38,7 +38,7 @@ std::ostream& operator<<(std::ostream& os, const Line& obj) {
 static std::vector<Line> parse_input(std::vector<std::string>& inp) {
     std::vector<Line> lines;
     lines.reserve(inp.size());
-    for (auto& entry: inp) {
+    for (auto& entry : inp) {
         auto data = string_utils::split_string(entry, '@');
 
         int64_t x = 0;
@@ -68,7 +68,7 @@ static bool check_intersection(const Line& lhs, const Line& rhs, int64_t min, in
     double vx2 = static_cast<double>(rhs.vel.x);
     double vy2 = static_cast<double>(rhs.vel.y);
 
-    if (vy1*vx2 - vx1*vy2 == 0) {
+    if (vy1 * vx2 - vx1 * vy2 == 0) {
         return false;
     }
 
@@ -78,8 +78,8 @@ static bool check_intersection(const Line& lhs, const Line& rhs, int64_t min, in
     double y2 = static_cast<double>(rhs.pos.y);
 
     // This is generated in calc1.jl
-    double t1 = (x2 + (vx2*(y2 + (-vy1*(x2 - x1)) / vx1 - y1)) / ((vx2*vy1) / vx1 - vy2) - x1) / vx1;
-    double t2 = (y2 + (-vy1*(x2 - x1)) / vx1 - y1) / ((vx2*vy1) / vx1 - vy2);
+    double t1 = (x2 + (vx2 * (y2 + (-vy1 * (x2 - x1)) / vx1 - y1)) / ((vx2 * vy1) / vx1 - vy2) - x1) / vx1;
+    double t2 = (y2 + (-vy1 * (x2 - x1)) / vx1 - y1) / ((vx2 * vy1) / vx1 - vy2);
 
     // collisions in the past does not count
     if (t1 < 0 || t2 < 0) {
@@ -87,8 +87,8 @@ static bool check_intersection(const Line& lhs, const Line& rhs, int64_t min, in
     }
 
     // Calculate collision position
-    int64_t px_col = static_cast<int64_t>(x1 + vx1*t1);
-    int64_t py_col = static_cast<int64_t>(y1 + vy1*t1);
+    int64_t px_col = static_cast<int64_t>(x1 + vx1 * t1);
+    int64_t py_col = static_cast<int64_t>(y1 + vy1 * t1);
 
     // Check within test area
     if (min <= px_col && px_col <= max && min <= py_col && py_col <= max) {
@@ -141,19 +141,13 @@ int64_t solve_2(std::vector<std::string> inp) {
     Eigen::Matrix<double, 6, 6> A;
     Eigen::Matrix<double, 6, 1> b;
 
-    A << Avy - Bvy, -Avx + Bvx, 0, -A_y + B_y, A_x - B_x, 0,
-         Avy - Cvy, -Avx + Cvx, 0, -A_y + C_y, A_x - C_x, 0,
-         Avz - Bvz, 0, -Avx + Bvx, -A_z + B_z, 0, A_x - B_x,
-         Avz - Cvz, 0, -Avx + Cvx, -A_z + C_z, 0, A_x - C_x,
-         0, Avz - Bvz, -Avy + Bvy, 0, -A_z + B_z, A_y - B_y,
-         0, Avz - Cvz, -Avy + Cvy, 0, -A_z + C_z, A_y - C_y;
+    A << Avy - Bvy, -Avx + Bvx, 0, -A_y + B_y, A_x - B_x, 0, Avy - Cvy, -Avx + Cvx, 0, -A_y + C_y, A_x - C_x, 0,
+        Avz - Bvz, 0, -Avx + Bvx, -A_z + B_z, 0, A_x - B_x, Avz - Cvz, 0, -Avx + Cvx, -A_z + C_z, 0, A_x - C_x, 0,
+        Avz - Bvz, -Avy + Bvy, 0, -A_z + B_z, A_y - B_y, 0, Avz - Cvz, -Avy + Cvy, 0, -A_z + C_z, A_y - C_y;
 
-    b << A_x*Avy - A_y*Avx - B_x*Bvy + B_y*Bvx,
-         A_x*Avy - A_y*Avx - C_x*Cvy + C_y*Cvx,
-         A_x*Avz - A_z*Avx - B_x*Bvz + B_z*Bvx,
-         A_x*Avz - A_z*Avx - C_x*Cvz + C_z*Cvx,
-         A_y*Avz - A_z*Avy - B_y*Bvz + B_z*Bvy,
-         A_y*Avz - A_z*Avy - C_y*Cvz + C_z*Cvy;
+    b << A_x * Avy - A_y * Avx - B_x * Bvy + B_y * Bvx, A_x * Avy - A_y * Avx - C_x * Cvy + C_y * Cvx,
+        A_x * Avz - A_z * Avx - B_x * Bvz + B_z * Bvx, A_x * Avz - A_z * Avx - C_x * Cvz + C_z * Cvx,
+        A_y * Avz - A_z * Avy - B_y * Bvz + B_z * Bvy, A_y * Avz - A_z * Avy - C_y * Cvz + C_z * Cvy;
 
     // Solve Ax=b with a QR decomposition
     // https://eigen.tuxfamily.org/dox/group__LeastSquares.html

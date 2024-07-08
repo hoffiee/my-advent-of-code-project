@@ -22,11 +22,11 @@
 #include <algorithm>
 #include <cassert>
 #include <climits>
-#include <optional>
 #include <cstdint>
 #include <map>
 #include <mutex>
 #include <numeric>
+#include <optional>
 #include <random>
 #include <sstream>
 #include <stdexcept>

@@ -168,7 +168,7 @@ static Description read_and_parse_data(string filename) {
 
 int main(void) {
     for (auto& it : {
-            // TODO: Fix, sample input takes forever...
+             // TODO: Fix, sample input takes forever...
              // "day21-sample.input",
              "day21.input",
          }) {
