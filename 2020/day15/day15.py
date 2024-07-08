@@ -17,17 +17,15 @@ def update(td, turn, num):
 
 def sol1(l, turns):
     td = {}
+    new_n = 0
     for i in range(1, turns + 1):
-        # print(f"turn: {i}")
-
         if i <= len(l):
             td.update({l[i - 1]: [i]})
             last_num = l[i - 1]
         else:
             n = td.get(last_num)
-            # print(f"{last_num}: {n}")
 
-            if n == None:
+            if n is None:
                 # first time, new number is 0
                 new_n = 0
             elif len(n) == 1:
@@ -36,10 +34,9 @@ def sol1(l, turns):
             elif len(n) == 2:
                 # second time, new number is difference
                 new_n = td[last_num][1] - td[last_num][0]
-            # print(f"new number is: {new_n}")
 
             curr = td.get(new_n)
-            if curr == None:
+            if curr is None:
                 td.update({new_n: [i]})
             elif len(curr) == 1:
                 td[new_n].append(i)

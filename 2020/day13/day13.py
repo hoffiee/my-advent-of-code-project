@@ -3,7 +3,7 @@ import numpy as np
 
 
 def read_and_parse_lines(filename):
-    with open(filename, "r") as f:
+    with open(filename, "r", encoding="utf8") as f:
         lines = f.readlines()
         f.close()
     out = list(map(str.strip, lines))
@@ -41,8 +41,6 @@ def sol2(lines):
     tf_vec = np.array(tf)
 
     print(tf_vec / bi_vec)
-
-    pass
 
 
 def main() -> None:

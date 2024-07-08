@@ -32,7 +32,7 @@ def main() -> None:
     last_year: int = max(events_stars.keys())
     years: int = last_year - start_year + 1
 
-    goal = dict()
+    goal = {}
     for key in set([*events_stars.keys(), *targets_stars.keys()]):
         goal[key] = max(targets_stars.get(key, 0) - events_stars.get(key, 0), 0)
 

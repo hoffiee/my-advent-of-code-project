@@ -18,10 +18,10 @@ def sol2(m, ps) -> int:
 
 
 def main() -> None:
-    with open("day03-sample.input", "r") as f:
+    with open("day03-sample.input", "r", encoding="utf8") as f:
         sample = list(map(str.rstrip, f.readlines()))
 
-    with open("day03.input", "r") as f:
+    with open("day03.input", "r", encoding="utf8") as f:
         puzzle = list(map(str.rstrip, f.readlines()))
     ps = [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]]
 

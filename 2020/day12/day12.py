@@ -3,7 +3,7 @@ import numpy as np
 
 
 def read_and_parse_lines(filename: str) -> list[str]:
-    with open(filename, "r") as f:
+    with open(filename, "r", encoding="utf8") as f:
         lines = f.readlines()
         f.close()
     out = list(map(str.strip, lines))
@@ -20,29 +20,29 @@ class Ship:
         self.x += steps * math.cos(self.theta * math.pi / 180)
         self.y += steps * math.sin(self.theta * math.pi / 180)
 
-    def move_ship(self, dir: str, change: float) -> None:
-        if dir == "N":
+    def move_ship(self, direction: str, change: float) -> None:
+        if direction == "N":
             self.y += change
-        elif dir == "W":
+        elif direction == "W":
             self.x -= change
-        elif dir == "S":
+        elif direction == "S":
             self.y -= change
-        elif dir == "E":
+        elif direction == "E":
             self.x += change
 
-    def set_direction(self, dir: str, change: int) -> None:
-        if dir == "L":
+    def set_direction(self, direcion: str, change: int) -> None:
+        if direcion == "L":
             self.theta += change
-        elif dir == "R":
+        elif direcion == "R":
             self.theta -= change
 
-    def step_in_direction(self, dir: str, steps: int) -> None:
-        if dir == "F":
+    def step_in_direction(self, direction: str, steps: int) -> None:
+        if direction == "F":
             self.step(steps)
-        elif dir in ["N", "S", "E", "W"]:
-            self.move_ship(dir, steps)
-        elif dir in ["L", "R"]:
-            self.set_direction(dir, steps)
+        elif direction in ["N", "S", "E", "W"]:
+            self.move_ship(direction, steps)
+        elif direction in ["L", "R"]:
+            self.set_direction(direction, steps)
 
     def get_position(self) -> tuple[float, float, float]:
         return self.x, self.y, self.theta
@@ -62,33 +62,33 @@ class WPShip(Ship):
         self.x += self.wpx * steps
         self.y += self.wpy * steps
 
-    def move_wp(self, dir: str, change: float) -> None:
-        if dir == "N":
+    def move_wp(self, direction: str, change: float) -> None:
+        if direction == "N":
             self.wpy += change
-        elif dir == "W":
+        elif direction == "W":
             self.wpx -= change
-        elif dir == "S":
+        elif direction == "S":
             self.wpy -= change
-        elif dir == "E":
+        elif direction == "E":
             self.wpx += change
         self.update_wptheta()
 
-    def rotate_wp(self, dir: str, change: float) -> None:
+    def rotate_wp(self, direction: str, change: float) -> None:
         l = math.sqrt(self.wpx**2 + self.wpy**2)
-        if dir == "L":
+        if direction == "L":
             self.wptheta += change * math.pi / 180
-        elif dir == "R":
+        elif direction == "R":
             self.wptheta -= change * math.pi / 180
         self.wpx = l * math.cos(self.wptheta)
         self.wpy = l * math.sin(self.wptheta)
 
-    def step_in_direction(self, dir: str, steps: int) -> None:
-        if dir == "F":
+    def step_in_direction(self, direction: str, steps: int) -> None:
+        if direction == "F":
             self.step(steps)
-        elif dir in ["N", "S", "E", "W"]:
-            self.move_wp(dir, steps)
-        elif dir in ["L", "R"]:
-            self.rotate_wp(dir, steps)
+        elif direction in ["N", "S", "E", "W"]:
+            self.move_wp(direction, steps)
+        elif direction in ["L", "R"]:
+            self.rotate_wp(direction, steps)
 
     def print_ship_status(self) -> None:
         print(f"location: ({self.x}, {self.y}), wp: ({self.wpx},{self.wpy})")

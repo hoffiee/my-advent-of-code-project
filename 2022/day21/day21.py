@@ -11,8 +11,7 @@ def expr(sys_eq, monkey: str) -> str:
     m = sys_eq[monkey]
     if len(m) == 1:
         return f"{m[0]}"
-    else:
-        return f"({expr(sys_eq, m[0])} {m[1]} {expr(sys_eq, m[2])})"
+    return f"({expr(sys_eq, m[0])} {m[1]} {expr(sys_eq, m[2])})"
 
 
 def sol2(sys_eq) -> None:
@@ -29,7 +28,7 @@ def sol2(sys_eq) -> None:
 
 def main() -> None:
     for file in ["day21-sample.input", "day21.input"]:
-        f = open(file, "r")
+        f = open(file, "r", encoding="utf8")
         lines = f.readlines()
         sys_eq = {}
         for line in lines:

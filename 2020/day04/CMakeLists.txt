@@ -14,4 +14,4 @@ aoc_copy_input_file(${AOC_YEAR} sample)
 aoc_copy_input_file(${AOC_YEAR} invalid)
 aoc_copy_input_file(${AOC_YEAR} valid)
 
-aoc_add_python_target(${TASK}-py ${AOC_DAY}.py)
+aoc_add_python_target(${TASK}-run ${AOC_DAY}.py)

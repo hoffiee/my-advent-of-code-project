@@ -1,5 +1,5 @@
 def read_and_parse_lines(filename):
-    with open(filename, "r") as f:
+    with open(filename, "r", encoding="utf8") as f:
         lines = f.readlines()
         f.close()
     out = list(map(str.strip, lines))
@@ -7,8 +7,8 @@ def read_and_parse_lines(filename):
 
 
 def find_seat(l):
-    rows = [i for i in range(128)]
-    cols = [i for i in range(8)]
+    rows = list(range(128))
+    cols = list(range(8))
 
     for c in l:
         ci = int(len(rows) / 2)

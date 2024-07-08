@@ -49,7 +49,4 @@ add_custom_target(${TASK}-runtest
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
 
-add_custom_target(${TASK}-py
-    COMMAND python3 ${TASK}.py
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-)
+aoc_add_python_target(${TASK}-py ${TASK}.py)

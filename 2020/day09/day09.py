@@ -1,8 +1,5 @@
-import time
-
-
 def read_and_parse_lines(filename):
-    with open(filename, "r") as f:
+    with open(filename, "r", encoding="utf8") as f:
         lines = f.readlines()
         f.close()
     out = list(map(int, lines))
@@ -15,7 +12,7 @@ def valid(l):
     la = list(map(lambda x: n - x, l))
     if len(list(set(l) & set(la))) == 0:
         return n
-    return
+    return None
 
 
 def sol1(lines, pre):
@@ -23,7 +20,7 @@ def sol1(lines, pre):
         n = valid(lines[i : i + pre + 1])
         if n:
             return n
-    return
+    return None
 
 
 def sol2(lines, pre):
@@ -35,7 +32,7 @@ def sol2(lines, pre):
         a = sum(lines[s:e])
         if a == xn:
             return min(lines[s:e]) + max(lines[s:e])
-        elif a > xn:
+        if a > xn:
             s += 1
         else:
             e += 1

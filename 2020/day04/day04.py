@@ -2,7 +2,7 @@ import re
 
 
 def read_and_parse(filename):
-    with open(filename, "r") as f:
+    with open(filename, "r", encoding="utf8") as f:
         lines = f.readlines()
         f.close()
     lines = list(map(str.rstrip, lines))
@@ -11,7 +11,6 @@ def read_and_parse(filename):
     for l in lines:
         if len(l) > 0:
             out[c].update(dict(map(lambda x: x.split(":"), l.split(" "))))
-            out[c]
         else:
             out.append({})
             c += 1
@@ -37,24 +36,24 @@ def sol1(passports):
 def field_validation(field, val):
     if field == "byr":
         val = int(val)
-        if 1920 <= val and val <= 2002:
+        if 1920 <= val <= 2002:
             return True
     elif field == "iyr":
         val = int(val)
-        if 2010 <= val and val <= 2020:
+        if 2010 <= val <= 2020:
             return True
     elif field == "eyr":
         val = int(val)
-        if 2020 <= val and val <= 2030:
+        if 2020 <= val <= 2030:
             return True
     elif field == "hgt":
         if "cm" in str(val):
             val = int(re.search(r"\d+", val).group())
-            if 150 <= val and val <= 193:
+            if 150 <= val <= 193:
                 return True
         if "in" in str(val):
             val = int(re.search(r"\d+", val).group())
-            if 59 <= val and val <= 76:
+            if 59 <= val <= 76:
                 return True
     elif field == "hcl":
         if re.search(r"((#){1})([0-9,a-f]{1})", val):
@@ -75,9 +74,8 @@ def strict_valid_passport(info, required_fields) -> bool:
     for rf in required_fields:
         if not rf in info:
             return False
-        else:
-            if not field_validation(rf, info[rf]):
-                return False
+        if not field_validation(rf, info[rf]):
+            return False
     return True
 
 

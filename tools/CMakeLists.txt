@@ -22,8 +22,16 @@ add_custom_target(lint-pylint
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
+# add_custom_target(lint-mypy
+#     COMMAND find . -name '*.py' | grep -v build | xargs ${PROJECT_BINARY_DIR}/venv/bin/mypy --strict
+#     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+# )
+
 add_custom_target(lint-mypy
-    COMMAND find . -name '*.py' | grep -v build | xargs ${PROJECT_BINARY_DIR}/venv/bin/mypy --strict --ignore-missing-imports
+    COMMAND git ls-files .
+        | grep -E  '\\.py$$'
+        | xargs ${PROJECT_BINARY_DIR}/venv/bin/mypy
+    # COMMAND find . -name '*.py' | grep -v build | xargs ${PROJECT_BINARY_DIR}/venv/bin/mypy --strict --ignore-missing-imports
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 

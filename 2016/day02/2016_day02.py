@@ -1,6 +1,5 @@
 #!usr/bin/env Python
 # -*- coding: utf-8 -*-
-import math
 
 
 # Examples
@@ -14,14 +13,14 @@ ex_1 = [
 
 # fix this one later
 def get_data():
-    with open("2016_day02.input") as textFile:
+    with open("day02.input", encoding="utf8") as textFile:
         m = [list(x.split(",")) for x in textFile]
 
     out = []
-    for r in range(len(m)):
+    for obj in m:
         out.append([])
-        for c in range(len(m[r][0])):
-            out[r].append(m[r][0][c])
+        for obj_to_append in obj[0]:
+            out[-1].append(obj_to_append)
 
     out[0].pop(len(out[0]) - 1)
 
@@ -47,12 +46,12 @@ class keypad:
         return self.numbers[self.curr_pos[0]][self.curr_pos[1]]
 
     def sequence(self, inp):
-        for i in range(len(inp)):
-            self.move(inp[i])
+        for obj in inp:
+            self.move(obj)
 
     def multiple_sequences(self, inp):
-        for i in range(len(inp)):
-            self.sequence(inp[i])
+        for obj in inp:
+            self.sequence(obj)
             print(self.current_number(), end="")
         print("")
 

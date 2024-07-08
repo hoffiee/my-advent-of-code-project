@@ -1,5 +1,5 @@
 def read_and_parse_lines(filename):
-    with open(filename, "r") as f:
+    with open(filename, "r", encoding="utf8") as f:
         lines = f.readlines()
         f.close()
     out = list(map(str.strip, lines))
@@ -39,6 +39,7 @@ def sol2(lines):
     # Remains to do and investigate a bit further.
 
     i = 0
+    ii = 0
     c = 0
     acc = 0
     while i < len(lines):

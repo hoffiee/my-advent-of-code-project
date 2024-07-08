@@ -2,7 +2,7 @@ from functools import reduce
 
 
 def read_and_split_into_groups(filename):
-    return [s.split("\n") for s in open(filename, "r").read().rstrip().split("\n\n")]
+    return [s.split("\n") for s in open(filename, "r", encoding="utf8").read().rstrip().split("\n\n")]
 
 
 def split_group_into_list(g):

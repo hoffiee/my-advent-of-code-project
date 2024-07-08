@@ -1,12 +1,12 @@
 """Example module for python"""
 
 
-def solution_1(input):
-    return input
+def solution_1(inp):
+    return inp
 
 
-def solution_2(input):
-    return input - 1
+def solution_2(inp):
+    return inp - 1
 
 
 def main():

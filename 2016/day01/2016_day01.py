@@ -1,6 +1,5 @@
 #!usr/bin/env Python
 # -*- coding: utf-8 -*-
-import math
 
 
 # Examples
@@ -22,39 +21,39 @@ class person:
         self.pos_y = 0  #   +   West    |   -   East
         self.dir = 0  # 0 North, 1 West, 2 South, 3 East
 
-    def move(self, input):
+    def move(self, inp):
         # Determine direction
-        if input[0] == "R":
+        if inp[0] == "R":
             self.dir = (self.dir + 1) % 4
-        elif input[0] == "L":
+        elif inp[0] == "L":
             self.dir = (self.dir - 1) % 4
 
         # print(self.dir)
 
         # Add steps in that directions
         if self.dir == NORTH:
-            # print("move: ", int(input[1]), "in dir: ", self.dir)
-            self.pos_y += int(input[1:])  # NORTH
+            # print("move: ", int(inp[1]), "in dir: ", self.dir)
+            self.pos_y += int(inp[1:])  # NORTH
         elif self.dir == WEST:
-            # print("move: ", int(input[1]), "in dir: ", self.dir)
-            self.pos_x += int(input[1:])  # WEST
+            # print("move: ", int(inp[1]), "in dir: ", self.dir)
+            self.pos_x += int(inp[1:])  # WEST
         elif self.dir == SOUTH:
-            # print("move: ", int(input[1]), "in dir: ", self.dir)
-            self.pos_y -= int(input[1:])  # SOUTH
+            # print("move: ", int(inp[1]), "in dir: ", self.dir)
+            self.pos_y -= int(inp[1:])  # SOUTH
         elif self.dir == EAST:
-            # print("move: ", int(input[1]), "in dir: ", self.dir)
-            self.pos_x -= int(input[1:])  # EAST
+            # print("move: ", int(inp[1]), "in dir: ", self.dir)
+            self.pos_x -= int(inp[1:])  # EAST
 
-    def handle_input(self, input):
-        for i in range(len(input)):
-            self.move(input[i])
+    def handle_input(self, inp):
+        for obj in inp:
+            self.move(obj)
 
     def length_to_origo(self):
         return abs(self.pos_x) + abs(self.pos_y)
 
 
 def read_data():
-    with open("input.txt") as textFile:
+    with open("day01.input", encoding="utf8") as textFile:
         # m = [list(x.split(",")) for x in textFile]
         for x in textFile:
             m = x

@@ -1,5 +1,5 @@
 def read_and_parse_lines(filename):
-    with open(filename, "r") as f:
+    with open(filename, "r", encoding="utf8") as f:
         lines = f.readlines()
         f.close()
     out = list(map(str.strip, lines))
@@ -12,7 +12,7 @@ def change_seat_adj(s, r, c):
     cmax = len(s[0]) - 1
 
     # Center
-    if (0 < r) and (r < rmax) and (0 < c) and (c < cmax):
+    if (0 < r < rmax) and (0 < c < cmax):
         adj = [
             s[r - 1][c - 1],
             s[r - 1][c],
@@ -25,13 +25,13 @@ def change_seat_adj(s, r, c):
         ]
 
     # edges
-    elif r == 0 and 0 < c and c < cmax:
+    elif r == 0 and (0 < c < cmax):
         adj = [s[r][c - 1], s[r][c + 1], s[r + 1][c - 1], s[r + 1][c], s[r + 1][c + 1]]
-    elif r == rmax and 0 < c and c < cmax:
+    elif r == rmax and (0 < c < cmax):
         adj = [s[r - 1][c - 1], s[r - 1][c], s[r - 1][c + 1], s[r][c - 1], s[r][c + 1]]
-    elif 0 < r and r < rmax and c == 0:
+    elif (0 < r < rmax) and c == 0:
         adj = [s[r - 1][c], s[r - 1][c + 1], s[r][c + 1], s[r + 1][c], s[r + 1][c + 1]]
-    elif 0 < r and r < rmax and c == cmax:
+    elif (0 < r < rmax) and c == cmax:
         adj = [s[r - 1][c - 1], s[r - 1][c], s[r][c - 1], s[r + 1][c - 1], s[r + 1][c]]
 
     # corner
@@ -50,10 +50,9 @@ def change_seat_adj(s, r, c):
 
     if s[r][c] == "L" and adj.count("#") == 0:
         return "#", True
-    elif s[r][c] == "#" and adj.count("#") >= 4:
+    if s[r][c] == "#" and adj.count("#") >= 4:
         return "L", True
-    else:
-        return s[r][c], False
+    return s[r][c], False
 
 
 def print_seats(l):
@@ -61,11 +60,6 @@ def print_seats(l):
         for s in r:
             print(s, end="")
         print()
-
-
-def change_seat_vis(lines, r, c):
-    pass
-
 
 def sol1(lines):
     while True:
@@ -80,7 +74,7 @@ def sol1(lines):
         if not cont:
             break
 
-    return sum([l.count("#") for l in lines])
+    return sum(l.count("#") for l in lines)
 
 
 def sol2(lines):
@@ -98,7 +92,7 @@ def sol2(lines):
             break
         break
 
-    return sum([l.count("#") for l in lines])
+    return sum(l.count("#") for l in lines)
 
 
 def main() -> None:
