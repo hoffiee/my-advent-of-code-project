@@ -4,14 +4,14 @@ from typing import Final
 
 def main() -> None:
     events_stars = {
-        2023: 26,
+        2023: 27,
         2022: 26,
-        2021: 8,
+        2021: 10,
         2020: 22,
         2019: 10,
         2018: 10,
         2017: 10,
-        2016: 10,
+        2016: 11,
         2015: 14,
     }
     targets_stars = {
