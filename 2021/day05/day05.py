@@ -1,6 +1,4 @@
 import re
-from icecream import ic
-import math as m
 
 DISABLE_PRINT: bool = True
 
@@ -31,7 +29,6 @@ def populate_grid(entries):
                 x = min([x1, x2])
                 y = min([y1, y2]) + step
             else:
-                k = (y2 - y1) // (x2 - x1)
                 if (x1 < x2) and (y1 < y2):
                     x = x1 + step
                     y = y1 + step
@@ -44,6 +41,8 @@ def populate_grid(entries):
                 elif (x1 > x2) and (y1 > y2):
                     x = x1 - step
                     y = y1 - step
+                else:
+                    assert False
 
             min_x = min([min_x, x])
             max_x = max([max_x, x])
@@ -74,12 +73,12 @@ def sol2(entries):
 
 def main() -> None:
     for file in ["day05-sample.input", "day05.input"]:
-        f = open(file, "r", encoding="utf8")
-        lines = f.readlines()
+        with open(file, "r", encoding="utf8") as f:
+            lines = f.readlines()
 
-        data = [list(map(int, re.findall("\d+", line))) for line in lines]
-        sol1(data)
-        sol2(data)
+            data = [list(map(int, re.findall(r"\d+", line))) for line in lines]
+            sol1(data)
+            sol2(data)
 
 
 if __name__ == "__main__":

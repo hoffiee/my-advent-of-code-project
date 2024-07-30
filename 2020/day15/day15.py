@@ -48,6 +48,7 @@ def sol1(l, turns):
 
             if i == turns:
                 return new_n
+    return new_n
 
 
 def main() -> None:

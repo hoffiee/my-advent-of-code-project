@@ -28,16 +28,16 @@ def sol2(sys_eq) -> None:
 
 def main() -> None:
     for file in ["day21-sample.input", "day21.input"]:
-        f = open(file, "r", encoding="utf8")
-        lines = f.readlines()
-        sys_eq = {}
-        for line in lines:
-            content = line.split()
-            if len(content) == 2:
-                sys_eq[content[0]] = [int(content[1])]
-            else:
-                sys_eq[content[0]] = (content[1], content[2], content[3])
-        sol2(sys_eq)
+        with open(file, "r", encoding="utf8") as f:
+            lines = f.readlines()
+            sys_eq = {}
+            for line in lines:
+                content = line.split()
+                if len(content) == 2:
+                    sys_eq[content[0]] = [int(content[1])]
+                else:
+                    sys_eq[content[0]] = (content[1], content[2], content[3])
+            sol2(sys_eq)
 
 
 if __name__ == "__main__":

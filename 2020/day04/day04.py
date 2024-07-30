@@ -34,40 +34,31 @@ def sol1(passports):
 
 
 def field_validation(field, val):
+    out = False
     if field == "byr":
         val = int(val)
-        if 1920 <= val <= 2002:
-            return True
+        out = 1920 <= val <= 2002
     elif field == "iyr":
         val = int(val)
-        if 2010 <= val <= 2020:
-            return True
+        out =  2010 <= val <= 2020
     elif field == "eyr":
         val = int(val)
-        if 2020 <= val <= 2030:
-            return True
+        out = 2020 <= val <= 2030
     elif field == "hgt":
         if "cm" in str(val):
             val = int(re.search(r"\d+", val).group())
-            if 150 <= val <= 193:
-                return True
+            out = 150 <= val <= 193
         if "in" in str(val):
             val = int(re.search(r"\d+", val).group())
-            if 59 <= val <= 76:
-                return True
+            out = 59 <= val <= 76
     elif field == "hcl":
-        if re.search(r"((#){1})([0-9,a-f]{1})", val):
-            return True
+        out = re.search(r"((#){1})([0-9,a-f]{1})", val)
     elif field == "ecl":
-        if val in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]:
-            return True
+        out = val in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
     elif field == "pid":
-        if val.isdigit() and len(val) == 9:
-            return True
-    elif field == "cid":
-        pass
+        out = val.isdigit() and len(val) == 9
 
-    return False
+    return out
 
 
 def strict_valid_passport(info, required_fields) -> bool:

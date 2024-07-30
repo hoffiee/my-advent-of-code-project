@@ -44,33 +44,33 @@ def sol2(lines):
     acc = 0
     while i < len(lines):
         c += 1
-        # print(lines[i])
-        if lines[i][0] == "nop" and len(lines[i]) < 3:
-            lines[i].append("nop: " + str(c))
-            i += 1
-        elif lines[i][0] == "acc" and len(lines[i]) < 3:
-            lines[i].append("acc: " + str(c))
-            if lines[i][1][0] == "+":
-                acc += int(lines[i][1][1:])
-            else:
-                acc -= int(lines[i][1][1:])
-            i += 1
-        elif lines[i][0] == "jmp" and len(lines[i]) < 3:
-            lines[i].append("jmp: " + str(c))
-
-            if lines[i][1][0] == "+":
-                ii += int(lines[i][1][1:])
-            else:
-                ii -= int(lines[i][1][1:])
-
-            if len(lines[ii]) == 3:
-                lines[i][0] = "nop"
-            else:
-                i = ii
-        elif len(lines[i]) == 3:
+        if len(lines[i]) >= 3:
             break
-        else:
-            print(f"kommer jag hit? {lines[i]}")
+
+        match lines[i][0]:
+            case "nop":
+                lines[i].append("nop: " + str(c))
+                i += 1
+            case "acc":
+                lines[i].append("acc: " + str(c))
+                if lines[i][1][0] == "+":
+                    acc += int(lines[i][1][1:])
+                else:
+                    acc -= int(lines[i][1][1:])
+                i += 1
+            case "jmp":
+                lines[i].append("jmp: " + str(c))
+                if lines[i][1][0] == "+":
+                    ii += int(lines[i][1][1:])
+                else:
+                    ii -= int(lines[i][1][1:])
+
+                if len(lines[ii]) == 3:
+                    lines[i][0] = "nop"
+                else:
+                    i = ii
+            case _:
+                assert False
 
     for lm in lines:
         print(lm)

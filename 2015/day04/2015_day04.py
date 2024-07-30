@@ -1,4 +1,3 @@
-# TODO: Break out input into input file
 import hashlib
 
 

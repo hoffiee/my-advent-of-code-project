@@ -28,17 +28,18 @@ def read_and_parse(filename: str) -> list[tuple[set[int], set[int]]]:
     d_1-d_2,d_3-d_4
     into 2 sets defined by {d_1..d_2}, {d_3..d_4} and returns a list of these pairs
     """
-    open_file = open(filename, "r", encoding="utf-8")
-    lines = open_file.readlines()
-    list_of_pairs = []
-    for line in lines:
-        d_1, d_2, d_3, d_4 = map(int, re.findall(r"\d+", line))
 
-        elf_1 = set(range(d_1, d_2 + 1))
-        elf_2 = set(range(d_3, d_4 + 1))
+    with open(filename, "r", encoding="utf-8") as open_file:
+        lines = open_file.readlines()
+        list_of_pairs = []
+        for line in lines:
+            d_1, d_2, d_3, d_4 = map(int, re.findall(r"\d+", line))
 
-        list_of_pairs.append((elf_1, elf_2))
-    return list_of_pairs
+            elf_1 = set(range(d_1, d_2 + 1))
+            elf_2 = set(range(d_3, d_4 + 1))
+
+            list_of_pairs.append((elf_1, elf_2))
+        return list_of_pairs
 
 
 def main() -> None:
