@@ -1,7 +1,3 @@
-
-
-
-
 get_filename_component(AOC_DAY ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 set(TASK ${AOC_YEAR}_${AOC_DAY})
 

@@ -61,6 +61,7 @@ def print_seats(l):
             print(s, end="")
         print()
 
+
 def sol1(lines):
     while True:
         cont = False

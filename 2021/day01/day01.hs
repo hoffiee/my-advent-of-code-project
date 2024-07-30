@@ -1,4 +1,3 @@
-
 -- Calculates the differences between adjacent elements in an array
 -- https://stackoverflow.com/questions/8409022/haskell-calculate-differences-of-every-pair-of-adjacent-elements-in-a-list
 differences :: [Int] -> [Int]
