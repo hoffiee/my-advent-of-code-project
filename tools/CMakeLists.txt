@@ -11,51 +11,6 @@ add_custom_target(used-file-extensions
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
-# C++ tooling
-add_custom_target(lint-cpp
-    COMMAND xargs cppcheck --project=compile_commands.json --suppressions-list=cppcheck_suppressions.txt . 1> /dev/null
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-)
-
-add_custom_target(format-cpp
-    COMMAND git ls-files .
-        | grep -E  '\\.cpp$$|\\.h$$'
-        | xargs clang-format -Werror -i -style=file
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-)
-
-# Python tooling
-add_custom_target(lint-pylint
-    COMMAND find . -name '*.py' | grep -v build | xargs ${PROJECT_BINARY_DIR}/venv/bin/pylint
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-)
-
-# add_custom_target(lint-mypy
-#     COMMAND find . -name '*.py' | grep -v build | xargs ${PROJECT_BINARY_DIR}/venv/bin/mypy --strict
-#     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-# )
-
-add_custom_target(lint-mypy
-    COMMAND git ls-files .
-        | grep -E  '\\.py$$'
-        | xargs ${PROJECT_BINARY_DIR}/venv/bin/mypy
-    # COMMAND find . -name '*.py' | grep -v build | xargs ${PROJECT_BINARY_DIR}/venv/bin/mypy --strict --ignore-missing-imports
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-)
-
-add_custom_target(lint-py
-    DEPENDS lint-pylint lint-mypy
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-)
-
-add_custom_target(format-py
-    COMMAND git ls-files .
-        | grep -E  '\\.py$$'
-        | xargs ${PROJECT_BINARY_DIR}/venv/bin/black
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-)
-
-# all
 add_custom_target(all-runtest
     COMMAND ctest --output-on-failure -j2
     DEPENDS all

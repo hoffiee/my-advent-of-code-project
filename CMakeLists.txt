@@ -4,8 +4,10 @@ project(aoc-cpp C CXX)
 
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
+include(cpp)
 include(helpers)
 include(jupyter)
+include(python)
 include(venv)
 
 set(CMAKE_CXX_STANDARD 20)
