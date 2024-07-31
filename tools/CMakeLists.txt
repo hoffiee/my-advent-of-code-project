@@ -3,6 +3,14 @@ add_custom_target(status
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+add_custom_target(used-file-extensions
+    COMMAND find 20* -type f
+        | grep -vE '\(CMakeLists.txt\)'
+        | cut -d"." -f2 # cut at delimeter . and print second field
+        | sort | uniq -c | sort -nr
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+)
+
 # C++ tooling
 add_custom_target(lint-cpp
     COMMAND xargs cppcheck --project=compile_commands.json --suppressions-list=cppcheck_suppressions.txt . 1> /dev/null

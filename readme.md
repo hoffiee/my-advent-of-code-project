@@ -40,6 +40,26 @@ cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake ..
 ```
 
 
+### Other targets than C++ or Python
+
+This project mainly targets C++ and Python, at the moment other target
+languages will have to be handled manually, and I doubt that I'll fix so that
+they will run unless I aim to learn that specific language for a specific year.
+At the moment running `ninja used-file-extensions` gives:
+
+```
+    134 cpp
+     40 h
+     23 py
+      5 awk
+      3 hs
+      1 sh
+      1 md
+      1 jl
+      1 ipynb
+```
+
+
 ## Puzzle inputs
 
 The puzzle creator has, if I recall correctly, mentioned that puzzle input
