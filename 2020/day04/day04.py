@@ -40,7 +40,7 @@ def field_validation(field, val):
         out = 1920 <= val <= 2002
     elif field == "iyr":
         val = int(val)
-        out =  2010 <= val <= 2020
+        out = 2010 <= val <= 2020
     elif field == "eyr":
         val = int(val)
         out = 2020 <= val <= 2030
