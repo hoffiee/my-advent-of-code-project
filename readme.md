@@ -39,14 +39,6 @@ cd build
 cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake ..
 ```
 
-## TODO
-
-- [ ] Can I make the headerguard to be generic and steered from variables set
-  in cmake?
-- [ ] Simplify folder structure, it's a bit of a hassle to use tbh.
-- [ ] Fix linting faults in python
-- [ ] Python: setup config for pylint, mypy, black
-- [ ] Python: Setup pytest for tests
 
 ## Puzzle inputs
 
