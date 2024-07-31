@@ -25,7 +25,7 @@ add_compile_options(
     # -fsanitize=undefined,address -fsanitize-undefined-trap-on-error
     # trying these out for a bit
     -Wdouble-promotion
-    -Wconversion
+    # -Wconversion  # external lib doesn't work with this.
     -Wnull-dereference
     -Wwrite-strings
     -Wformat=2

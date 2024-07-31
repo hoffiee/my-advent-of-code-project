@@ -22,14 +22,10 @@ targets, update `tools/tasks_left.py` and run `ninja status`.
 - Cmake
 - ninja
 - conan
-- probably a few more...
+- Probably a few more... I have not setup this properly.
 
 
-## Development setup
-
-Current way of setting this repo up, still includes a lot of manual work for
-python solutions and haskell solutions not included yet, I doubt that I'll add
-them.
+## Repo setup
 
 ```bash
 # stand in root of advent-of-code
@@ -38,6 +34,11 @@ conan install . --build=missing --output-folder=build
 cd build
 cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake ..
 ```
+
+**Note**: I'm using some external libraries, these do not build due to my
+compiler flags, I brilliantly solved it by manually patching the files, but I
+should look into how to handle this properly so that I don't have to patch them
+locally.
 
 
 ### Other targets than C++ or Python
