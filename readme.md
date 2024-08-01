@@ -39,6 +39,18 @@ should look into how to handle this properly so that I don't have to patch them
 locally.
 
 
+### Tips and notes
+
+- I often use icecream in both C++ and Python to do debug statements, I find it
+  quick and neat to use. For example in Python:
+
+```python
+import icecream as ic
+a = "moo"
+ic(a)
+```
+
+
 ### Other targets than C++ or Python
 
 This project mainly targets C++ and Python, at the moment other target
