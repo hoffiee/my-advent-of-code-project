@@ -45,7 +45,7 @@ locally.
   quick and neat to use. For example in Python:
 
 ```python
-import icecream as ic
+from icecream import ic
 a = "moo"
 ic(a)
 ```
