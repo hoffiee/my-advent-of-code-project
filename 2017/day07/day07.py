@@ -6,6 +6,7 @@ and assuming the first encounter of a branch weight is correct, we can continue 
 doesn't meet our assumption. I then added so that my algorithm shuffles the children at each step so
 that it founds it.
 """
+
 import random
 import statistics
 from collections import defaultdict
@@ -23,13 +24,13 @@ def sol1(data):
                     tree[child] = node
             case [node, _]:
                 pass
-    for k,v in tree.items():
+    for k, v in tree.items():
         if v == "":
             return k
     return ""
 
 
-class DFS():
+class DFS:
     def __init__(self):
         self.found = False
         self.corrected_weight = 0

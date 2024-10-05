@@ -1,7 +1,4 @@
-import random
-import statistics
 from collections import defaultdict
-from icecream import ic
 
 
 def distance(p1, p2):
