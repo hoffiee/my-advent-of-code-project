@@ -67,8 +67,8 @@ def preprocess(data):
     for y in range(y_dim):
         grid.append(["."] * x_dim)
 
-    for i in range(len(points)):
-        x, y = points[i]
+    for i, point in enumerate(points):
+        x, y = point
         grid[y - y_offset][x - x_offset] = str(i)
 
     return grid, points, dims, offsets
