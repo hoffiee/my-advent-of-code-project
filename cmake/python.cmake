@@ -38,7 +38,8 @@ add_custom_target(lint-pylint
 add_custom_target(lint-mypy
     COMMAND git ls-files .
         | grep -E  '\\.py$$'
-        | xargs ${PROJECT_BINARY_DIR}/venv/bin/mypy
+        | xargs -I{} ${PROJECT_BINARY_DIR}/venv/bin/mypy --explicit-package-bases --check-untyped-defs {}
+        | grep -v "Success: no issues found in 1 source file"
     # COMMAND find . -name '*.py' | grep -v build | xargs ${PROJECT_BINARY_DIR}/venv/bin/mypy --strict --ignore-missing-imports
     DEPENDS venv-update
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}

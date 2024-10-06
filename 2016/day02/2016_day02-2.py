@@ -1,9 +1,6 @@
-#!usr/bin/env Python
-# -*- coding: utf-8 -*-
+from typing import List
 
-# Examples
-ex_1 = ["ULL", "RRDDD", "LURDL", "UUUUD"]
-ex_1 = [
+example = [
     ["U", "L", "L"],
     ["R", "R", "D", "D", "D"],
     ["L", "U", "R", "D", "L"],
@@ -15,21 +12,14 @@ ex_1 = [
 def get_data():
     with open("day02.input", encoding="utf8") as textFile:
         m = [list(x.split(",")) for x in textFile]
-        # for x in textFile:
-        #   m = x
 
-    # print(type(m[0][0]))
-    # print(m[0][0])
-
-    out = []
+    out: List[List[int]] = []
     for obj in m:
         out.append([])
         for obj_to_append in range(len(obj[0])):
             out[-1].append(obj_to_append)
 
-    # print(out[0])
     out[0].pop(len(out[0]) - 1)
-    # print(out[0])
 
     return out
 
@@ -75,7 +65,7 @@ class keypad:
 
 if __name__ == "__main__":
     k = keypad()
-    k.multiple_sequences(ex_1)
+    k.multiple_sequences(example)
     k.reset()
 
     data = get_data()

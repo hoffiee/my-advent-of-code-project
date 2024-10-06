@@ -2,6 +2,7 @@
 # recursively forms a string that can be parsed by sympy, which then solves
 # for x
 import sympy
+from typing import Dict, Union, Tuple, List
 
 
 def expr(sys_eq, monkey: str) -> str:
@@ -27,10 +28,10 @@ def sol2(sys_eq) -> None:
 
 
 def main() -> None:
-    for file in ["day21-sample.input", "day21.input"]:
-        with open(file, "r", encoding="utf8") as f:
+    for filename in ["day21-sample.input", "day21.input"]:
+        with open(filename, "r", encoding="utf8") as f:
             lines = f.readlines()
-            sys_eq = {}
+            sys_eq: Dict[str, Union[Tuple[str, str, str], List[int]]] = {}
             for line in lines:
                 content = line.split()
                 if len(content) == 2:

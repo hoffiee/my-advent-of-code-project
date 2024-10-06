@@ -349,8 +349,8 @@ def main() -> None:
     test_jump_immediate_mode()
     test_larger_example()
 
-    for file in ["day05-sample.input", "day05.input"]:
-        with open(file, "r", encoding="utf8") as file:
+    for filename in ["day05-sample.input", "day05.input"]:
+        with open(filename, "r", encoding="utf8") as file:
             lines = file.read().splitlines()
             suggest_solution(attempts_1, sol1(lines))
             suggest_solution(attempts_2, sol2(lines))

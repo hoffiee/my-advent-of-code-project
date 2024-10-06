@@ -84,8 +84,8 @@ def sol2(data, root):
 
 
 def main() -> None:
-    for file in ["day07-sample.input", "day07.input"]:
-        with open(file, "r", encoding="utf8") as file:
+    for filename in ["day07-sample.input", "day07.input"]:
+        with open(filename, "r", encoding="utf8") as file:
             lines = file.read().splitlines()
             print(root := sol1(lines))
             sol2(lines, root)

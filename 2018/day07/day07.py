@@ -1,4 +1,5 @@
 from collections import defaultdict
+from typing import List
 from icecream import ic
 
 
@@ -29,24 +30,25 @@ class Tree:
             node = tmp[1]
             self.dependency = tmp[7]
             graph[node].append(self.dependency)
-            self.dependencies[node]  # Create entry for all nodes
+            # Create entry for all nodes, default dict enables this.
+            self.dependencies[node]  # pylint: disable=pointless-statement
             self.dependencies[self.dependency].append(node)
         self.graph = {key: value[:] for key, value in self.dependencies.items()}
 
-    def reset(self):
+    def reset(self) -> None:
         self.dependencies = {key: value[:] for key, value in self.graph.items()}
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.dependencies)
 
-    def complete(self, node):
+    def complete(self, node) -> None:
         assert len(self.dependencies[node]) == 0
         self.dependencies.pop(node)
         for key in self.dependencies.keys():
             if node in self.dependencies[key]:
                 self.dependencies[key].remove(node)
 
-    def get_sequence(self):
+    def get_sequence(self) -> str:
         if self.sequence is not None:
             return self.sequence
 
@@ -60,10 +62,10 @@ class Tree:
         self.reset()
         return self.sequence
 
-    def print(self):
+    def print(self) -> None:
         ic(self.dependencies)
 
-    def get_available(self):
+    def get_available(self) -> List[str]:
         out = []
         for key, value in self.dependencies.items():
             if len(value) == 0:
@@ -118,8 +120,8 @@ def sol2(tree):
 
 
 def main() -> None:
-    for file in ["day07-sample.input", "day07.input"]:
-        with open(file, "r", encoding="utf8") as file:
+    for filename in ["day07-sample.input", "day07.input"]:
+        with open(filename, "r", encoding="utf8") as file:
             lines = file.read().splitlines()
             tree = Tree(lines)
             suggest_solution(attempts_1, sol1(tree))

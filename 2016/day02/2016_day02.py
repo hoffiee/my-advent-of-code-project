@@ -1,6 +1,4 @@
-#!usr/bin/env Python
-# -*- coding: utf-8 -*-
-
+from typing import List
 
 # Examples
 ex_1 = [
@@ -16,7 +14,7 @@ def get_data():
     with open("day02.input", encoding="utf8") as textFile:
         m = [list(x.split(",")) for x in textFile]
 
-    out = []
+    out: List[List[int]] = []
     for obj in m:
         out.append([])
         for obj_to_append in obj[0]:

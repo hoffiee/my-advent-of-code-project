@@ -1,4 +1,5 @@
 import re
+from typing import Dict, Tuple
 
 DISABLE_PRINT: bool = True
 
@@ -17,7 +18,7 @@ def populate_grid(entries):
     (min_x, min_y, _, _) = entries[0]
     (max_x, max_y, _, _) = entries[0]
 
-    grid = {}
+    grid: Dict[Tuple[int, int], int] = {}
     for entry in entries:
         (x1, y1, x2, y2) = entry
         steps = max([abs(x2 - x1), abs(y2 - y1)])
@@ -72,8 +73,8 @@ def sol2(entries):
 
 
 def main() -> None:
-    for file in ["day05-sample.input", "day05.input"]:
-        with open(file, "r", encoding="utf8") as f:
+    for filename in ["day05-sample.input", "day05.input"]:
+        with open(filename, "r", encoding="utf8") as f:
             lines = f.readlines()
 
             data = [list(map(int, re.findall(r"\d+", line))) for line in lines]

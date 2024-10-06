@@ -31,8 +31,8 @@ def solution(data):
 
 
 def main() -> None:
-    for file in ["day06-sample.input", "day06.input"]:
-        with open(file, "r", encoding="utf8") as file:
+    for filename in ["day06-sample.input", "day06.input"]:
+        with open(filename, "r", encoding="utf8") as file:
             line = file.readline()
             memory_banks = list(map(int, re.findall(r"\d+", line)))
             solution(memory_banks)
