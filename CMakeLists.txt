@@ -8,6 +8,7 @@ include(cpp)
 include(helpers)
 include(jupyter)
 include(python)
+include(go)
 include(venv)
 
 set(CMAKE_CXX_STANDARD 20)
