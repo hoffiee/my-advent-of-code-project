@@ -4,6 +4,7 @@ from typing import Final
 
 def main() -> None:
     events_stars = {
+        2024: 0,
         2023: 27,
         2022: 26,
         2021: 14,
@@ -15,6 +16,7 @@ def main() -> None:
         2015: 14,
     }
     targets_stars = {
+        2024: 14,
         2023: 14,
         2022: 14,
         2021: 14,
@@ -45,9 +47,9 @@ def main() -> None:
     print(out)
 
     print("Tasks left to complete")
-    for k, v in goal.items():
-        if v > 0:
-            print(f"\t{k}: {v}")
+    for key in sorted(goal.keys()):
+        if goal[key] > 0:
+            print(f"\t{key}: {goal[key]}")
 
     today = dt.datetime.today()
     endofyear = dt.datetime(today.year, 12, 31)
