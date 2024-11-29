@@ -1,18 +1,18 @@
-get_filename_component(AOC_DAY ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+aoc_set_task_variables()
 
-set(TASK ${AOC_YEAR}_${AOC_DAY})
-
-add_definitions(
-    -DAOC_TEST=year_${TASK}
-    -DAOC_TASK="${TASK}"
-    -DAOC_INPUT="${AOC_DAY}.preprocessed.input"
-    -DAOC_HEADER="${TASK}.h"
-)
+aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY})
+aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY})
 
 add_library(lib-${TASK}
     EXCLUDE_FROM_ALL
-    ${TASK}.cpp
+    ${AOC_DAY}.cpp
 )
+
+# TODO Fix this override!
+# Override input since we're preprocessing
+# target_compile_definitions(lib-${TASK}
+#     -DAOC_INPUT="${AOC_DAY}.preprocessed.input"
+# )
 
 target_include_directories(lib-${TASK}
     PUBLIC
@@ -25,12 +25,8 @@ target_link_libraries(${TASK}
     lib-${TASK}
 )
 
-aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY})
-
-aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY})
-
 add_custom_target(${TASK}-preprocess
-    COMMAND ./preprocess.awk ${AOC_DAY}.input > ${AOC_DAY}.preprocessed.input
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/preprocess.awk ${AOC_DAY}.input > ${AOC_DAY}.preprocessed.input
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
 
@@ -40,13 +36,10 @@ add_custom_target(${TASK}-run
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
 
-
-add_executable(${TASK}-test test_${TASK}.cpp)
+add_executable(${TASK}-test test_${AOC_DAY}.cpp)
 
 target_link_libraries(${TASK}-test
     gtest-wrapper
-
-    # lib under test
     lib-${TASK}
 )
 
