@@ -8,6 +8,7 @@
 #include <icecream.hpp>
 #include <numeric>
 #include <unordered_map>
+#include <cmath>
 
 struct Card {
     int id = 0;

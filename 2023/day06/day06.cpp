@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <icecream.hpp>
+#include <cmath>
 
 static int64_t calculate_possibilities(int64_t T, int64_t d) {
     /**
