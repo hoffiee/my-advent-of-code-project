@@ -5,7 +5,7 @@
 
 int main() {
     std::ifstream input_file;
-    input_file.open(AOC_TASK ".prep.input");
+    input_file.open(AOC_INPUT);
     if (!input_file.is_open()) {
         std::cout << "couldn't read file" << std::endl;
         return -1;

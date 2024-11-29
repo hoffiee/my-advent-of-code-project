@@ -6,19 +6,18 @@ https://adventofcode.com/2019/day/2
 """
 
 from collections import defaultdict
+import itertools
 from icecream import ic
 
 
 attempts_1 = [
     (0, ""),
-    (13294380, "correct"),
+    (14902, "correct!"),
 ]
 
 attempts_2 = [
     (0, ""),
-    (11460760, "correct"),
 ]
-
 
 # Move to utils?
 def suggest_solution(attempts, inp):
@@ -30,26 +29,29 @@ def suggest_solution(attempts, inp):
 
 
 class IntcodeComputer:
-    def __init__(self, data):
+    def __init__(self, data, feedback_mode = False):
         self.address = defaultdict(int)
         self.current_iteration = 0
+        self.feedback_mode = feedback_mode
         self.running = True
         self.output = 0
-        self.input = 0
+        self.input = []
         self.debug = False
-        ic(data)
 
         data_list = data.split(",")
         for i, value in enumerate(data_list):
             self.address[i] = int(value)
 
     def set_input(self, value):
-        self.input = value
+        self.halt = False
+        self.input.append(value)
 
     def get_output(self):
         return self.output
 
     def run(self) -> bool:
+        if self.feedback_mode and self.halt:
+            return False
         while self.step():
             pass
         return True
@@ -75,6 +77,7 @@ class IntcodeComputer:
                 self._input(params_mode)
             case 4:
                 self._output(params_mode)
+                self.halt = True
             case 5:
                 self._jump_if_true(params_mode)
             case 6:
@@ -180,7 +183,7 @@ class IntcodeComputer:
 
     def _input(self, params_mode):
         dst = self.address[self.current_iteration + 1]
-        self.address[dst] = self.input
+        self.address[dst] = self.input.pop(0)
         if self.debug:
             print(f"instr: {self.current_iteration} _input[{params_mode}] dst:{dst}")
         self.current_iteration += 2
@@ -197,165 +200,136 @@ class IntcodeComputer:
         self.current_iteration += 2
 
 
+class Amplifier:
+    def __init__(self, program, phase, inp):
+        self.program = program
+        self.gains = defaultdict(int)
+        self._calculate_outputs(phase, inp)
+
+    def _calculate_outputs(self, phase, inp):
+        comp = IntcodeComputer(self.program)
+        comp.set_input(phase)
+        comp.set_input(inp)
+        comp.run()
+        self.gain = comp.get_output()
+        ic(phase, self.program, comp.get_output())
+
+
+class Amplifiers:
+    def __init__(self, program):
+        self.max_gain = 0
+        self.program = program
+
+        available_configurations = list(itertools.permutations([0,1,2,3,4]))
+        ic(available_configurations)
+
+        for config in available_configurations:
+
+            A1 = Amplifier(program, config[0], 0)
+            A2 = Amplifier(program, config[1], A1.gain)
+            A3 = Amplifier(program, config[2], A2.gain)
+            A4 = Amplifier(program, config[3], A3.gain)
+            A5 = Amplifier(program, config[4], A4.gain)
+            if A5.gain > self.max_gain:
+                self.max_gain = A5.gain
+
+
+class FeedbackAmplifier:
+    def __init__(self, program, phase):
+        self.program = program
+        # self.gains = defaultdict(int)
+        self.comp = IntcodeComputer(self.program, True)
+        self.comp.set_input(phase)
+
+    def step(self, inp):
+        self.comp.set_input(inp)
+        self.comp.run()
+        self.gain = self.comp.get_output()
+        # ic(phase, self.program, comp.get_output())
+
+
+class FeedbackSystem:
+    def __init__(self, program, config):
+        self.max_gain = 0
+        self.program = program
+        self.config = config
+
+        self.A1 = FeedbackAmplifier(program, config[0])
+        self.A2 = FeedbackAmplifier(program, config[1])
+        self.A3 = FeedbackAmplifier(program, config[2])
+        self.A4 = FeedbackAmplifier(program, config[3])
+        self.A5 = FeedbackAmplifier(program, config[4])
+
+        self.A1.step(0)
+        self.A2.step(self.A1.gain)
+        self.A3.step(self.A2.gain)
+        self.A4.step(self.A3.gain)
+        self.A5.step(self.A4.gain)
+
+        # feedback
+        i = 0
+        while i < 10:
+            self.A1.step(self.max_gain)
+            self.A2.step(self.A1.gain)
+            self.A3.step(self.A2.gain)
+            self.A4.step(self.A3.gain)
+            self.A5.step(self.A4.gain)
+            ic(self.A5.gain)
+            i += 1
+            self.max_gain += self.A5.gain
+
+
 def sol1(data):
-    comp = IntcodeComputer(data[0])
-    comp.set_input(1)
-    comp.run()
-    return comp.get_output()
+    amps = Amplifiers(data)
+    return amps.max_gain
 
 
 def sol2(data):
-    comp = IntcodeComputer(data[0])
-    comp.set_input(5)
-    comp.run()
-    return comp.get_output()
+    ic(data)
 
-
-def test_equal_position_mode():
+def test_example_43210():
     ic.disable()
-    comp = IntcodeComputer("3,9,8,9,10,9,4,9,99,-1,8")
-    comp.set_input(8)
-    while comp.step():
-        pass
-    assert comp.get_output() == 1
+    program = "3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0"
+    amps = Amplifiers(program)
+    assert amps.max_gain == 43210
 
-    comp = IntcodeComputer("3,9,8,9,10,9,4,9,99,-1,8")
-    comp.set_input(7)
-    while comp.step():
-        pass
-    assert comp.get_output() == 0
-
-    comp = IntcodeComputer("3,9,8,9,10,9,4,9,99,-1,8")
-    comp.set_input(9)
-    while comp.step():
-        pass
-    assert comp.get_output() == 0
-
-
-def test_equal_immediate_mode():
+def test_example_54321():
     ic.disable()
-    comp = IntcodeComputer("3,3,1108,-1,8,3,4,3,99")
-    comp.set_input(8)
-    comp.run()
-    assert comp.get_output() == 1
+    program = "3,23,3,24,1002,24,10,24,1002,23,-1,23,101,5,23,23,1,24,23,23,4,23,99,0,0"
+    amps = Amplifiers(program)
+    assert amps.max_gain == 54321
 
-    comp = IntcodeComputer("3,3,1108,-1,8,3,4,3,99")
-    comp.set_input(7)
-    comp.run()
-    assert comp.get_output() == 0
-
-    comp = IntcodeComputer("3,3,1108,-1,8,3,4,3,99")
-    comp.set_input(9)
-    comp.run()
-    assert comp.get_output() == 0
-
-
-def test_less_than_position_mode():
+def test_example_65210():
     ic.disable()
-    comp = IntcodeComputer("3,9,7,9,10,9,4,9,99,-1,8")
-    comp.set_input(7)
-    comp.run()
-    assert comp.get_output() == 1
-
-    comp = IntcodeComputer("3,9,7,9,10,9,4,9,99,-1,8")
-    comp.set_input(8)
-    comp.run()
-    assert comp.get_output() == 0
-
-    comp = IntcodeComputer("3,9,7,9,10,9,4,9,99,-1,8")
-    comp.set_input(9)
-    comp.run()
-    assert comp.get_output() == 0
+    program = "3,31,3,32,1002,32,10,32,1001,31,-2,31,1007,31,0,33,1002,33,7,33,1,33,31,31,1,32,31,31,4,31,99,0,0,0"
+    amps = Amplifiers(program)
+    assert amps.max_gain == 65210
 
 
-def test_less_than_immediate_mode():
-    ic.disable()
-    comp = IntcodeComputer("3,3,1107,-1,8,3,4,3,99")
-    comp.set_input(7)
-    comp.run()
-    assert comp.get_output() == 1
-
-    comp = IntcodeComputer("3,3,1107,-1,8,3,4,3,99")
-    comp.set_input(8)
-    comp.run()
-    assert comp.get_output() == 0
-
-    comp = IntcodeComputer("3,3,1107,-1,8,3,4,3,99")
-    comp.set_input(9)
-    comp.run()
-    assert comp.get_output() == 0
-
-
-def test_jump_position_mode():
-    ic.disable()
-    comp = IntcodeComputer("3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9")
-    comp.set_input(0)
-    comp.run()
-    assert comp.get_output() == 0
-
-    comp = IntcodeComputer("3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9")
-    comp.set_input(1)
-    comp.run()
-    assert comp.get_output() == 1
-
-
-def test_jump_immediate_mode():
-    ic.disable()
-    comp = IntcodeComputer("3,3,1105,-1,9,1101,0,0,12,4,12,99,1")
-    comp.set_input(0)
-    comp.run()
-    assert comp.get_output() == 0
-
-    comp = IntcodeComputer("3,3,1105,-1,9,1101,0,0,12,4,12,99,1")
-    comp.set_input(1)
-    comp.run()
-    assert comp.get_output() == 1
-
-
-def test_larger_example():
-    ic.disable()
-    comp = IntcodeComputer(
-        "3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,"
-        "1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,"
-        "999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99"
+def test_example_feedback_98765():
+    ic.enable()
+    f = FeedbackSystem(
+        "3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5",
+        [9,8,7,6,5]
     )
-    comp.set_input(7)
-    comp.run()
-    assert comp.get_output() == 999
 
-    comp = IntcodeComputer(
-        "3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,"
-        "1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,"
-        "999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99"
-    )
-    comp.set_input(8)
-    comp.run()
-    assert comp.get_output() == 1000
+    ic(f.max_gain)
+    assert f.max_gain == 139629729
 
-    comp = IntcodeComputer(
-        "3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,"
-        "1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,"
-        "999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99"
-    )
-    comp.set_input(9)
-    comp.run()
-    assert comp.get_output() == 1001
+
 
 
 def main() -> None:
-    test_equal_position_mode()
-    test_equal_immediate_mode()
-    test_less_than_position_mode()
-    test_less_than_immediate_mode()
-    test_jump_position_mode()
-    test_jump_immediate_mode()
-    test_larger_example()
+    test_example_43210()
+    test_example_54321()
+    test_example_65210()
+    test_example_feedback_98765()
 
-    for filename in ["day05-sample.input", "day05.input"]:
+    for filename in ["day07.input"]:
         with open(filename, "r", encoding="utf8") as file:
-            lines = file.read().splitlines()
+            lines = file.read()
             suggest_solution(attempts_1, sol1(lines))
-            suggest_solution(attempts_2, sol2(lines))
+            # suggest_solution(attempts_2, sol2(lines))
 
 
 if __name__ == "__main__":

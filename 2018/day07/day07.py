@@ -5,10 +5,19 @@ from icecream import ic
 
 attempts_1 = [
     ("", ""),
+    ("CABDFE", "part 1 sample solution"),
+    ("EBHQVW", "wrong"),
+    ("EUGJKYFQSCLTWXNIZMAPVORDBH", "correct!"),
 ]
 
 attempts_2 = [
     (0, ""),
+    (15, "part 2 sample solution"),
+    (179, "Too low"),
+    (253, "not correct"),
+    (1014, "Correct!"),
+    (1192, "Too high"),
+    (1193, "Too high"),
 ]
 
 

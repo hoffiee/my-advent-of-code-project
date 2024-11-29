@@ -21,7 +21,7 @@
 #include <numeric>
 
 int solve_1(std::vector<int>& opcodes) {
-    icecream::ic.disable();
+    IC_CONFIG.disable();
     IC(opcodes);
     for (size_t i = 0; i < opcodes.size(); i += 4) {
         IC(opcodes.at(i));
