@@ -1,4 +1,4 @@
-#include "2015_day03.h"
+#include AOC_HEADER
 #include "gtest/gtest.h"
 
 TEST(AOC_TEST, test_case_1) { ASSERT_EQ(solve(">", false), 2); }

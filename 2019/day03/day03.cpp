@@ -22,7 +22,7 @@ __attribute__((unused)) static void print_grid(std::vector<std::vector<char>> gr
 }
 
 int solve_1(std::vector<std::string>& paths) {
-    icecream::ic.disable();
+    IC_CONFIG.disable();
 
     std::vector<std::vector<char>> grid(GRID_SIZE, std::vector<char>(GRID_SIZE, '.'));
 
@@ -97,7 +97,7 @@ struct pos_hash {
 };
 
 int solve_2(std::vector<std::string>& paths) {
-    // icecream::ic.disable();
+    // IC_CONFIG.disable();
 
     std::unordered_map<std::pair<int, int>, int, pos_hash> wire_1;
 

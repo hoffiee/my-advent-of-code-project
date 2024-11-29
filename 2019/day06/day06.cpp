@@ -66,7 +66,7 @@ static void orbit_breath_first_search(std::unordered_map<std::string, Node>& orb
 }
 
 int solve_1(std::vector<std::string> inp) {
-    icecream::ic.disable();
+    IC_CONFIG.disable();
 
     auto orbits = orbit_create_graph_bidirectional(inp);
     orbit_breath_first_search(orbits, "COM", "");
@@ -80,7 +80,7 @@ int solve_1(std::vector<std::string> inp) {
 }
 
 int solve_2(std::vector<std::string> inp) {
-    icecream::ic.disable();
+    IC_CONFIG.disable();
     IC(inp);
 
     auto orbits = orbit_create_graph_bidirectional(inp);

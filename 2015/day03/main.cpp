@@ -4,11 +4,11 @@
 #include <string>
 #include <vector>
 
-#include "2015_day03.h"
+#include AOC_HEADER
 
 int main() {
     std::ifstream input_file;
-    input_file.open("day03.input");
+    input_file.open(AOC_INPUT);
     if (!input_file.is_open()) {
         std::cout << "couldn't read file" << std::endl;
         return -1;

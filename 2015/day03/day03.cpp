@@ -1,4 +1,4 @@
-#include "2015_day03.h"
+#include AOC_HEADER
 
 #include <functional>
 #include <iostream>
