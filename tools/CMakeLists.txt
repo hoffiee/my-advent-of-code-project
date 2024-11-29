@@ -18,7 +18,7 @@ add_custom_target(all-runtest
 )
 
 add_custom_target(format
-    DEPENDS format-cpp format-py
+    DEPENDS format-cpp format-py format-go
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
