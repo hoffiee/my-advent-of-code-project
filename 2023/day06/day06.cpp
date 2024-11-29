@@ -6,8 +6,8 @@
 #include <string_utils.h>
 
 #include <algorithm>
-#include <icecream.hpp>
 #include <cmath>
+#include <icecream.hpp>
 
 static int64_t calculate_possibilities(int64_t T, int64_t d) {
     /**
