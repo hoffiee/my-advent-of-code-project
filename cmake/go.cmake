@@ -1,5 +1,3 @@
-
-
 # Usage: aoc_add_python_target(${TASK} ${AOC_DAY})
 macro(aoc_add_go_target)
     add_custom_target(${ARGV0}
@@ -8,3 +6,9 @@ macro(aoc_add_go_target)
     )
 endmacro()
 
+add_custom_target(format-go
+    COMMAND git ls-files .
+        | grep -E  '\\.go$$'
+        | xargs -I {} go fmt {}
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+)
