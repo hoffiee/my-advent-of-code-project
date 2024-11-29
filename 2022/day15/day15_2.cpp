@@ -160,11 +160,11 @@ static std::vector<Sensor> read_and_parse_data(std::string filename) {
 int main(void) {
     test();
 
-    auto sensors_1 = read_and_parse_data("day15-sample.prep.input");
+    auto sensors_1 = read_and_parse_data("day15-sample.preprocessed.input");
     std::cout << count_covered_spaces_at_coord(sensors_1, 10) << std::endl;
     std::cout << tuning_frequence(sensors_1, 40) << std::endl;
 
-    auto sensors_2 = read_and_parse_data("day15.prep.input");
+    auto sensors_2 = read_and_parse_data("day15.preprocessed.input");
     std::cout << count_covered_spaces_at_coord(sensors_2, 2'000'000) << std::endl;
     std::cout << tuning_frequence(sensors_2, 4'000'000) << std::endl;
 }

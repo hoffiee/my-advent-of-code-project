@@ -332,9 +332,9 @@ int main(void) {
     test();
     auto solution_1_sample = [](vector<Sensor> in) { return solution_1(in, 10); };
     auto solution_2_sample = [](vector<Sensor> in) { return solution_2_3(in, 20); };
-    run_and_check_solutions("day15-sample.prep.input", solution_1_sample, 26, solution_2_sample, 56000011);
+    run_and_check_solutions("day15-sample.preprocessed.input", solution_1_sample, 26, solution_2_sample, 56000011);
 
     auto solution_1_puzzle = [](vector<Sensor> in) { return solution_1(in, 2000000); };
     auto solution_2_puzzle = [](vector<Sensor> in) { return solution_2_3(in, 4000000); };
-    run_and_check_solutions("day15.prep.input", solution_1_puzzle, 5176944, solution_2_puzzle, 0);
+    run_and_check_solutions("day15.preprocessed.input", solution_1_puzzle, 5176944, solution_2_puzzle, 0);
 }
