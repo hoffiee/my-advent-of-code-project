@@ -12,6 +12,7 @@ macro(aoc_set_task_variables)
         -DAOC_TEST=year_${TASK}
         -DAOC_TASK="${TASK}"
         -DAOC_INPUT="${AOC_DAY}.input"
+        -DAOC_SAMPLE_INPUT="${AOC_DAY}-sample.input"
         -DAOC_HEADER="${AOC_DAY}.h"
     )
 endmacro()
