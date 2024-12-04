@@ -3,22 +3,22 @@
  */
 #include <fstream>
 #include <icecream.hpp>
+#include <regex>
 #include <string>
 #include <vector>
-#include <regex>
 
 int solve_1(std::vector<std::string> inp) {
     int sum{0};
-    for (auto const& line: inp) {
+    for (auto const& line : inp) {
         std::regex r("mul\\(\\d+,\\d+\\)");
         std::smatch match{};
-        for (std::sregex_iterator i = std::sregex_iterator(line.begin(), line.end(), r);
-                i != std::sregex_iterator(); i++) {
+        for (std::sregex_iterator i = std::sregex_iterator(line.begin(), line.end(), r); i != std::sregex_iterator();
+             i++) {
             std::smatch match = *i;
             int a{0};
             int b{0};
             std::sscanf(match[0].str().c_str(), "mul(%d,%d)", &a, &b);
-            sum += a*b;
+            sum += a * b;
         }
     }
     return sum;
@@ -27,11 +27,11 @@ int solve_1(std::vector<std::string> inp) {
 int solve_2(std::vector<std::string> inp) {
     int sum{0};
     bool enable{true};
-    for (auto const& line: inp) {
+    for (auto const& line : inp) {
         std::regex r("(mul\\(\\d+,\\d+\\))|(don't\\(\\))|(do\\(\\))");
         std::smatch match{};
-        for (std::sregex_iterator i = std::sregex_iterator(line.begin(), line.end(), r);
-                i != std::sregex_iterator(); i++) {
+        for (std::sregex_iterator i = std::sregex_iterator(line.begin(), line.end(), r); i != std::sregex_iterator();
+             i++) {
             std::smatch match = *i;
 
             if (match[2].length() > 0) {
@@ -44,7 +44,7 @@ int solve_2(std::vector<std::string> inp) {
                 int a{0};
                 int b{0};
                 std::sscanf(match[1].str().c_str(), "mul(%d,%d)", &a, &b);
-                sum += a*b;
+                sum += a * b;
             }
         }
     }

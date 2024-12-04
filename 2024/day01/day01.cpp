@@ -2,8 +2,8 @@
  * https://adventofcode.com/2024/day/1
  */
 #include <fstream>
-#include <numeric>
 #include <icecream.hpp>
+#include <numeric>
 #include <string>
 #include <vector>
 
@@ -11,11 +11,11 @@ int solve_1(std::vector<std::string> inp) {
     std::vector<int> lst1{};
     std::vector<int> lst2{};
 
-    for (auto& line: inp) {
+    for (auto& line : inp) {
         int num1{};
         int num2{};
         std::stringstream ss(line);
-        ss  >> num1 >> num2;
+        ss >> num1 >> num2;
         lst1.push_back(num1);
         lst2.push_back(num2);
     }
@@ -25,7 +25,7 @@ int solve_1(std::vector<std::string> inp) {
 
     assert(lst1.size() == lst2.size());
     int sum{std::inner_product(lst1.cbegin(), lst1.cend(), lst2.cbegin(), static_cast<int>(0), std::plus<>(),
-            [](auto const& lhs, auto const& rhs){ return std::abs(lhs - rhs);})};
+                               [](auto const& lhs, auto const& rhs) { return std::abs(lhs - rhs); })};
 
     return sum;
 }
@@ -34,18 +34,17 @@ int solve_2(std::vector<std::string> inp) {
     std::vector<int> lst1{};
     std::unordered_map<int, int> lst2{};
 
-    for (auto& line: inp) {
+    for (auto& line : inp) {
         int num1{};
         int num2{};
         std::stringstream ss(line);
-        ss  >> num1 >> num2;
+        ss >> num1 >> num2;
         lst1.push_back(num1);
         lst2[num2]++;
     }
 
-    return std::accumulate(
-            lst1.cbegin(), lst1.cend(), static_cast<int>(0),
-            [&lst2](auto const sum, auto const val) { return sum + lst2[val]*val; });
+    return std::accumulate(lst1.cbegin(), lst1.cend(), static_cast<int>(0),
+                           [&lst2](auto const sum, auto const val) { return sum + lst2[val] * val; });
 }
 
 int main() {
