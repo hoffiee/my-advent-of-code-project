@@ -3,77 +3,50 @@
  */
 #include <fstream>
 #include <icecream.hpp>
+#include <regex>
 #include <string>
 #include <vector>
-#include <regex>
-
 
 int count_substring(std::string_view str, std::string_view substr) {
     int count{0};
     std::string::size_type pos{0};
     while ((pos = str.find(substr, pos)) != std::string::npos) {
-            count++;
-            pos += substr.length();
+        count++;
+        pos += substr.length();
     }
     return count;
 }
 
 int count_diagonals(std::vector<std::string>& inp, size_t r, size_t c) {
     int count{0};
-    if (
-            inp.at(r).at(c) == 'X'
-            && inp.at(r+1).at(c+1) == 'M'
-            && inp.at(r+2).at(c+2) == 'A'
-            && inp.at(r+3).at(c+3) == 'S'
-            ) {
+    if (inp.at(r).at(c) == 'X' && inp.at(r + 1).at(c + 1) == 'M' && inp.at(r + 2).at(c + 2) == 'A' &&
+        inp.at(r + 3).at(c + 3) == 'S') {
         count++;
     }
-    if (
-            inp.at(r).at(c) == 'S'
-            && inp.at(r+1).at(c+1) == 'A'
-            && inp.at(r+2).at(c+2) == 'M'
-            && inp.at(r+3).at(c+3) == 'X'
-            ) {
+    if (inp.at(r).at(c) == 'S' && inp.at(r + 1).at(c + 1) == 'A' && inp.at(r + 2).at(c + 2) == 'M' &&
+        inp.at(r + 3).at(c + 3) == 'X') {
         count++;
     }
 
-    if (
-            inp.at(r+3).at(c) == 'X'
-            && inp.at(r+2).at(c+1) == 'M'
-            && inp.at(r+1).at(c+2) == 'A'
-            && inp.at(r).at(c+3) == 'S'
-            ) {
+    if (inp.at(r + 3).at(c) == 'X' && inp.at(r + 2).at(c + 1) == 'M' && inp.at(r + 1).at(c + 2) == 'A' &&
+        inp.at(r).at(c + 3) == 'S') {
         count++;
     }
-    if (
-            inp.at(r+3).at(c) == 'S'
-            && inp.at(r+2).at(c+1) == 'A'
-            && inp.at(r+1).at(c+2) == 'M'
-            && inp.at(r).at(c+3) == 'X'
-            ) {
+    if (inp.at(r + 3).at(c) == 'S' && inp.at(r + 2).at(c + 1) == 'A' && inp.at(r + 1).at(c + 2) == 'M' &&
+        inp.at(r).at(c + 3) == 'X') {
         count++;
     }
     return count;
 }
 
 bool find_pattern(std::vector<std::string> const& inp, size_t r, size_t c) {
-    if (
-        inp.at(r).at(c) == 'M'
-        && inp.at(r).at(c+2) == 'S'
-        && inp.at(r+1).at(c+1) == 'A'
-        && inp.at(r+2).at(c) == 'M'
-        && inp.at(r+2).at(c+2) == 'S'
-       ) {
+    if (inp.at(r).at(c) == 'M' && inp.at(r).at(c + 2) == 'S' && inp.at(r + 1).at(c + 1) == 'A' &&
+        inp.at(r + 2).at(c) == 'M' && inp.at(r + 2).at(c + 2) == 'S') {
         return true;
     }
 
-    if (
-        inp.at(r).at(c) == 'S'
-        && inp.at(r).at(c+2) == 'M'
-        && inp.at(r+1).at(c+1) == 'A'
-        && inp.at(r+2).at(c) == 'S'
-        && inp.at(r+2).at(c+2) == 'M'
-       ) {
+    if (inp.at(r).at(c) == 'S' && inp.at(r).at(c + 2) == 'M' && inp.at(r + 1).at(c + 1) == 'A' &&
+        inp.at(r + 2).at(c) == 'S' && inp.at(r + 2).at(c + 2) == 'M') {
         return true;
     }
 
@@ -97,14 +70,14 @@ int solve_1(std::vector<std::string> inp) {
 
     std::string s1{"XMAS"};
     std::string s2{"SAMX"};
-    for (auto& line: inp) {
+    for (auto& line : inp) {
         sum += count_substring(line, s1);
         sum += count_substring(line, s2);
     }
 
     auto transposed{transpose(inp)};
 
-    for (auto& line: transposed) {
+    for (auto& line : transposed) {
         sum += count_substring(line, s1);
         sum += count_substring(line, s2);
     }
