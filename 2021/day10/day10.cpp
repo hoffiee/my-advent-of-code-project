@@ -1,14 +1,13 @@
 /**
  * https://adventofcode.com/2021/day/10
  */
+#include <cstdint>
 #include <fstream>
 #include <icecream.hpp>
-#include <string>
-#include <cstdint>
 #include <iostream>
-#include <vector>
 #include <stack>
-
+#include <string>
+#include <vector>
 
 char matching_closure(char open) {
     switch (open) {
@@ -29,15 +28,14 @@ char corrupt_line(std::string_view line) {
     std::string const valid_open{"<([{"};
     std::string const valid_close{">)]}"};
     std::stack<char> stack{};
-    for (char chr: line) {
+    for (char chr : line) {
         if (valid_open.find(chr) != std::string::npos) {
             stack.push(chr);
         }
         if (valid_close.find(chr) != std::string::npos) {
             if (stack.size() > 0 && matching_closure(stack.top()) == chr) {
                 stack.pop();
-            }
-            else {
+            } else {
                 return chr;
             }
         }
@@ -49,12 +47,12 @@ std::stack<char> corrupt_stack(std::string_view line) {
     std::string const valid_open{"<([{"};
     std::string const valid_close{">)]}"};
     std::stack<char> stack{};
-    for (char chr: line) {
+    for (char chr : line) {
         if (valid_open.find(chr) != std::string::npos) {
             stack.push(chr);
         }
         if (valid_close.find(chr) != std::string::npos) {
-            if (stack.size() > 0 && matching_closure(stack.top()) == chr ) {
+            if (stack.size() > 0 && matching_closure(stack.top()) == chr) {
                 stack.pop();
             }
         }
@@ -64,31 +62,19 @@ std::stack<char> corrupt_stack(std::string_view line) {
 
 int64_t solve_1(std::vector<std::string> inp) {
     int64_t sum{0};
-    std::unordered_map<char, int64_t> const score_table{
-        {')', 3},
-        {']', 57},
-        {'}', 1197},
-        {'>', 25137},
-        {' ', 0}
-    };
+    std::unordered_map<char, int64_t> const score_table{{')', 3}, {']', 57}, {'}', 1197}, {'>', 25137}, {' ', 0}};
 
-    for (auto& line: inp) {
+    for (auto& line : inp) {
         sum += score_table.at(corrupt_line(line));
     }
     return sum;
 }
 
 int64_t solve_2(std::vector<std::string> inp) {
-    std::unordered_map<char, int64_t> score_table{
-        {')', 1},
-        {']', 2},
-        {'}', 3},
-        {'>', 4},
-        {' ', 0}
-    };
+    std::unordered_map<char, int64_t> score_table{{')', 1}, {']', 2}, {'}', 3}, {'>', 4}, {' ', 0}};
 
     std::vector<int64_t> scores{};
-    for (auto& line: inp) {
+    for (auto& line : inp) {
         if (score_table.at(corrupt_line(line)) > 0) {
             // corrupt lines, disregard
             continue;
@@ -98,14 +84,14 @@ int64_t solve_2(std::vector<std::string> inp) {
 
         int64_t score = 0;
         while (!stack.empty()) {
-            score = 5*score + score_table[matching_closure(stack.top())];
+            score = 5 * score + score_table[matching_closure(stack.top())];
             stack.pop();
         }
         scores.push_back(score);
     }
     std::sort(scores.begin(), scores.end());
 
-    return scores.at(scores.size()/2);
+    return scores.at(scores.size() / 2);
 }
 
 int main() {
