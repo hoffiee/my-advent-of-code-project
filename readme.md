@@ -108,7 +108,8 @@ manage to complete them) I often browse for inspiration and learning. Reddit
 AdventOfCode solution megathreads is a very neat place to learn. Other than
 that I list a few here where I've found cool solutions that I can learn from
 
-- [Github: Happy Cerberus - moderncpp-aoc-2022](https://github.com/HappyCerberus/moderncpp-aoc-2022)
+- [450 stars: a categorization and
+  mega-guide](https://www.reddit.com/r/adventofcode/comments/1gdw4cj/450_stars_a_categorization_and_megaguide/)
 
 *Note*: Since I have hosted this repository privately before I haven't been
 strict on emphasizing which solutions are purely my own and when I took
