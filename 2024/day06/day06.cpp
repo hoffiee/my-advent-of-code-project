@@ -9,6 +9,7 @@
 #include <icecream.hpp>
 #include <numeric>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 struct ComplexHash {
@@ -150,15 +151,14 @@ struct Grid {
     bool path_available(Position const& pos) const { return !(obstacles_.contains(pos.current_)); }
 };
 
-using Path = std::unordered_map<std::complex<int>, bool, ComplexHash, ComplexEqual>;
+using Path = std::vector<Position>;
 
 std::tuple<bool, Path> check_infinite_loop(Grid grid, Position start, std::optional<std::complex<int>> new_obstacle) {
     Path path{};
-    path[start.current_];
+    path.emplace_back(start);
     std::unordered_map<Position, bool, PositionHash, PositionEqual> turns{};
 
     if (new_obstacle.has_value()) {
-        // Add new object
         grid.obstacles_[new_obstacle.value()];
     }
 
@@ -191,10 +191,22 @@ std::tuple<bool, Path> check_infinite_loop(Grid grid, Position start, std::optio
         }
 
         pos.step();
-        path[pos.current_];
+        path.emplace_back(pos);
     }
 
     return {infinite_loop, path};
+}
+
+Path remove_duplicate_positions(Path const& path) {
+    std::unordered_set<std::complex<int>, ComplexHash, ComplexEqual> seen{};
+    Path results{};
+    results.reserve(path.size());
+    for (auto const& pos : path) {
+        if (seen.insert(pos.current_).second) {
+            results.push_back(pos);
+        }
+    }
+    return results;
 }
 
 int solve_1(std::vector<std::string> inp) {
@@ -205,6 +217,7 @@ int solve_1(std::vector<std::string> inp) {
     auto [infinite_loop, path] = check_infinite_loop(g, start, std::nullopt);
     assert(!infinite_loop);
 
+    path = remove_duplicate_positions(path);
     return path.size();
 }
 
@@ -215,29 +228,18 @@ int solve_2(std::vector<std::string> inp) {
     auto [infinite_loop, path] = check_infinite_loop(g, start, std::nullopt);
     assert(!infinite_loop);
 
-    path.erase(start.current_);
+    path = remove_duplicate_positions(path);
 
-    // This was the only parallelization I was able to get working for random access iterators as unordered_maps are. I
-    // tried for looping over bucket optimization which I didn't get to work..
     int sum{0};
-#pragma omp parallel
-    {
-#pragma omp single
-        {
-            for (auto const& [pos, visit] : path) {
-                static_cast<void>(visit);
-#pragma omp task
-                {
-                    auto res = check_infinite_loop(g, start, pos);
-                    int infinite = static_cast<int>(std::get<0>(res));
-
-#pragma omp atomic
-                    sum += infinite;
-                }
-            }
+#pragma omp parallel for reduction(+ : sum)
+    for (size_t i = 1; i < path.size(); i++) {
+        if (path[i].current_ == start.current_) {
+            continue;
         }
+        auto res = check_infinite_loop(g, path[i - 1], path[i].current_);
+        int infinite = static_cast<int>(std::get<0>(res));
+        sum += infinite;
     }
-
     return sum;
 }
 
