@@ -10,11 +10,11 @@
 
 #include "string_utils.h"
 
-bool safe_level(std::vector<int> vec) {
+bool safe_level(std::vector<int64_t> vec) {
     bool safe_level{true};
-    int sign = vec[1] - vec[0];
+    int64_t sign = vec[1] - vec[0];
     for (int i = 0; i < static_cast<int>(vec.size()) - 1 && safe_level; i++) {
-        int diff = vec[i + 1] - vec[i];
+        int64_t diff = vec[i + 1] - vec[i];
         if ((diff < -3) || (diff == 0) || (3 < diff)) {
             safe_level = false;
         }

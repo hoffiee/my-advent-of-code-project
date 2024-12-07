@@ -15,9 +15,9 @@ std::vector<std::string> split_string(std::string str, char delim) {
     return out;
 }
 
-std::vector<int> numbers_from_string(std::string str) {
+std::vector<int64_t> numbers_from_string(std::string str) {
     std::string tmp{};
-    std::vector<int> out{};
+    std::vector<int64_t> out{};
 
     for (size_t i = 0; i < str.size(); i++) {
         if (std::isdigit(static_cast<unsigned char>(str[i]))) {
@@ -29,7 +29,7 @@ std::vector<int> numbers_from_string(std::string str) {
             continue;
         }
 
-        out.emplace_back(std::stoi(tmp));
+        out.emplace_back(std::stoll(tmp));
         tmp.clear();
     }
 

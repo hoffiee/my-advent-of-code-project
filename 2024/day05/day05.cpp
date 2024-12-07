@@ -12,8 +12,8 @@
 
 #include "string_utils.h"
 
-bool valid_line(std::unordered_map<int, std::vector<int>> dependencies, std::unordered_map<int, bool> printed,
-                std::vector<int> pages) {
+bool valid_line(std::unordered_map<int64_t, std::vector<int64_t>> dependencies,
+                std::unordered_map<int64_t, bool> printed, std::vector<int64_t> pages) {
     for (auto num : pages) {
         for (auto dep : dependencies[num]) {
             if (std::find(pages.begin(), pages.end(), dep) == pages.end()) {
@@ -28,8 +28,8 @@ bool valid_line(std::unordered_map<int, std::vector<int>> dependencies, std::uno
     return true;
 }
 
-bool dependencies_fulfilled(std::unordered_map<int, std::vector<int>> dependencies,
-                            std::unordered_map<int, bool> printed, int page) {
+bool dependencies_fulfilled(std::unordered_map<int64_t, std::vector<int64_t>> dependencies,
+                            std::unordered_map<int64_t, bool> printed, int64_t page) {
     for (auto dep : dependencies[page]) {
         if (!printed[dep]) {
             return false;
@@ -38,12 +38,12 @@ bool dependencies_fulfilled(std::unordered_map<int, std::vector<int>> dependenci
     return true;
 }
 
-std::vector<int> correct_line(std::unordered_map<int, std::vector<int>> dependencies,
-                              std::unordered_map<int, bool> printed, std::vector<int> pages) {
-    std::vector<int> out{};
+std::vector<int64_t> correct_line(std::unordered_map<int64_t, std::vector<int64_t>> dependencies,
+                                  std::unordered_map<int64_t, bool> printed, std::vector<int64_t> pages) {
+    std::vector<int64_t> out{};
 
     // Make into own function
-    std::unordered_map<int, std::vector<int>> reduced_dependencies{};
+    std::unordered_map<int64_t, std::vector<int64_t>> reduced_dependencies{};
     for (auto x : pages) {
         reduced_dependencies[x];
         for (auto y : dependencies[x]) {
@@ -85,10 +85,10 @@ std::vector<int> correct_line(std::unordered_map<int, std::vector<int>> dependen
 }
 
 int solve_1(std::vector<std::string> inp) {
-    int sum{0};
+    int64_t sum{0};
 
-    std::unordered_map<int, std::vector<int>> dependencies{};
-    std::unordered_map<int, bool> printed{};
+    std::unordered_map<int64_t, std::vector<int64_t>> dependencies{};
+    std::unordered_map<int64_t, bool> printed{};
 
     bool reading_updates{false};
 
@@ -117,11 +117,11 @@ int solve_1(std::vector<std::string> inp) {
     return sum;
 }
 
-int solve_2(std::vector<std::string> inp) {
-    int sum{0};
+int64_t solve_2(std::vector<std::string> inp) {
+    int64_t sum{0};
 
-    std::unordered_map<int, std::vector<int>> dependencies{};
-    std::unordered_map<int, bool> printed{};
+    std::unordered_map<int64_t, std::vector<int64_t>> dependencies{};
+    std::unordered_map<int64_t, bool> printed{};
 
     bool reading_updates{false};
 
@@ -139,7 +139,6 @@ int solve_2(std::vector<std::string> inp) {
             }
 
             auto new_order = correct_line(dependencies, printed, pages);
-
             sum += new_order.at(pages.size() / 2);
         } else {
             int x{0};
