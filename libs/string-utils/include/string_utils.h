@@ -7,6 +7,8 @@
 
 namespace string_utils {
 
+std::vector<std::string> read_input(std::string filename);
+
 std::vector<std::string> split_string(std::string str, char delim);
 
 // TODO: Generalize as template
