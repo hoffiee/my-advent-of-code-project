@@ -28,6 +28,23 @@ target_include_directories(icecream
 )
 
 
+# == libspng
+# I don't know what I'm doing...
+FetchContent_Declare(lodepng
+    GIT_REPOSITORY https://github.com/lvandeve/lodepng
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ""
+)
+Fetchcontent_MakeAvailable(lodepng)
+add_library(lodepng EXCLUDE_FROM_ALL
+    ${lodepng_SOURCE_DIR}/lodepng.cpp
+)
+target_include_directories(lodepng
+    PUBLIC
+    ${lodepng_SOURCE_DIR}/
+)
+
+
 # == google test
 FetchContent_Declare(
   googletest
