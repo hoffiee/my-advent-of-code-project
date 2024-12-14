@@ -3,6 +3,11 @@
  *
  * Ouf, this got a bit messy, try to clean up a bit, probably would have avoided that if I did some unit tests along the
  * way...
+ *
+ * Later on I saw someone who sorted their pages with the page order rules as the base for the comparison for sort, so
+ * implemented that in C++ and replaced my old solution. I kept my own solution.
+ *
+ * aoc_tags: sort according to custom rules
  */
 #include <algorithm>
 #include <fstream>
@@ -41,8 +46,6 @@ bool dependencies_fulfilled(std::unordered_map<int64_t, std::vector<int64_t>> de
 std::vector<int64_t> correct_line(std::unordered_map<int64_t, std::vector<int64_t>> dependencies,
                                   std::unordered_map<int64_t, bool> printed, std::vector<int64_t> pages) {
     std::vector<int64_t> out{};
-
-    // Make into own function
     std::unordered_map<int64_t, std::vector<int64_t>> reduced_dependencies{};
     for (auto x : pages) {
         reduced_dependencies[x];
@@ -117,7 +120,7 @@ int solve_1(std::vector<std::string> inp) {
     return sum;
 }
 
-int64_t solve_2(std::vector<std::string> inp) {
+int64_t solve_2_1(std::vector<std::string> inp) {
     int64_t sum{0};
 
     std::unordered_map<int64_t, std::vector<int64_t>> dependencies{};
@@ -152,6 +155,50 @@ int64_t solve_2(std::vector<std::string> inp) {
     return sum;
 }
 
+struct TupleHash {
+    size_t operator()(const std::tuple<int64_t, int64_t>& t) const {
+        auto hash1 = std::hash<int>{}(std::get<0>(t));
+        auto hash2 = std::hash<int>{}(std::get<1>(t));
+        return hash1 ^ (hash2 << 1);
+    }
+};
+
+int64_t solve_2_2(std::vector<std::string> inp) {
+    int64_t sum{0};
+
+    std::unordered_map<std::tuple<int, int>, int, TupleHash> rules{};
+    std::unordered_map<int64_t, bool> printed{};
+
+    bool reading_updates{false};
+
+    for (auto& line : inp) {
+        if (line.empty()) {
+            // Now we've passed the first part of the input
+            reading_updates = true;
+            continue;
+        }
+
+        if (reading_updates) {
+            auto pages{string_utils::numbers_from_string(line)};
+            std::vector<int64_t> updated{pages};
+            // Sort according to the order in rules
+            std::sort(updated.begin(), updated.end(), [&rules](int64_t lhs, int64_t rhs) {
+                return rules.contains({lhs, rhs});
+            });
+
+            if (pages != updated) {
+                sum += updated[updated.size() / 2];
+            }
+        } else {
+            int x{0};
+            int y{0};
+            assert(std::sscanf(line.c_str(), "%d|%d", &x, &y) == 2);
+            rules[std::make_tuple(x, y)];
+        }
+    }
+    return sum;
+}
+
 int main() {
     std::ifstream input_file;
     // input_file.open(AOC_SAMPLE_INPUT);
@@ -167,11 +214,13 @@ int main() {
     }
 
     auto part1 = solve_1(input);
-    auto part2 = solve_2(input);
+    auto part2_1 = solve_2_1(input);
+    static_cast<void>(part2_1);
+    auto part2_2 = solve_2_2(input);
 
     std::cout << "output:" << std::endl;
     std::cout << part1 << std::endl;
-    std::cout << part2 << std::endl;
+    std::cout << part2_2 << std::endl;
 
     return 0;
 }
