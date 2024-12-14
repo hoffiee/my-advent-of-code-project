@@ -3,6 +3,7 @@
 #include <cctype>
 #include <fstream>
 #include <iostream>
+#include <regex>
 #include <sstream>
 
 namespace string_utils {
@@ -33,29 +34,16 @@ std::vector<std::string> split_string(std::string str, char delim) {
 }
 
 std::vector<int64_t> numbers_from_string(std::string str) {
-    std::string tmp{};
     std::vector<int64_t> out{};
 
-    for (size_t i = 0; i < str.size(); i++) {
-        if (std::isdigit(static_cast<unsigned char>(str[i]))) {
-            tmp += str[i];
-            continue;
-        }
+    std::regex number_regex(R"(-?\d+)");
+    std::sregex_iterator current_match(str.begin(), str.end(), number_regex);
+    std::sregex_iterator last_match{};
 
-        if (tmp.empty()) {
-            continue;
-        }
-
-        out.emplace_back(std::stoll(tmp));
-        tmp.clear();
+    while (current_match != last_match) {
+        out.emplace_back(std::stoll(current_match->str()));
+        current_match++;
     }
-
-    // If string is empty we had something in the end that we never cleared out
-    // add that to output before we return
-    if (!tmp.empty()) {
-        out.emplace_back(std::stoi(tmp));
-    }
-
     return out;
 }
 

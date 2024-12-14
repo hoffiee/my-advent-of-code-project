@@ -107,6 +107,16 @@ TEST(STRING_UTILS_TEST, test_example_from_puzzle_2) {
     ASSERT_EQ(out.at(13), 19);
 }
 
+TEST(STRING_UTILS_TEST, test_example_from_2024_day14) {
+    std::string inp = {"p=2,4 v=2,-3"};
+    auto out = string_utils::numbers_from_string(inp);
+    ASSERT_EQ(out.size(), 4);
+    ASSERT_EQ(out.at(0), 2);
+    ASSERT_EQ(out.at(1), 4);
+    ASSERT_EQ(out.at(2), 2);
+    ASSERT_EQ(out.at(3), -3);
+}
+
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
