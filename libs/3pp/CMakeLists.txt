@@ -79,3 +79,15 @@ target_link_libraries(eigen-wrapper
     INTERFACE
     Eigen3::Eigen
 )
+
+set(CURSES_NEED_NCURSES TRUE)
+find_package(Curses REQUIRED)
+add_library(ncurses INTERFACE EXCLUDE_FROM_ALL)
+target_include_directories(ncurses
+    INTERFACE
+    ${CURSES_INCLUDE_DIR}
+)
+target_link_libraries(ncurses
+    INTERFACE
+    ${CURSES_LIBRARIES}
+)
