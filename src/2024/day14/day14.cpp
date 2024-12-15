@@ -22,10 +22,10 @@ struct Robot {
 
     Robot(std::string const& desc, std::complex<int> grid_sz)
         : grid_sz_{grid_sz}, ignore_{grid_sz_.real() / 2, grid_sz_.imag() / 2} {
-        int64_t x, y, vx, vy;
-        assert(sscanf(desc.c_str(), "p=%ld,%ld v=%ld,%ld", &x, &y, &vx, &vy) == 4);
-        p_ = Pos{x, y};
-        v_ = Pos{vx, vy};
+        auto numbers = string_utils::numbers_from_string(desc.c_str());
+        assert(numbers.size() == 4);
+        p_ = Pos{numbers[0], numbers[1]};
+        v_ = Pos{numbers[2], numbers[3]};
     }
 
     void step(int64_t steps) {
