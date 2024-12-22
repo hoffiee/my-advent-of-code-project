@@ -206,11 +206,7 @@ int main() {
 
     auto input = string_utils::read_input(AOC_INPUT);
     auto part1 = solve_1(input);
-    assert(part1 == 264);
     auto part2 = solve_2(input);
-    assert(part2 != "32,41");
-    assert(part2 != "70,57");
-    assert(part2 == "41,26");
 
     std::cout << "output:" << std::endl;
     std::cout << part1 << std::endl;

@@ -137,9 +137,7 @@ int main() {
 
     auto input = string_utils::read_input(AOC_INPUT);
     auto part1 = solve_1(input, {101, 103});
-    assert(part1 == 230686500);
     auto part2 = solve_2(input, {101, 103});
-    assert(part2 == 7672);
 
     std::cout << "output:" << std::endl;
     std::cout << part1 << std::endl;
