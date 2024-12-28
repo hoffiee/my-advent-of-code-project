@@ -4,14 +4,16 @@
 #include AOC_HEADER
 
 #include <omp.h>
-#include <string_utils.h>
 
 #include <algorithm>
 #include <icecream.hpp>
 #include <numeric>
 
+#include "aoc_utils.h"
+#include "string_utils.h"
+
 static std::vector<std::vector<int>> parse_line(const std::string& line) {
-    auto split_line = string_utils::split_string(line, ' ');
+    auto split_line = aoc::string::split(line, ' ');
     std::vector<std::vector<int>> history(1, std::vector<int>(split_line.size(), 0));
     for (size_t i = 0; i < split_line.size(); i++) {
         history.at(0).at(i) = std::stoi(split_line.at(i));

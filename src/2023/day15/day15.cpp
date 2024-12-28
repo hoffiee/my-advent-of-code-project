@@ -6,10 +6,11 @@
  */
 #include AOC_HEADER
 
-#include <string_utils.h>
-
 #include <icecream.hpp>
 #include <numeric>
+
+#include "aoc_utils.h"
+#include "string_utils.h"
 
 size_t internal::hash(std::string inp) {
     size_t sum = 0;
@@ -22,24 +23,24 @@ size_t internal::hash(std::string inp) {
 }
 
 int solve_1(std::vector<std::string> inp) {
-    auto entries = string_utils::split_string(inp.at(0), ',');
+    auto entries = aoc::string::split(inp.at(0), ',');
     return static_cast<int>(std::accumulate(entries.cbegin(), entries.cend(), static_cast<ssize_t>(0),
                                             [](auto sum, auto& str) { return sum + internal::hash(str); }));
 }
 
 int solve_2(std::vector<std::string> inp) {
-    auto steps = string_utils::split_string(inp.at(0), ',');
+    auto steps = aoc::string::split(inp.at(0), ',');
     std::vector<std::vector<std::pair<std::string, int>>> boxes(256, std::vector<std::pair<std::string, int>>());
     for (auto& step : steps) {
         if (step.back() == '-') {
-            auto lens = string_utils::split_string(step, '-');
+            auto lens = aoc::string::split(step, '-');
             auto& box = boxes[internal::hash(lens.at(0))];
             if (auto it = std::find_if(box.begin(), box.end(), [&](auto& obj) { return obj.first == lens.at(0); });
                 it != box.end()) {
                 box.erase(it);
             }
         } else {
-            auto lens = string_utils::split_string(step, '=');
+            auto lens = aoc::string::split(step, '=');
             int focal_length = std::stoi(lens.at(1));
 
             auto& box = boxes[internal::hash(lens.at(0))];

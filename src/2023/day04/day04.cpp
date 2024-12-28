@@ -10,6 +10,8 @@
 #include <numeric>
 #include <unordered_map>
 
+#include "aoc_utils.h"
+
 struct Card {
     int id = 0;
     int win_count = 0;
@@ -26,7 +28,7 @@ Card::Card(std::string input) {
     id = std::stoi(input.substr(5, 3));
 
     // 0: winning numbers | 1: card numbers
-    auto card_numbers = string_utils::split_string(input.substr(input.find(":") + 2), '|');
+    auto card_numbers = aoc::string::split(input.substr(input.find(":") + 2), '|');
 
     {
         std::stringstream ss(card_numbers.at(0));

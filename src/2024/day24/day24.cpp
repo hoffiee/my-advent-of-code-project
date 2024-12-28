@@ -20,19 +20,8 @@
 #include <string>
 #include <vector>
 
+#include "aoc_utils.h"
 #include "string_utils.h"
-
-// TODO: Move to utils
-std::string join(std::vector<std::string> const& vec) {
-    std::string out{};
-    for (auto entry : vec) {
-        if (out.size() != 0) {
-            out += ",";
-        }
-        out += entry;
-    }
-    return out;
-}
 
 // TODO move to utils
 struct TupleHash {
@@ -85,7 +74,7 @@ struct Memory {
                 }
                 continue;
             }
-            auto entries = string_utils::split_string(line, ' ');
+            auto entries = aoc::string::split(line, ' ');
             memory_[entries[4]].input1_ = entries[0];
             memory_[entries[4]].input2_ = entries[2];
             memory_[entries[4]].type_ = entries[1];
@@ -162,7 +151,7 @@ void print_graph(std::vector<std::string> const& inp) {
             }
             continue;
         }
-        auto entries = string_utils::split_string(line, ' ');
+        auto entries = aoc::string::split(line, ' ');
         file << entries[0] + " -> " + entries[1] + "_" + std::to_string(step) << std::endl;
         file << entries[2] + " -> " + entries[1] + "_" + std::to_string(step) << std::endl;
         file << entries[1] + "_" + std::to_string(step) + " -> " + entries[4] << std::endl;
@@ -222,7 +211,7 @@ std::string solve_2(std::vector<std::string> inp) {
                                      "z32", "gfm"};
 
     std::sort(swapped.begin(), swapped.end());
-    return join(swapped);
+    return aoc::string::join(swapped, ",");
 }
 
 int main() {

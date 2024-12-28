@@ -11,6 +11,7 @@ target_link_libraries(${TASK}
     PRIVATE
     icecream
     string-utils
+    aoc-utils
 )
 
 add_custom_target(${TASK}-run

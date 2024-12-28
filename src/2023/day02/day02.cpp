@@ -6,12 +6,13 @@
  */
 #include AOC_HEADER
 
-#include <string_utils.h>
-
 #include <algorithm>
 #include <icecream.hpp>
 #include <numeric>
 #include <sstream>
+
+#include "aoc_utils.h"
+#include "string_utils.h"
 
 static std::vector<int> get_counts(std::string hand) {
     int cubes = 0;
@@ -41,7 +42,7 @@ int solve_1(std::vector<std::string> inp) {
         int id = 0;
         ss >> ignore >> id;
 
-        auto hands = string_utils::split_string(game.substr(game.find(":") + 2), ';');
+        auto hands = aoc::string::split(game.substr(game.find(":") + 2), ';');
         bool game_valid = true;
         for (auto hand : hands) {
             auto count = get_counts(hand);
@@ -62,7 +63,7 @@ int solve_2(std::vector<std::string> inp) {
         std::stringstream ss(game);
 
         std::vector<int> min_cubes(3, 0);
-        auto hands = string_utils::split_string(game.substr(game.find(":") + 2), ';');
+        auto hands = aoc::string::split(game.substr(game.find(":") + 2), ';');
         for (auto hand : hands) {
             auto count = get_counts(hand);
             for (size_t i = 0; i < min_cubes.size(); i++) {

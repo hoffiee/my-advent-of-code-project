@@ -7,29 +7,18 @@
 #include <string>
 #include <vector>
 
+#include "aoc_utils.h"
 #include "string_utils.h"
 
 using Graph = std::unordered_map<std::string, std::vector<std::string>>;
 using Edges = std::vector<std::tuple<std::string, std::string>>;
-
-// TODO: Move to string utils
-std::string join(std::vector<std::string> const& vec) {
-    std::string out{};
-    for (auto entry : vec) {
-        if (out.size() != 0) {
-            out += ",";
-        }
-        out += entry;
-    }
-    return out;
-}
 
 std::tuple<Graph, Edges> construct_graph(std::vector<std::string> const& inp) {
     Graph graph{};
     Edges edges{};
 
     for (auto line : inp) {
-        auto nodes = string_utils::split_string(line, '-');
+        auto nodes = aoc::string::split(line, '-');
         assert(nodes.size() == 2);
         graph[nodes[0]].push_back(nodes[1]);
         graph[nodes[1]].push_back(nodes[0]);
@@ -128,7 +117,7 @@ std::string solve_2(std::vector<std::string> inp) {
     }
     std::sort(lan.begin(), lan.end());
 
-    auto out = join(lan);
+    auto out = aoc::string::join(lan, ",");
     return out;
 }
 

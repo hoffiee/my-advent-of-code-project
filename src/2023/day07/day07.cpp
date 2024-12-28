@@ -3,12 +3,13 @@
  */
 #include AOC_HEADER
 
-#include <string_utils.h>
-
 #include <algorithm>
 #include <cassert>
 #include <icecream.hpp>
 #include <map>
+
+#include "aoc_utils.h"
+#include "string_utils.h"
 
 enum class HandType : int {
     undetermined = 0,
@@ -75,7 +76,7 @@ bool Hand::operator<(const Hand& other) const {
 }
 
 Hand::Hand(std::string line, bool joker) : cards(5) {
-    auto input = string_utils::split_string(line, ' ');
+    auto input = aoc::string::split(line, ' ');
     assert(input.at(0).size() == 5);
 
     // Store in order given by input

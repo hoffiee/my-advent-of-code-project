@@ -3,12 +3,13 @@
  */
 #include AOC_HEADER
 
-#include <string_utils.h>
-
 #include <Eigen/Dense>
 #include <cstdint>
 #include <icecream.hpp>
 #include <sstream>
+
+#include "aoc_utils.h"
+#include "string_utils.h"
 
 struct Vec3 {
     int64_t x;
@@ -39,7 +40,7 @@ static std::vector<Line> parse_input(std::vector<std::string>& inp) {
     std::vector<Line> lines;
     lines.reserve(inp.size());
     for (auto& entry : inp) {
-        auto data = string_utils::split_string(entry, '@');
+        auto data = aoc::string::split(entry, '@');
 
         int64_t x = 0;
         int64_t y = 0;
