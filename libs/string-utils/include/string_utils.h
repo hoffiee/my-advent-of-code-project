@@ -9,10 +9,10 @@ namespace string_utils {
 
 std::vector<std::string> read_input(std::string filename);
 
-std::vector<std::string> split_string(std::string str, char delim);
-
 // TODO: Generalize as template
 std::vector<int64_t> numbers_from_string(std::string str);
+
+std::vector<uint64_t> unumbers_from_string(std::string str);
 
 }  // namespace string_utils
 
