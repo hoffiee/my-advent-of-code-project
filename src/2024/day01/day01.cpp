@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+#include "string_utils.h"
+
 int solve_1(std::vector<std::string> inp) {
     std::vector<int> lst1{};
     std::vector<int> lst2{};
@@ -48,18 +50,7 @@ int solve_2(std::vector<std::string> inp) {
 }
 
 int main() {
-    std::ifstream input_file;
-    input_file.open(AOC_INPUT);
-    // input_file.open(AOC_SAMPLE_INPUT);
-    if (!input_file.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
-        return -1;
-    }
-    std::vector<std::string> input;
-    std::string line;
-    while (getline(input_file, line)) {
-        input.push_back(line);
-    }
+    auto input = string_utils::read_input(AOC_INPUT);
 
     auto part1 = solve_1(input);
     auto part2 = solve_2(input);

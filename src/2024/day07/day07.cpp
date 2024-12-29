@@ -49,19 +49,7 @@ int64_t solver(std::vector<std::string>& inp, bool third = false) {
 }
 
 int main() {
-    std::ifstream input_file;
-    // input_file.open(AOC_SAMPLE_INPUT);
-    input_file.open(AOC_INPUT);
-    if (!input_file.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
-        return -1;
-    }
-    std::vector<std::string> input;
-    std::string line;
-    while (getline(input_file, line)) {
-        input.push_back(line);
-    }
-
+    auto input = string_utils::read_input(AOC_INPUT);
     auto part1 = solver(input);
     auto part2 = solver(input, true);
 
