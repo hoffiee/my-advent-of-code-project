@@ -22,5 +22,5 @@ add_custom_target(format
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
-# Add examples etc
+add_subdirectory(aoc-bench)
 add_subdirectory(python-example)
