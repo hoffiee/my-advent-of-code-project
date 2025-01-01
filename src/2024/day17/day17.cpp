@@ -20,6 +20,7 @@
 #include <string>
 #include <vector>
 
+#include "aoc_runner.h"
 #include "aoc_utils.h"
 #include "string_utils.h"
 
@@ -273,7 +274,7 @@ uint64_t solve_2_fuzzing(std::vector<std::string> inp) {
     return best_candidate;
 }
 
-int main() {
+void samples() {
     auto sample1 = string_utils::read_input("day17-sample-1.input");
     assert(solve_1(sample1).register_b_ == 1);
 
@@ -318,16 +319,20 @@ int main() {
     //     static_cast<void>(resp);
     // }
     // std::cout << "completed all in the quinable list" << std::endl;
+}
 
+int main(int argc, char** argv) {
     auto input = string_utils::read_input(AOC_INPUT);
-    auto part1 = solve_1(input);
-    auto part2 = solve_2_fuzzing(input);
-    // randomly fails sometimes, but that's part of it being a random approach..
-    assert(part2 == 156985331222018);
 
-    std::cout << "output:" << std::endl;
-    std::cout << part1.output() << std::endl;
-    std::cout << part2 << std::endl;
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        std::cout << "part 1: " << solve_1(inp).output() << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part2 = solve_2_fuzzing(inp);
+        // randomly fails sometimes, but that's part of it being a random approach..
+        assert(part2 == 156985331222018);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
 
-    return 0;
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

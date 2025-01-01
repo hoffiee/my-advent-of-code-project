@@ -20,6 +20,7 @@
 #include <string>
 #include <vector>
 
+#include "aoc_runner.h"
 #include "aoc_utils.h"
 #include "string_utils.h"
 
@@ -214,24 +215,28 @@ std::string solve_2(std::vector<std::string> inp) {
     return aoc::string::join(swapped, ",");
 }
 
-int main() {
+void samples() {
     auto sample1 = string_utils::read_input("day24-sample-1.input");
     assert(solve_1(sample1) == 4);
 
     auto sample2 = string_utils::read_input("day24-sample-2.input");
     assert(solve_1(sample2) == 2024);
+}
 
+int main(int argc, char** argv) {
     auto input = string_utils::read_input(AOC_INPUT);
-    auto part1 = solve_1(input);
-    assert(part1 == 55114892239566);
 
-    auto fixed = string_utils::read_input("day24-fixed.input");
-    auto part2 = solve_2(fixed);
-    assert(part2 == "cdj,dhm,gfm,mrb,qjd,z08,z16,z32");
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part1 = solve_1(inp);
+        assert(part1 == 55114892239566);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto fixed = string_utils::read_input("day24-fixed.input");
+        auto part2 = solve_2(fixed);
+        assert(part2 == "cdj,dhm,gfm,mrb,qjd,z08,z16,z32");
+        std::cout << "part 2: " << part2 << std::endl;
+    };
 
-    std::cout << "output:" << std::endl;
-    std::cout << part1 << std::endl;
-    std::cout << part2 << std::endl;
-
-    return 0;
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

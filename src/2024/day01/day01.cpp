@@ -54,10 +54,10 @@ int main(int argc, char** argv) {
     auto input = string_utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
-        std::cout << "output part 1: " << solve_1(inp) << std::endl;
+        std::cout << "part 1: " << solve_1(inp) << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
-        std::cout << "output part 2: " << solve_2(inp) << std::endl;
+        std::cout << "part 2: " << solve_2(inp) << std::endl;
     };
 
     return aoc::run(

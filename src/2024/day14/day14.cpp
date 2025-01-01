@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 
+#include "aoc_runner.h"
 #include "lodepng.h"
 #include "string_utils.h"
 
@@ -131,17 +132,20 @@ int64_t solve_2(std::vector<std::string> inp, std::complex<int> grid_sz) {
     return lowest_step;
 }
 
-int main() {
+void samples() {
     auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve_1(sample, {11, 7}) == 12);
+}
 
+int main(int argc, char** argv) {
     auto input = string_utils::read_input(AOC_INPUT);
-    auto part1 = solve_1(input, {101, 103});
-    auto part2 = solve_2(input, {101, 103});
 
-    std::cout << "output:" << std::endl;
-    std::cout << part1 << std::endl;
-    std::cout << part2 << std::endl;
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        std::cout << "part 1: " << solve_1(inp, {101, 103}) << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        std::cout << "part 2: " << solve_2(inp, {101, 103}) << std::endl;
+    };
 
-    return 0;
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

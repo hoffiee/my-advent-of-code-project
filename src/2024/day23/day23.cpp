@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+#include "aoc_runner.h"
 #include "aoc_utils.h"
 #include "string_utils.h"
 
@@ -121,18 +122,21 @@ std::string solve_2(std::vector<std::string> inp) {
     return out;
 }
 
-int main() {
+void samples() {
     auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve_1(sample) == 7);
     assert(solve_2(sample) == "co,de,ka,ta");
+}
 
+int main(int argc, char** argv) {
     auto input = string_utils::read_input(AOC_INPUT);
-    auto part1 = solve_1(input);
-    auto part2 = solve_2(input);
 
-    std::cout << "output:" << std::endl;
-    std::cout << part1 << std::endl;
-    std::cout << part2 << std::endl;
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        std::cout << "part 1: " << solve_1(inp) << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        std::cout << "part 2: " << solve_2(inp) << std::endl;
+    };
 
-    return 0;
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

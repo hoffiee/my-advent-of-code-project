@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 
+#include "aoc_runner.h"
 #include "string_utils.h"
 
 struct Antennas {
@@ -161,7 +162,7 @@ int64_t solve_1(std::vector<std::string> inp) { return solver(inp, generator1); 
 
 int64_t solve_2(std::vector<std::string> inp) { return solver(inp, generator2); }
 
-int main() {
+void samples() {
     auto sample1 = string_utils::read_input("day08-sample-1.input");
     assert(solve_1(sample1) == 2);
 
@@ -174,14 +175,17 @@ int main() {
     auto sample4 = string_utils::read_input("day08-sample-4.input");
     assert(solve_2(sample4) == 9);
     assert(solve_2(sample3) == 34);
+}
 
+int main(int argc, char** argv) {
     auto input = string_utils::read_input(AOC_INPUT);
-    auto part1 = solve_1(input);
-    auto part2 = solve_2(input);
 
-    std::cout << "output:" << std::endl;
-    std::cout << part1 << std::endl;
-    std::cout << part2 << std::endl;
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        std::cout << "part 1: " << solve_1(inp) << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        std::cout << "part 2: " << solve_2(inp) << std::endl;
+    };
 
-    return 0;
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

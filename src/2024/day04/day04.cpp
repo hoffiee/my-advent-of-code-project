@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+#include "aoc_runner.h"
 #include "string_utils.h"
 
 int count_substring(std::string_view str, std::string_view substr) {
@@ -110,14 +111,16 @@ int solve_2(std::vector<std::string> inp) {
     return sum;
 }
 
-int main() {
+int main(int argc, char** argv) {
     auto input = string_utils::read_input(AOC_INPUT);
-    auto part1 = solve_1(input);
-    auto part2 = solve_2(input);
 
-    std::cout << "output:" << std::endl;
-    std::cout << part1 << std::endl;
-    std::cout << part2 << std::endl;
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        std::cout << "part 1: " << solve_1(inp) << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        std::cout << "part 2: " << solve_2(inp) << std::endl;
+    };
 
-    return 0;
+    return aoc::run(
+        argc, argv, []() {}, solve_1_wrapper, solve_2_wrapper, input);
 }

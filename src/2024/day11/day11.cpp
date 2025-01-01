@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "aoc_runner.h"
 #include "string_utils.h"
 
 uint64_t nr_of_digits(uint64_t number) {
@@ -70,7 +71,7 @@ uint64_t solve(std::string inp, uint64_t steps) {
     return sum;
 }
 
-int main() {
+void samples() {
     assert(solve({"125 17"}, 1) == 3);
     assert(solve({"125 17"}, 2) == 4);
     assert(solve({"125 17"}, 3) == 5);
@@ -78,14 +79,17 @@ int main() {
     assert(solve({"125 17"}, 5) == 13);
     assert(solve({"125 17"}, 6) == 22);
     assert(solve({"125 17"}, 25) == 55312);
+}
 
+int main(int argc, char** argv) {
     auto input = string_utils::read_input(AOC_INPUT);
-    auto part1 = solve(input[0], 25);
-    auto part2 = solve(input[0], 75);
 
-    std::cout << "output:" << std::endl;
-    std::cout << part1 << std::endl;
-    std::cout << part2 << std::endl;
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        std::cout << "part 1: " << solve(inp[0], 25) << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        std::cout << "part 2: " << solve(inp[0], 75) << std::endl;
+    };
 
-    return 0;
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

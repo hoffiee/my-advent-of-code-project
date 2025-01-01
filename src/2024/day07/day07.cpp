@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 
+#include "aoc_runner.h"
 #include "string_utils.h"
 
 int64_t op3(int64_t lhs, int64_t rhs) {
@@ -34,7 +35,7 @@ bool test_sequence(int64_t results, int64_t acc, std::vector<int64_t> numbers, b
            (third && test_sequence(results, op3(acc, num), numbers, third));
 }
 
-int64_t solver(std::vector<std::string>& inp, bool third = false) {
+int64_t solver(std::vector<std::string> const& inp, bool third = false) {
     int64_t sum{0};
 #pragma omp parallel for reduction(+ : sum)
     for (auto& line : inp) {
@@ -48,14 +49,16 @@ int64_t solver(std::vector<std::string>& inp, bool third = false) {
     return sum;
 }
 
-int main() {
+int main(int argc, char** argv) {
     auto input = string_utils::read_input(AOC_INPUT);
-    auto part1 = solver(input);
-    auto part2 = solver(input, true);
 
-    std::cout << "output:" << std::endl;
-    std::cout << part1 << std::endl;
-    std::cout << part2 << std::endl;
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        std::cout << "part 1: " << solver(inp) << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        std::cout << "part 2: " << solver(inp, true) << std::endl;
+    };
 
-    return 0;
+    return aoc::run(
+        argc, argv, []() {}, solve_1_wrapper, solve_2_wrapper, input);
 }
