@@ -16,3 +16,5 @@ add_custom_target(${TASK}-run
     DEPENDS ${TASK}
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
+
+aoc_bench_add_target(${TASK})
