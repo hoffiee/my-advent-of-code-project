@@ -90,6 +90,7 @@ int aoc::run(int argc, char** argv, std::function<void(void)> sample,
 
     if (state.sample_) {
         sample();
+        std::cout << "Pre-checks done" << std::endl;
     }
     if (state.solve_1_) {
         solve_1(input);
