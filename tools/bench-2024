@@ -1,0 +1,7 @@
+#!/bin/bash
+path=$(git rev-parse --show-toplevel)
+cd ${path}/build
+echo "benching 2024"
+for i in $(seq -w 1 25); do
+    ninja 2024_day${i}-bench
+done
