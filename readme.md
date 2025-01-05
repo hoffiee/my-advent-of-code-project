@@ -1,18 +1,15 @@
 # Advent of code
 
-This is my repository for when I play around with [Advent of
-Code](https://adventofcode.com/). This project has morphed over the years as
-I've mainly used this to learn methods, languages, tooling, etc. throughout the
-years. For now it has converged towards running this as a CMake project,
-focusing on C++/Python. I'm doing this as a larger project to learn more about
-CMake. I have a lot to learn so let's see where this goes.
+This is my repo for [Advent of Code](https://adventofcode.com/). This project
+has morphed over the years as I've mainly used this to learn methods,
+languages, tooling, etc. throughout the years. For now it has converged towards
+running this as a CMake project focusing on C++/Python.
 
 
 ## Status
 
 To see the status of advent of code and what remains in order to reach some
-targets that I've setup for myself, update `tools/tasks_left.py` and run `ninja
-status`.
+targets that I've set, update `tools/event_status.py` and run `ninja status`.
 
 
 ## Dependencies
@@ -23,7 +20,7 @@ status`.
 - Probably a few more... I have not setup this properly.
 
 
-## Repo setup
+## Setup
 
 ```bash
 # stand in root of advent-of-code
@@ -41,7 +38,7 @@ locally.
 
 ### Tips and notes
 
-- I often use icecream in both C++ and Python to do debug statements, I find it
+- I often use icecream in both C++ and Python to do debug statements, it's
   quick and neat to use. For example in Python:
 
 ```python
@@ -59,9 +56,10 @@ they will run unless I aim to learn that specific language for a specific year.
 At the moment running `ninja used-file-extensions` gives:
 
 ```
-    134 cpp
+    164 cpp
      40 h
-     23 py
+     30 py
+      5 go
       5 awk
       3 hs
       1 sh
@@ -73,48 +71,49 @@ At the moment running `ninja used-file-extensions` gives:
 
 ## Puzzle inputs
 
-The Advent of Code creator has, if I recall correctly, mentioned that puzzle
-input shouldn't be shared since he spends a great time designing these puzzles
-and want to keep them secret. For that purpose I have broken out my puzzle
-input and placed them in their own repository which I self-host, which I then
-inlude to this repository. The structure follows this pattern:
+The Advent of Code creator has requested that the puzzle input shouldn't be
+shared, in order to handle that I've setup a subrepo that contains all my input
+that I'm self hosting. The structure follows this pattern:
 
 ```
-.
-|-- 2015
-|   |-- day01
-|   |-- day02
-|   |-- ...
-|-- ...
-|-- 2022
-|   |-- day01
-|   |-- ...
-|-- aoc-puzzle-inputs
-|   |-- 2015
-|   |-- ...
-|   |-- 2022
 |-- libs  : Common libraries
 |   |-- 3pp  : third party libraries
+|   `-- ...
+|-- aoc-puzzle-inputs
+|   |-- 2015
+|   |   |-- day01.input
+|   |   |-- day01-sample.input
+|   |   `-- ...
+|   |-- 2016
+|   `-- ...
+|-- src
+|   |-- 2015
+|   |   |-- day01
+|   |   |-- day02
+|   |   |-- ...
+    |-- 2022
+    |   |-- day01
+    |   `-- ...
+    `-- ...
 |-- cmake
 |-- readme.md
 `-- tools
 ```
 
 
-## Inspiration
+## Resources
 
 After I've completed tasks (or those days in which I won't do it or won't
-manage to complete them) I often browse for inspiration and learning. Reddit
-AdventOfCode solution megathreads is a very neat place to learn. Other than
-that I list a few here where I've found cool solutions that I can learn from
+manage to complete them) I often browse for inspiration. Here are a few
+resources I've found:
 
+- [Reddit r/advent of code](https://www.reddit.com/r/adventofcode/)
+- [Leaderboard times, summary and stats from various years](https://aoc.xhyrom.dev/)
 - [450 stars: a categorization and
   mega-guide](https://www.reddit.com/r/adventofcode/comments/1gdw4cj/450_stars_a_categorization_and_megaguide/)
 
-*Note*: Since I have hosted this repository privately before I haven't been
+**Note**: Since I have hosted this repository privately before I haven't been
 strict on emphasizing which solutions are purely my own and when I took
-inspiration from elsewhere, for me Advent of code is a place to learn and only
-to learn, so I more often than not look into other solutions to see how I could
-improve mine. The result of this is that I may have some solutions that are not
-entirelly mine. With this in mind I have in the last years been more explicit
-about mentioning this in the solution.
+inspiration from elsewher. The result of this is that I may have some solutions
+that are not entirely mine. With this in mind I have in the last years been
+more explicit about mentioning this in the solution.
