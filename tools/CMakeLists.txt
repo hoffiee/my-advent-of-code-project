@@ -4,7 +4,7 @@ add_custom_target(status
 )
 
 add_custom_target(used-file-extensions
-    COMMAND find 20* -type f
+    COMMAND find src -type f
         | grep -vE '\(CMakeLists.txt\)'
         | cut -d"." -f2 # cut at delimeter . and print second field
         | sort | uniq -c | sort -nr
