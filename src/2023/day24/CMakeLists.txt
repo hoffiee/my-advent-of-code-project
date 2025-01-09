@@ -47,3 +47,5 @@ add_custom_target(${TASK}-runtest
     DEPENDS ${TASK}-test
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
+
+aoc_bench_add_target(${TASK})

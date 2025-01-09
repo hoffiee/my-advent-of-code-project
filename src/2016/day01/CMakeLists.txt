@@ -40,3 +40,5 @@ add_custom_target(${TASK}-runtest
 )
 
 aoc_add_python_target(${TASK}-py ${TASK}.py)
+
+aoc_bench_add_target(${TASK})
