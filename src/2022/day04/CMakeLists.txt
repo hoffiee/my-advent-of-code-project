@@ -10,15 +10,6 @@ add_custom_target(${TASK}-run
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
 
-add_custom_target(${TASK}-bench
-    COMMAND hyperfine ./${TASK}
-    DEPENDS ${TASK}
-    WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
-)
-
-add_custom_target(${TASK}-py-bench
-    COMMAND hyperfine python3 ${CMAKE_CURRENT_SOURCE_DIR}/${TASK}.py
-    WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
-)
-
 aoc_add_python_target(${TASK}-py ${AOC_DAY}.py)
+
+aoc_bench_add_target(${TASK})

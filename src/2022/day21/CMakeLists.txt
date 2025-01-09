@@ -15,8 +15,4 @@ add_custom_target(${TASK}-py
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-add_custom_target(${TASK}-bench
-    COMMAND hyperfine ./${TASK}
-    DEPENDS ${TASK}
-    WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
-)
+aoc_bench_add_target(${TASK})
