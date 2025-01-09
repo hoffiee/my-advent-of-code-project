@@ -1,0 +1,31 @@
+#!/bin/bash
+
+bench_year() {
+    path=$(git rev-parse --show-toplevel)
+    cd ${path}/build
+    targets=$(ninja -t targets | grep -oE "^${1}.*-bench" | grep bench)
+    for target in ${targets}; do
+        echo ${target}
+        ninja ${target}
+    done
+}
+
+VALID_ARGS=$(getopt -o ay: --long all,year: -- "$@")
+if [[ $? -ne 0 ]]; then
+    exit 1;
+fi
+eval set -- "$VALID_ARGS"
+while [ : ]; do
+  case "$1" in
+    -a | --all)
+        # Rely on that all starts with 20, will work for quite a while
+        bench_year "20"
+        shift
+        ;;
+    -y | --year)
+        bench_year "${2}"
+        shift 2
+        ;;
+    --) shift; break ;;
+  esac
+done
