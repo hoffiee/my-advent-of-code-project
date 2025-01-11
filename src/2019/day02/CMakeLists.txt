@@ -15,6 +15,7 @@ target_include_directories(lib-${TASK}
 target_link_libraries(lib-${TASK}
     PRIVATE
     icecream
+    lib-intcode-computer
     openmp-wrapper
 )
 
@@ -23,6 +24,9 @@ add_executable(${TASK} main.cpp)
 target_link_libraries(${TASK}
     lib-${TASK}
     icecream
+    aoc-runner
+    aoc-utils
+    string-utils
 )
 
 add_custom_target(${TASK}-run

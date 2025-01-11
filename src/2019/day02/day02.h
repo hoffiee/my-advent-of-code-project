@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-int solve_1(std::vector<int>& opcodes);
-int solve_2(std::vector<int>& opcodes);
+int64_t solve_1(std::vector<int64_t> const& inp);
+int64_t solve_2(std::vector<int64_t> const& inp);
 
 #endif

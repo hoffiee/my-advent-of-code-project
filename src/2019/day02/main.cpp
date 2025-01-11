@@ -7,37 +7,30 @@
 
 #include AOC_HEADER
 
-int main() {
-    std::ifstream input_file;
-    input_file.open(AOC_INPUT);
-    if (!input_file.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
-        return -1;
-    }
-    std::vector<int> opcodes;
+#include "aoc_runner.h"
+#include "aoc_utils.h"
+#include "string_utils.h"
 
-    std::string line;
-    getline(input_file, line);
-    std::stringstream iss(line);
-    int number = 0;
-    while (iss >> number) {
-        opcodes.push_back(number);
-        if (iss.peek() == ',') {
-            iss.ignore();
-        }
-    }
+int main(int argc, char** argv) {
+    auto input = string_utils::read_input(AOC_INPUT);
 
-    // fix according to task
-    auto opcodes_part_2 = opcodes;
-    opcodes.at(1) = 12;
-    opcodes.at(2) = 2;
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto inst = string_utils::numbers_from_string(inp[0]);
+        inst.at(1) = 12;
+        inst.at(2) = 2;
+        auto part1 = solve_1(inst);
+        IC(part1);
+        assert(part1 == 3516593);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
 
-    auto part1 = solve_1(opcodes);
-    auto part2 = solve_2(opcodes_part_2);
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto inst = string_utils::numbers_from_string(inp[0]);
+        auto part2 = solve_2(inst);
+        assert(part2 == 7749);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
 
-    std::cout << "output:" << std::endl;
-    std::cout << part1 << std::endl;
-    std::cout << part2 << std::endl;
-
-    return 0;
+    return aoc::run(
+        argc, argv, []() { return true; }, solve_1_wrapper, solve_2_wrapper, input);
 }
