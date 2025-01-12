@@ -1,5 +1,7 @@
 import re
 
+from libs.python.aoc_runner import aoc_runner
+
 
 def read_and_parse(filename):
     with open(filename, "r", encoding="utf8") as f:
@@ -93,4 +95,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    print(aoc_runner.aoc_runner())
     main()

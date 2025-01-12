@@ -1,7 +1,8 @@
 # Usage: aoc_add_python_target(${TASK} ${AOC_DAY})
 macro(aoc_add_python_target)
     add_custom_target(${ARGV0}
-        COMMAND ${VENV_PYTHON} ${CMAKE_CURRENT_SOURCE_DIR}/${ARGV1}
+        COMMAND ${CMAKE_COMMAND} -E env PYTHONPATH=${PROJECT_SOURCE_DIR}:$ENV{PYTHONPATH}
+        ${VENV_PYTHON} ${CMAKE_CURRENT_SOURCE_DIR}/${ARGV1}
         DEPENDS venv-update
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     )
