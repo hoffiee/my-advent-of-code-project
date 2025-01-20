@@ -21,15 +21,17 @@ namespace aoc::y2019::d9 {
 int64_t solve_1(std::vector<std::string> const& inp) {
     auto instrs = string_utils::numbers_from_string(inp[0]);
     aoc::y2019::IntcodeComputer comp{instrs};
-    comp.exec(1);
-    return comp.output_;
+    comp.set_input(1);
+    comp.exec();
+    return comp.output_.back();
 }
 
 int64_t solve_2(std::vector<std::string> const& inp) {
     auto instrs = string_utils::numbers_from_string(inp[0]);
     aoc::y2019::IntcodeComputer comp{instrs};
-    comp.exec(2);
-    return comp.output_;
+    comp.set_input(2);
+    comp.exec();
+    return comp.output_.back();
 }
 
 void samples() {
@@ -45,7 +47,8 @@ void samples() {
              {104, 1125899906842624, 99},
          }) {
         aoc::y2019::IntcodeComputer comp{entry};
-        comp.exec(1);
+        comp.set_input(1);
+        comp.exec();
         comp.print();
         IC(comp.output_);
     }

@@ -17,7 +17,8 @@
 
 int64_t solve_1(std::vector<int64_t> const& inp) {
     aoc::y2019::IntcodeComputer comp{inp};
-    return comp.exec(0);
+    comp.set_input(0);
+    return comp.exec();
 }
 
 int64_t solve_2(std::vector<int64_t> const& opcodes) {

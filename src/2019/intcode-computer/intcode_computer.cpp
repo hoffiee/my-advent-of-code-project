@@ -25,79 +25,81 @@ int64_t& IntcodeComputer::get_parameter(int64_t& value, int64_t mode) {
     return registers_[value];
 }
 
-int64_t IntcodeComputer::exec(int64_t inp) {
-    std::size_t ip{0};
-
-    while (ip < memory_size_) {
-        int64_t opcode{registers_[ip] % 100};
-        int64_t param1_mode{(registers_[ip] / 100) % 10};
-        int64_t param2_mode{(registers_[ip] / 1000) % 10};
-        int64_t param3_mode{(registers_[ip] / 10000) % 10};
+int64_t IntcodeComputer::exec() {
+    while (ip_ < memory_size_) {
+        int64_t opcode{registers_[ip_] % 100};
+        int64_t param1_mode{(registers_[ip_] / 100) % 10};
+        int64_t param2_mode{(registers_[ip_] / 1000) % 10};
+        int64_t param3_mode{(registers_[ip_] / 10000) % 10};
         assert(param3_mode != 1);
         switch (opcode) {
             case 1: {
-                get_parameter(registers_[ip + 3], param3_mode) =
-                    get_parameter(registers_[ip + 1], param1_mode) + get_parameter(registers_[ip + 2], param2_mode);
-                ip += 4;
+                get_parameter(registers_[ip_ + 3], param3_mode) =
+                    get_parameter(registers_[ip_ + 1], param1_mode) + get_parameter(registers_[ip_ + 2], param2_mode);
+                ip_ += 4;
                 break;
             }
             case 2: {
-                get_parameter(registers_[ip + 3], param3_mode) =
-                    get_parameter(registers_[ip + 1], param1_mode) * get_parameter(registers_[ip + 2], param2_mode);
-                ip += 4;
+                get_parameter(registers_[ip_ + 3], param3_mode) =
+                    get_parameter(registers_[ip_ + 1], param1_mode) * get_parameter(registers_[ip_ + 2], param2_mode);
+                ip_ += 4;
                 break;
             }
             case 3: {
-                get_parameter(registers_[ip + 1], param1_mode) = inp;
-                ip += 2;
+                if (input_.empty()) {
+                    return 0;
+                }
+                get_parameter(registers_[ip_ + 1], param1_mode) = input_.front();
+                input_.erase(input_.begin());
+                ip_ += 2;
                 break;
             }
             case 4: {
-                output_ = get_parameter(registers_[ip + 1], param1_mode);
+                output_.push_back(get_parameter(registers_[ip_ + 1], param1_mode));
                 // TODO: run in debug mode
                 // std::cerr << "output_: " << output_ << std::endl;
-                ip += 2;
+                ip_ += 2;
                 break;
             }
             case 5: {
-                if (get_parameter(registers_[ip + 1], param1_mode) != 0) {
-                    ip = get_parameter(registers_[ip + 2], param2_mode);
+                if (get_parameter(registers_[ip_ + 1], param1_mode) != 0) {
+                    ip_ = get_parameter(registers_[ip_ + 2], param2_mode);
                     break;
                 }
-                ip += 3;
+                ip_ += 3;
                 break;
             }
             case 6: {
-                if (get_parameter(registers_[ip + 1], param1_mode) == 0) {
-                    ip = get_parameter(registers_[ip + 2], param2_mode);
+                if (get_parameter(registers_[ip_ + 1], param1_mode) == 0) {
+                    ip_ = get_parameter(registers_[ip_ + 2], param2_mode);
                     break;
                 }
-                ip += 3;
+                ip_ += 3;
                 break;
             }
             case 7: {
-                get_parameter(registers_[ip + 3], param3_mode) =
-                    (get_parameter(registers_[ip + 1], param1_mode) < get_parameter(registers_[ip + 2], param2_mode));
-                ip += 4;
+                get_parameter(registers_[ip_ + 3], param3_mode) =
+                    (get_parameter(registers_[ip_ + 1], param1_mode) < get_parameter(registers_[ip_ + 2], param2_mode));
+                ip_ += 4;
                 break;
             }
             case 8: {
-                get_parameter(registers_[ip + 3], param3_mode) =
-                    (get_parameter(registers_[ip + 1], param1_mode) == get_parameter(registers_[ip + 2], param2_mode));
-                ip += 4;
+                get_parameter(registers_[ip_ + 3], param3_mode) = (get_parameter(registers_[ip_ + 1], param1_mode) ==
+                                                                   get_parameter(registers_[ip_ + 2], param2_mode));
+                ip_ += 4;
                 break;
             }
             case 9: {
-                relative_base_ += get_parameter(registers_[ip + 1], param1_mode);
-                ip += 2;
+                relative_base_ += get_parameter(registers_[ip_ + 1], param1_mode);
+                ip_ += 2;
                 break;
             }
             case 99: {
-                ip = memory_size_;
+                ip_ = memory_size_;
                 break;
             }
             default: {
-                IC(registers_[ip]);
+                IC(registers_[ip_]);
                 assert(false);
                 break;
             }
@@ -112,6 +114,8 @@ int64_t IntcodeComputer::exec(int64_t inp) {
 
     return registers_[0];
 }
+
+void IntcodeComputer::set_input(int64_t inp) { input_.push_back(inp); }
 
 void IntcodeComputer::print() const {
     for (std::size_t i{0}; i < memory_size_; i++) {

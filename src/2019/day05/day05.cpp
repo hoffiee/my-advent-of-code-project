@@ -21,15 +21,17 @@ namespace aoc::y2019::d5 {
 int64_t solve_1(std::vector<std::string> const& inp) {
     auto instr = string_utils::numbers_from_string(inp[0]);
     IntcodeComputer comp{instr};
-    comp.exec(1);
-    return comp.output_;
+    comp.set_input(1);
+    comp.exec();
+    return comp.output_.back();
 }
 
 int64_t solve_2(std::vector<std::string> const& inp) {
     auto instr = string_utils::numbers_from_string(inp[0]);
     IntcodeComputer comp{instr};
-    comp.exec(5);
-    return comp.output_;
+    comp.set_input(5);
+    comp.exec();
+    return comp.output_.back();
 }
 
 void samples() {
