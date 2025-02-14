@@ -67,7 +67,7 @@ struct Connection {
     }
 };
 
-std::pair<uint16_t, uint16_t> solve(std::vector<std::string>& input, std::string signal, std::string modify_signal) {
+std::pair<uint16_t, uint16_t> solve(std::vector<std::string> input, std::string signal, std::string modify_signal) {
     std::unordered_map<std::string, Connection> logic;
     auto getter = [&logic](const std::string& connection) { return logic.at(connection).value(); };
 

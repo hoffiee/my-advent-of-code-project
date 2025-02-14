@@ -135,7 +135,7 @@ void Filesystem::print() { dirs.at(0)->print(1); }
 
 void Filesystem::insert(File& file) { _current_dir->insert(file); }
 
-std::pair<int64_t, int64_t> solve(std::vector<std::string>& input) {
+std::pair<int64_t, int64_t> solve(std::vector<std::string> input) {
     Filesystem fs;
     for (auto& it : input) {
         if (it.at(0) == '$') {

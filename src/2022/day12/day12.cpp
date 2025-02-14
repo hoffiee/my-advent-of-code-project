@@ -1,14 +1,14 @@
-#include <chrono>
-#include <fstream>
-#include <iostream>
-
-/* Solution includes */
 #include <algorithm>
 #include <cassert>
+#include <chrono>
 #include <climits>
+#include <iostream>
 #include <queue>
 #include <string>
 #include <vector>
+
+#include "aoc_runner.h"
+#include "string_utils.h"
 
 namespace {
 using std::queue;
@@ -36,16 +36,9 @@ struct position_t {
     }
 };
 
-static height_map_t read_and_parse_data(string filename) {
-    std::ifstream input;
-    input.open(filename);
-    if (!input.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
-        return {};
-    }
-    string line;
-    height_map_t hm;
-    while (getline(input, line)) {
+height_map_t read_and_parse_data(std::vector<std::string> const& input) {
+    height_map_t hm{};
+    for (auto const& line : input) {
         hm.emplace_back(line);
     }
     return hm;
@@ -121,7 +114,7 @@ static int bfs(height_map_t& map, position_t start, position_t end) {
     return INT_MAX;
 }
 
-static int solution_1(height_map_t map) {
+int solve_1(height_map_t map) {
     auto start = find_position_by_mark(map, 'S').at(0);
     auto end = find_position_by_mark(map, 'E').at(0);
 
@@ -131,7 +124,7 @@ static int solution_1(height_map_t map) {
     return bfs(map, start, end);
 }
 
-static int solution_2(height_map_t map) {
+int solve_2(height_map_t map) {
     {
         auto start = find_position_by_mark(map, 'S').at(0);
         map.at(start.y).at(start.x) = 'a';
@@ -233,30 +226,30 @@ static void test_adjacent_edges() {
     }
 }
 
-static void tests() {
+void samples() {
     test_position_and_directions();
     test_mark_finder();
     test_struct_compare();
     test_adjacent_edges();
+    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto tmp = read_and_parse_data(sample);
+    assert(solve_1(tmp) == 31);
+    assert(solve_2(tmp) == 29);
 }
 
-static void run_and_check_solutions(string task, int (*solution_1)(height_map_t), int expected_1,
-                                    int (*solution_2)(height_map_t), int expected_2) {
-    auto start_time = std::chrono::high_resolution_clock::now();
+int main(int argc, char** argv) {
+    auto input = string_utils::read_input(AOC_INPUT);
 
-    auto input = read_and_parse_data(task);
-    std::cout << task << std::endl;
-    std::cout << "\ttask 1: " << solution_1(input) << " (" << expected_1 << ")" << std::endl;
-    std::cout << "\ttask 2: " << solution_2(input) << " (" << expected_2 << ")" << std::endl;
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto tmp = read_and_parse_data(inp);
+        auto part1 = solve_1(tmp);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto tmp = read_and_parse_data(inp);
+        auto part2 = solve_2(tmp);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
 
-    auto end_time = std::chrono::high_resolution_clock::now();
-    std::cout << "execution time: "
-              << std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - start_time).count() << " ns"
-              << std::endl;
-}
-
-int main(void) {
-    tests();
-    run_and_check_solutions("day12-sample.input", solution_1, 31, solution_2, 29);
-    run_and_check_solutions("day12.input", solution_1, 394, solution_2, 2421);
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

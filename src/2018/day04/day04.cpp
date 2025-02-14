@@ -86,7 +86,12 @@ int part2(std::unordered_map<int, std::vector<int>>& guards) {
     return guard_id * minute;
 }
 
-std::pair<int, int> solve(std::vector<std::string>& input) {
+int solve_1(std::vector<std::string> input) {
     auto guards = create_guards_sleep_statistics(input);
-    return {part1(guards), part2(guards)};
+    return part1(guards);
+}
+
+int solve_2(std::vector<std::string> input) {
+    auto guards = create_guards_sleep_statistics(input);
+    return part2(guards);
 }

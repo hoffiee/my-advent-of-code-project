@@ -34,11 +34,9 @@ void Register::increment(int val) {
 
 void Register::set_x(int val) { x += val; }
 
-int64_t solve1(std::vector<std::string>& input) {
+int64_t solve_1(std::vector<std::string> input) {
     Register reg;
     for (auto& instruction : input) {
-        // std::cout << instruction << std::endl;
-
         std::stringstream ss(instruction);
 
         std::string op;
@@ -48,8 +46,6 @@ int64_t solve1(std::vector<std::string>& input) {
         if (op == "noop") {
             reg.increment();
         } else if (op == "addx") {
-            // std::cout << op << " " << val << std::endl;
-
             reg.increment(2);
             reg.set_x(val);
         }
@@ -58,6 +54,4 @@ int64_t solve1(std::vector<std::string>& input) {
     return reg.signal_strength;
 }
 
-int64_t solve2(std::vector<std::string>& input) { return 0; }
-
-std::pair<int64_t, int64_t> solve(std::vector<std::string>& input) { return {solve1(input), solve2(input)}; }
+int64_t solve_2(std::vector<std::string> input) { return 0; }

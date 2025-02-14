@@ -28,7 +28,7 @@ static int calculate_row_checksum_2(std::vector<int>& input) {
     return 0;
 }
 
-std::pair<int, int> solve(std::vector<std::string>& input) {
+std::pair<int, int> solve(std::vector<std::string> input) {
     int checksum_1 = 0;
     int checksum_2 = 0;
 

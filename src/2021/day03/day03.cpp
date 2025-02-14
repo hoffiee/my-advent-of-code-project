@@ -46,16 +46,13 @@ static int filter_and_deduce(std::vector<std::string> inp,
     size_t index = 0;
     while (inp.size() > 1U && index < inp.at(0).size()) {
         char common_char = common_char_fcn(inp, index);
-        IC(index, count(inp, index), common_char);
 
         inp.erase(std::remove_if(inp.begin(), inp.end(),
                                  [index, common_char](auto it) { return it.at(index) != common_char; }),
                   inp.end());
 
-        IC(inp);
         index++;
     }
-    IC(inp);
 
     if (inp.size() != 1u) {
         throw std::logic_error("Array should not be empty.");
@@ -91,11 +88,8 @@ static char least_common(std::vector<std::string>& inp, size_t index) {
 }
 
 int solve_2(std::vector<std::string> inp) {
-    IC(inp);
-
     int oxygen_generator_rating = filter_and_deduce(inp, most_common);
     int co2_scrubber_rating = filter_and_deduce(inp, least_common);
-    IC(oxygen_generator_rating, co2_scrubber_rating);
 
     return oxygen_generator_rating * co2_scrubber_rating;
 }

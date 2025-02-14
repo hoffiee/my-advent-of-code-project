@@ -1,27 +1,24 @@
-#include <fstream>
 #include <iostream>
-#include <sstream>
 #include <string>
 #include <vector>
 
+#include "aoc_runner.h"
+#include "string_utils.h"
+
 #include AOC_HEADER
 
-int main() {
-    std::ifstream input_file;
-    input_file.open(AOC_INPUT);
-    if (!input_file.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
-        return -1;
-    }
-    std::string line;
-    std::vector<std::string> commands;
-    while (getline(input_file, line)) {
-        commands.emplace_back(line);
-    }
+int main(int argc, char** argv) {
+    auto input = string_utils::read_input("day06.preprocessed.input");
 
-    auto [lights_count, total_brightness] = solve(commands);
-    std::cout << lights_count << std::endl;
-    std::cout << total_brightness << std::endl;
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto [part1, _] = solve(inp);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto [_, part2] = solve(inp);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
 
-    return 0;
+    return aoc::run(
+        argc, argv, []() {}, solve_1_wrapper, solve_2_wrapper, input);
 }

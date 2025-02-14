@@ -1,26 +1,20 @@
+#include <cassert>
 #include <fstream>
 #include <iostream>
 #include <numeric>
 #include <string>
 #include <vector>
 
-using std::pair;
+#include "aoc_runner.h"
+#include "string_utils.h"
+
 using std::string;
 using std::vector;
 
-static std::pair<std::vector<int>, std::vector<int>> read_and_parse_data(string filename) {
-    std::ifstream input{};
-    input.open(filename);
-
-    if (!input.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
-        return {};
-    }
-
-    string line{};
+static std::pair<std::vector<int>, std::vector<int>> read_and_parse_data(std::vector<std::string> const& input) {
     std::vector<int> player_1{};
     std::vector<int> player_2{};
-    while (getline(input, line)) {
+    for (auto line : input) {
         player_1.push_back(static_cast<int>(line.front() - 'A' + 1));
         player_2.push_back(static_cast<int>(line.back() - 'X' + 1));
     }
@@ -28,8 +22,8 @@ static std::pair<std::vector<int>, std::vector<int>> read_and_parse_data(string 
     return {player_1, player_2};
 }
 
-static int solution_1(pair<vector<int>, vector<int>> input) {
-    auto& [player_1, player_2] = input;
+int solve_1(std::vector<std::string> const& input) {
+    auto [player_1, player_2] = read_and_parse_data(input);
 
     int score = 0;
     for (size_t i = 0; i < player_1.size(); ++i) {
@@ -44,8 +38,8 @@ static int solution_1(pair<vector<int>, vector<int>> input) {
     return score + std::accumulate(player_2.begin(), player_2.end(), 0);
 }
 
-static int solution_2(pair<vector<int>, vector<int>> input) {
-    auto& [player_1, player_2] = input;
+int solve_2(std::vector<std::string> const& input) {
+    auto [player_1, player_2] = read_and_parse_data(input);
 
     int score = 0;
     for (size_t i = 0; i < player_1.size(); ++i) {
@@ -64,13 +58,22 @@ static int solution_2(pair<vector<int>, vector<int>> input) {
     return score;
 }
 
-int main(void) {
-    auto sample = read_and_parse_data("day02-sample.input");
-    auto input = read_and_parse_data("day02.input");
+void samples() {
+    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    assert(solve_1(sample) == 15);
+}
 
-    std::cout << "Sample solution 1:\t" << solution_1(sample) << std::endl;
-    std::cout << "solution 1:\t\t" << solution_1(input) << std::endl;
+int main(int argc, char** argv) {
+    auto input = string_utils::read_input(AOC_INPUT);
 
-    std::cout << "Sample solution 2:\t" << solution_2(sample) << std::endl;
-    std::cout << "solution 2:\t\t" << solution_2(input) << std::endl;
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part1 = solve_1(inp);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part2 = solve_2(inp);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
+
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

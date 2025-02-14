@@ -10,6 +10,6 @@ using Triangles = std::vector<std::vector<int>>;
 
 Triangles parse_data(std::vector<std::string>& triangles);
 Triangles transpose_triangles(Triangles& triangles);
-std::pair<int, int> solve(std::vector<std::string>& input);
+std::pair<int, int> solve(std::vector<std::string> input);
 
 #endif

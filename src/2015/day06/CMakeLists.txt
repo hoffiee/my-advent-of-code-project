@@ -1,7 +1,6 @@
 aoc_set_task_variables()
 
 aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY})
-aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY})
 
 add_library(lib-${TASK}
     EXCLUDE_FROM_ALL
@@ -23,6 +22,9 @@ add_executable(${TASK} main.cpp)
 
 target_link_libraries(${TASK}
     lib-${TASK}
+    icecream
+    aoc-runner
+    string-utils
 )
 
 add_custom_target(${TASK}-preprocess

@@ -62,7 +62,7 @@ void Keypad::add_key() { key.push_back(keypad.at(_y).at(_x)); }
 
 std::string Keypad::current_key() { return key; }
 
-std::pair<std::string, std::string> solve(std::vector<std::string>& input) {
+std::pair<std::string, std::string> solve(std::vector<std::string> input) {
     std::vector<std::string> keypad_1 = {
         "     ", " 123 ", " 456 ", " 789 ", "     ",
     };

@@ -1,17 +1,19 @@
 /* Current brute force for part 2, currently took 277 days when I calculated
  * it, so scrap that. Search space is too large */
+#include <algorithm>
+#include <cassert>
 #include <chrono>
 #include <fstream>
 #include <iostream>
-
-/* Solution includes */
-#include <algorithm>
 #include <numeric>
 #include <sstream>
 #include <stdexcept>
 #include <tuple>
 #include <unordered_map>
 #include <vector>
+
+#include "aoc_runner.h"
+#include "string_utils.h"
 
 namespace {
 using std::cout;
@@ -21,16 +23,9 @@ using std::vector;
 using scans = vector<std::tuple<int, int, int>>;
 }  // namespace
 
-static scans read_and_parse_data(string filename) {
-    std::ifstream input;
-    input.open(filename);
-    if (!input.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
-        return {};
-    }
-    string line;
-    scans out;
-    while (getline(input, line)) {
+static scans read_and_parse_data(std::vector<std::string> const& input) {
+    scans out{};
+    for (auto const& line : input) {
         std::stringstream ss(line);
         char delim;
         int x;
@@ -73,12 +68,11 @@ static void check_and_add_adjacent(std::unordered_map<Cube, Cube, hash_fn>& grid
         /* Skip itself */
         return;
     }
-    // cout << "(" << x << "," << y << "," << z << "), ";
 
     grid[c].adjacent.push_back(&grid[cand]);
 }
 
-static int solution_1(scans scan) {
+static int solve_1(scans scan) {
     // cout << endl;
     int xmin = 0;
     int ymin = 0;
@@ -146,7 +140,7 @@ static int solution_1(scans scan) {
     return std::accumulate(grid.begin(), grid.end(), 0, addition);
 }
 
-static int solution_2(scans scan) {
+static int solve_2(scans scan) {
     cout << endl;
     int xmin = 0;
     int ymin = 0;
@@ -259,27 +253,26 @@ static int solution_2(scans scan) {
     return count;
 }
 
-static void run_and_check_solutions(string task, int (*solution_1)(scans), int expected_1, int (*solution_2)(scans),
-                                    int expected_2) {
-    auto start_time = std::chrono::high_resolution_clock::now();
-
-    auto input = read_and_parse_data(task);
-    std::cout << task << std::endl;
-    std::cout << "\ttask 1: " << solution_1(input) << " (" << expected_1 << ")" << std::endl;
-    std::cout << "\ttask 2: " << solution_2(input) << " (" << expected_2 << ")" << std::endl;
-
-    auto end_time = std::chrono::high_resolution_clock::now();
-    std::cout << "execution time: "
-              << std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - start_time).count() << " ns"
-              << std::endl;
+void samples() {
+    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto tmp = read_and_parse_data(sample);
+    assert(solve_1(tmp) == 64);
+    // assert(solve_2(tmp) == 58);
 }
 
-int main(void) {
-    auto solution_1_sample = [](scans in) { return solution_1(in); };
-    auto solution_2_sample = [](scans in) { return solution_2(in); };
-    run_and_check_solutions("day18-sample.input", solution_1_sample, 64, solution_2_sample, 58);
+int main(int argc, char** argv) {
+    auto input = string_utils::read_input(AOC_INPUT);
 
-    auto solution_1_puzzle = [](scans in) { return solution_1(in); };
-    auto solution_2_puzzle = [](scans in) { return solution_2(in); };
-    run_and_check_solutions("day18.input", solution_1_puzzle, 3500, solution_2_puzzle, 0);
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto tmp = read_and_parse_data(inp);
+        auto part1 = solve_1(tmp);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto tmp = read_and_parse_data(inp);
+        auto part2 = solve_2(tmp);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
+
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

@@ -1,3 +1,4 @@
+#include <cassert>
 #include <chrono>
 #include <fstream>
 #include <iostream>
@@ -5,6 +6,9 @@
 #include <string>
 #include <tuple>
 #include <vector>
+
+#include "aoc_runner.h"
+#include "string_utils.h"
 
 #define MAX_CRATES 9
 
@@ -15,18 +19,11 @@ using std::vector;
 using stacks_t = vector<vector<char>>;
 using instructions_t = vector<tuple<int, int, int>>;
 
-static tuple<stacks_t, instructions_t> read_and_parse_data(string filename) {
-    std::ifstream input;
-    input.open(filename);
-    if (!input.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
-        return {};
-    }
+tuple<stacks_t, instructions_t> read_and_parse_data(std::vector<std::string> const& input) {
     stacks_t stack_of_crates{MAX_CRATES};
     instructions_t instructions;
-    string line;
     bool parsing_stack_of_crates = true;
-    while (getline(input, line)) {
+    for (auto const& line : input) {
         if (line.empty()) {
             parsing_stack_of_crates = false;
             continue;
@@ -51,7 +48,7 @@ static tuple<stacks_t, instructions_t> read_and_parse_data(string filename) {
     return {stack_of_crates, instructions};
 }
 
-static string construct_output(stacks_t stack_of_crates) {
+string construct_output(stacks_t stack_of_crates) {
     string out = "";
     for (auto& stack : stack_of_crates) {
         if (!stack.empty()) {
@@ -61,7 +58,7 @@ static string construct_output(stacks_t stack_of_crates) {
     return out;
 }
 
-static string solution_1(stacks_t stack_of_crates, instructions_t instructions) {
+string solve_1(stacks_t stack_of_crates, instructions_t instructions) {
     for (auto [count, from, to] : instructions) {
         std::move(stack_of_crates.at(from).rbegin(), stack_of_crates.at(from).rbegin() + count,
                   std::back_inserter(stack_of_crates.at(to)));
@@ -70,7 +67,7 @@ static string solution_1(stacks_t stack_of_crates, instructions_t instructions) 
     return construct_output(stack_of_crates);
 }
 
-static string solution_2(stacks_t stack_of_crates, instructions_t instructions) {
+string solve_2(stacks_t stack_of_crates, instructions_t instructions) {
     for (auto [count, from, to] : instructions) {
         std::move(stack_of_crates.at(from).end() - count, stack_of_crates.at(from).end(),
                   std::back_inserter(stack_of_crates.at(to)));
@@ -79,22 +76,26 @@ static string solution_2(stacks_t stack_of_crates, instructions_t instructions) 
     return construct_output(stack_of_crates);
 }
 
-static void run_and_check_solutions(string task, string (*solution_1)(stacks_t, instructions_t), string expected_1,
-                                    string (*solution_2)(stacks_t, instructions_t), string expected_2) {
-    auto start_time = std::chrono::high_resolution_clock::now();
-
-    auto [stack_of_crates, instructions] = read_and_parse_data(task);
-    std::cout << task << std::endl;
-    std::cout << "\ttask 1: " << solution_1(stack_of_crates, instructions) << " (" << expected_1 << ")" << std::endl;
-    std::cout << "\ttask 2: " << solution_2(stack_of_crates, instructions) << " (" << expected_2 << ")" << std::endl;
-
-    auto end_time = std::chrono::high_resolution_clock::now();
-    std::cout << "execution time: "
-              << std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - start_time).count() << " ns"
-              << std::endl;
+void samples() {
+    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto [tmp1, tmp2] = read_and_parse_data(sample);
+    assert(solve_1(tmp1, tmp2) == "CMZ");
+    assert(solve_2(tmp1, tmp2) == "MCD");
 }
 
-int main(void) {
-    run_and_check_solutions("day05-sample.input", solution_1, "CMZ", solution_2, "MCD");
-    run_and_check_solutions("day05.input", solution_1, "FCVRLMVQP", solution_2, "RWLWGJGFD");
+int main(int argc, char** argv) {
+    auto input = string_utils::read_input(AOC_INPUT);
+
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto [tmp1, tmp2] = read_and_parse_data(inp);
+        auto part1 = solve_1(tmp1, tmp2);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto [tmp1, tmp2] = read_and_parse_data(inp);
+        auto part2 = solve_2(tmp1, tmp2);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
+
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

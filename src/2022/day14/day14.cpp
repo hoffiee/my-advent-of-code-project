@@ -1,13 +1,14 @@
 /* TODO: This is broken now and needs to be fixed... */
+#include <cassert>
 #include <chrono>
-#include <fstream>
 #include <iostream>
-
-/* Solution includes */
 #include <sstream>
 #include <stdexcept>
 #include <string>
 #include <vector>
+
+#include "aoc_runner.h"
+#include "string_utils.h"
 
 static const int height = 1000;
 static const int width = 1000;
@@ -98,16 +99,9 @@ bool sand::inside_limits(limit x_limit, limit y_limit) {
     return valid_position;
 }
 
-static map read_and_parse_data(string filename) {
-    std::ifstream input;
-    input.open(filename);
-    if (!input.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
-        return {};
-    }
-    string line;
-    map m;
-    while (getline(input, line)) {
+map read_and_parse_data(std::vector<std::string> const& input) {
+    map m{};
+    for (auto const& line : input) {
         std::stringstream ss(line);
         int x = -1;
         int y = -1;
@@ -138,7 +132,7 @@ static map read_and_parse_data(string filename) {
     return m;
 }
 
-static int solution_1(map m) {
+int solve_1(map m) {
     int count = -1;
     bool continue_dropping = true;
     while (continue_dropping) {
@@ -154,7 +148,7 @@ static int solution_1(map m) {
     return count;
 }
 
-static int solution_2(map m) {
+int solve_2(map m) {
     m.y_limits.max += 2;
     for (int i = 0; i < width; ++i) {
         m.map.at(m.y_limits.max).at(i) = '#';
@@ -173,22 +167,26 @@ static int solution_2(map m) {
     return count;
 }
 
-static void run_and_check_solutions(string task, int (*solution_1)(map), int expected_1, int (*solution_2)(map),
-                                    int expected_2) {
-    auto start_time = std::chrono::high_resolution_clock::now();
-
-    auto input = read_and_parse_data(task);
-    std::cout << task << std::endl;
-    std::cout << "\ttask 1: " << solution_1(input) << " (" << expected_1 << ")" << std::endl;
-    std::cout << "\ttask 2: " << solution_2(input) << " (" << expected_2 << ")" << std::endl;
-
-    auto end_time = std::chrono::high_resolution_clock::now();
-    std::cout << "execution time: "
-              << std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - start_time).count() << " ns"
-              << std::endl;
+void samples() {
+    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto tmp = read_and_parse_data(sample);
+    assert(solve_1(tmp) == 24);
+    assert(solve_2(tmp) == 93);
 }
 
-int main(void) {
-    run_and_check_solutions("day14-sample.input", solution_1, 24, solution_2, 93);
-    run_and_check_solutions("day14.input", solution_1, 885, solution_2, 28691);
+int main(int argc, char** argv) {
+    auto input = string_utils::read_input(AOC_INPUT);
+
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto tmp = read_and_parse_data(inp);
+        auto part1 = solve_1(tmp);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto tmp = read_and_parse_data(inp);
+        auto part2 = solve_2(tmp);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
+
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

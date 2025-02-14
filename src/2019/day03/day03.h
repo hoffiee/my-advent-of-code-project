@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-int solve_1(std::vector<std::string>& paths);
-int solve_2(std::vector<std::string>& paths);
+int solve_1(std::vector<std::string> paths);
+int solve_2(std::vector<std::string> paths);
 
 #endif

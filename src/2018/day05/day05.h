@@ -3,6 +3,7 @@
 
 #include <string>
 
-std::pair<int, int> solve(std::string& input);
+int solve_1(std::string input);
+int solve_2(std::string input);
 
 #endif

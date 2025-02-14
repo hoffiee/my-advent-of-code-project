@@ -32,7 +32,7 @@ static bool valid_passphrase_2(const std::string& passphrase) {
     return word_count == words.size();
 }
 
-std::pair<int, int> solve(std::vector<std::string>& input) {
+std::pair<int, int> solve(std::vector<std::string> input) {
     std::vector<bool> valid_passphrases_1;
     std::transform(input.cbegin(), input.cend(), std::back_inserter(valid_passphrases_1), valid_passphrase_1);
 

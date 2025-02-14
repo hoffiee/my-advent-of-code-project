@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
-std::pair<int64_t, int64_t> solve(std::vector<std::string>& input);
+int64_t solve_1(std::vector<std::string> input);
+int64_t solve_2(std::vector<std::string> input);
 
 #endif

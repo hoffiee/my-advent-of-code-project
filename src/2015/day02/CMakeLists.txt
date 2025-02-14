@@ -4,6 +4,13 @@ aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY})
 
 add_executable(${TASK} ${AOC_DAY}.cpp)
 
+target_link_libraries(${TASK}
+    PRIVATE
+    icecream
+    aoc-runner
+    string-utils
+)
+
 add_custom_target(${TASK}-run
     COMMAND ./${TASK}
     DEPENDS ${TASK}

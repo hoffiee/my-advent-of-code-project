@@ -1,23 +1,24 @@
-#include <fstream>
 #include <iostream>
-#include <sstream>
 #include <string>
 #include <vector>
 
+#include "aoc_runner.h"
+#include "string_utils.h"
+
 #include AOC_HEADER
 
-int main() {
-    std::ifstream input_file;
-    input_file.open(AOC_INPUT);
-    if (!input_file.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
-        return -1;
-    }
-    std::string line;
-    getline(input_file, line);
+int main(int argc, char** argv) {
+    auto input = string_utils::read_input(AOC_INPUT);
 
-    std::cout << solve(line, false) << std::endl;
-    std::cout << solve(line, true) << std::endl;
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part1 = solve(inp.front(), false);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part2 = solve(inp.front(), true);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
 
-    return 0;
+    return aoc::run(
+        argc, argv, []() {}, solve_1_wrapper, solve_2_wrapper, input);
 }

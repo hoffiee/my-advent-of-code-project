@@ -11,13 +11,12 @@
  *
  * The solution for part 1 was inspired and influenced by Simon Toth solution.
  */
+#include <cassert>
 #include <chrono>
-#include <fstream>
-#include <iostream>
-
-/* Solution includes */
 #include <cmath>
+#include <fstream>
 #include <functional>
+#include <iostream>
 #include <memory>
 #include <numeric>
 #include <sstream>
@@ -25,6 +24,9 @@
 #include <string>
 #include <variant>
 #include <vector>
+
+#include "aoc_runner.h"
+#include "string_utils.h"
 
 namespace {
 using std::cout;
@@ -135,16 +137,9 @@ static int64_t find_number_to_yell(Description& desc) {
     return out;
 }
 
-static Description read_and_parse_data(string filename) {
-    std::ifstream input;
-    input.open(filename);
-    if (!input.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
-        return {};
-    }
-    string line;
-    Description desc;
-    while (getline(input, line)) {
+static Description read_and_parse_data(std::vector<std::string> const& input) {
+    Description desc{};
+    for (auto const& line : input) {
         std::stringstream ss(line);
         string name;
         string left;
@@ -166,14 +161,27 @@ static Description read_and_parse_data(string filename) {
     return desc;
 }
 
-int main(void) {
-    for (auto& it : {
-             // TODO: Fix, sample input takes forever...
-             // "day21-sample.input",
-             "day21.input",
-         }) {
-        auto desc = read_and_parse_data(it);
-        cout << desc.root() << endl;
-        cout << find_number_to_yell(desc) << endl;
-    }
+void samples() {
+    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto tmp = read_and_parse_data(sample);
+    assert(tmp.root() == 152);
+    // TODO: Fix, sample input takes forever...
+    // assert(find_number_to_yell(tmp) == 301);
+}
+
+int main(int argc, char** argv) {
+    auto input = string_utils::read_input(AOC_INPUT);
+
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto desc = read_and_parse_data(inp);
+        auto part1 = desc.root();
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto desc = read_and_parse_data(inp);
+        auto part2 = find_number_to_yell(desc);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
+
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

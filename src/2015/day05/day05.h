@@ -5,7 +5,7 @@
 #include <vector>
 
 bool is_nice_string(std::string& input);
-int solve_1(std::vector<std::string>& input);
-int solve_2(std::vector<std::string>& input);
+int solve_1(std::vector<std::string> input);
+int solve_2(std::vector<std::string> input);
 
 #endif

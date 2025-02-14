@@ -5,6 +5,6 @@
 #include <unordered_map>
 #include <vector>
 
-std::pair<int64_t, int64_t> solve(std::vector<std::string>& input);
+std::pair<int64_t, int64_t> solve(std::vector<std::string> input);
 
 #endif

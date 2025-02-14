@@ -7,7 +7,7 @@
 #include <iostream>
 #include <vector>
 
-int part1(std::string input) {
+int solve_1(std::string input) {
     for (ssize_t i = 0; i < static_cast<ssize_t>(input.size()) - 1 && input.size() > 1; i++) {
         if (i < 0) {
             i = 0;
@@ -32,7 +32,7 @@ int part1(std::string input) {
     return static_cast<int>(input.size());
 }
 
-int part2(std::string& input) {
+int solve_2(std::string input) {
 #if 1
     /**
      * day05 git:(master) ✗ hyperfine ./2018_day05
@@ -46,14 +46,13 @@ int part2(std::string& input) {
     // https://github.com/ysh329/OpenMP-101
     // https://riptutorial.com/openmp
     std::vector<int> results('z' - 'a', 0);
-    std::cout << results.size() << std::endl;
 #pragma omp parallel for
     for (char i = 'a'; i < 'z'; i++) {
         std::string tmp(input);
         // TODO: do lambda and only iterate once?
         tmp.erase(std::remove(tmp.begin(), tmp.end(), i), tmp.end());
         tmp.erase(std::remove(tmp.begin(), tmp.end(), std::toupper(i)), tmp.end());
-        results.at(static_cast<size_t>(i - 'a')) = part1(tmp);
+        results.at(static_cast<size_t>(i - 'a')) = solve_1(tmp);
     }
     return *std::min_element(results.cbegin(), results.cend());
 #else
@@ -63,12 +62,12 @@ int part2(std::string& input) {
      * Time (mean ± σ):      7.296 s ±  0.057 s    [User: 7.218 s, System: 0.028
      * s] Range (min … max):    7.221 s …  7.370 s    10 runs
      */
-    int min = part1(input);
+    int min = solve_1(input);
     for (char i = 'a'; i < 'z'; i++) {
         std::string tmp(input);
         tmp.erase(std::remove(tmp.begin(), tmp.end(), i), tmp.end());
         tmp.erase(std::remove(tmp.begin(), tmp.end(), std::toupper(i)), tmp.end());
-        int score = part1(tmp);
+        int score = solve_1(tmp);
         if (score < min) {
             min = score;
         }
@@ -76,5 +75,3 @@ int part2(std::string& input) {
     return min;
 #endif
 }
-
-std::pair<int, int> solve(std::string& input) { return {part1(input), part2(input)}; }

@@ -1,10 +1,10 @@
-#include AOC_HEADER
-
 #include <algorithm>
 #include <numeric>
 #include <unordered_map>
 
-static int solve_1(std::vector<std::string>& ids) {
+#include AOC_HEADER
+
+int solve_1(std::vector<std::string> ids) {
     int count_2 = 0;
     int count_3 = 0;
     for (auto& id : ids) {
@@ -24,7 +24,7 @@ static int solve_1(std::vector<std::string>& ids) {
     return count_2 * count_3;
 }
 
-static std::string solve_2(std::vector<std::string>& ids) {
+std::string solve_2(std::vector<std::string> ids) {
     std::string out;
     std::sort(ids.begin(), ids.end());
     auto it = std::adjacent_find(ids.begin(), ids.end(), [](std::string lhs, std::string rhs) {
@@ -45,5 +45,3 @@ static std::string solve_2(std::vector<std::string>& ids) {
     }
     return out;
 }
-
-std::pair<int, std::string> solve(std::vector<std::string>& ids) { return {solve_1(ids), solve_2(ids)}; }

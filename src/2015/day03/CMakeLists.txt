@@ -15,7 +15,11 @@ target_include_directories(lib-${TASK}
 add_executable(${TASK} main.cpp)
 
 target_link_libraries(${TASK}
+    PRIVATE
     lib-${TASK}
+    icecream
+    aoc-runner
+    string-utils
 )
 
 add_custom_target(${TASK}-run

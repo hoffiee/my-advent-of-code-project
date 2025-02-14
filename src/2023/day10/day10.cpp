@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 
+#include "aoc_runner.h"
 #include "string_utils.h"
 
 using Pos = std::complex<int64_t>;
@@ -169,7 +170,7 @@ int64_t solve_2(std::vector<std::string> inp) {
     return static_cast<int64_t>(contained.size());
 }
 
-int main() {
+void checks() {
     auto sample1 = string_utils::read_input("day10-sample-1.input");
     assert(solve_1(sample1) == 4);
 
@@ -182,9 +183,6 @@ int main() {
     auto sample4 = string_utils::read_input("day10-sample-4.input");
     assert(solve_1(sample4) == 8);
 
-    auto input = string_utils::read_input(AOC_INPUT);
-    auto part1 = solve_1(input);
-
     auto sample5 = string_utils::read_input("day10-sample-5.input");
     assert(solve_2(sample5) == 4);
 
@@ -196,12 +194,19 @@ int main() {
 
     auto sample8 = string_utils::read_input("day10-sample-8.input");
     assert(solve_2(sample8) == 10);
+}
 
-    auto part2 = solve_2(input);
+int main(int argc, char** argv) {
+    auto input = string_utils::read_input(AOC_INPUT);
 
-    std::cout << "output:" << std::endl;
-    std::cout << part1 << std::endl;
-    std::cout << part2 << std::endl;
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part1 = solve_1(inp);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part2 = solve_2(inp);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
 
-    return 0;
+    return aoc::run(argc, argv, checks, solve_1_wrapper, solve_2_wrapper, input);
 }

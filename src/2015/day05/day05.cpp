@@ -43,7 +43,7 @@ bool is_nice_string(std::string& input) {
     return nice;
 }
 
-int solve_1(std::vector<std::string>& input) {
+int solve_1(std::vector<std::string> input) {
     int nice_words = 0;
     for (auto& word : input) {
         nice_words += 1 * is_nice_string(word);
@@ -78,7 +78,7 @@ bool is_nice_string_2(std::string& word) {
     return nice;
 }
 
-int solve_2(std::vector<std::string>& input) {
+int solve_2(std::vector<std::string> input) {
     int nice_words = 0;
     for (auto& word : input) {
         bool nice = is_nice_string_2(word);

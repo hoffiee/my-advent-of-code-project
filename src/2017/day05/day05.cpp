@@ -1,7 +1,9 @@
 #include AOC_HEADER
 
+#include <algorithm>
 #include <functional>
 #include <iostream>
+#include <string>
 
 __attribute__((unused)) static void print(std::vector<int> inp) {
     std::cout << "[";
@@ -28,7 +30,11 @@ static int step_through_instructions(std::vector<int> instructions, std::functio
     return count;
 }
 
-std::pair<int, int> solve(std::vector<int>& instructions) {
+std::pair<int, int> solve(std::vector<std::string> input) {
+    std::vector<int> instructions(input.size());
+    std::transform(input.cbegin(), input.cend(), instructions.begin(),
+                   [](std::string const& str) { return std::stoi(str); });
+
     auto step_1 = [](const ssize_t n) { return n + 1; };
     auto step_2 = [](const ssize_t n) {
         if (n >= 3) {

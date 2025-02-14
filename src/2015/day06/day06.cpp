@@ -68,7 +68,7 @@ static void apply_instructions_to_grid(Grid& grid, std::vector<std::string>& ins
     }
 }
 
-std::pair<int, int> solve(std::vector<std::string>& instructions) {
+std::pair<int, int> solve(std::vector<std::string> instructions) {
     Grid grid_1(1000, std::vector(1000, 0));
     Grid grid_2(1000, std::vector(1000, 0));
 

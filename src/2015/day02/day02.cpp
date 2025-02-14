@@ -7,6 +7,9 @@
 #include <string>
 #include <vector>
 
+#include "aoc_runner.h"
+#include "string_utils.h"
+
 static std::pair<int, int> gift_wrapping(std::string input) {
     int length = 0;
     int width = 0;
@@ -57,23 +60,17 @@ static void test() {
     assert(gift_wrapping("1x1x10").second == 14);
 }
 
-int main() {
-    test();
+int main(int argc, char** argv) {
+    auto input = string_utils::read_input(AOC_INPUT);
 
-    std::ifstream input_file;
-    input_file.open("day02.input");
-    if (!input_file.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
-        return -1;
-    }
-    std::string line;
-    std::vector<std::string> input;
-    while (getline(input_file, line)) {
-        input.emplace_back(line);
-    }
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto [part1, _] = solve(inp);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto [_, part2] = solve(inp);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
 
-    auto [paper, ribbon] = solve(input);
-    std::cout << paper << " " << ribbon << std::endl;
-
-    return 0;
+    return aoc::run(argc, argv, test, solve_1_wrapper, solve_2_wrapper, input);
 }

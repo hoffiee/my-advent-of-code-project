@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-int solve_1(std::vector<int>& masses);
-int solve_2(std::vector<int>& masses);
+int solve_1(std::vector<std::string> masses);
+int solve_2(std::vector<std::string> masses);
 
 #endif

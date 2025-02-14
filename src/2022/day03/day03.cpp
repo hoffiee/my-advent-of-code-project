@@ -1,28 +1,15 @@
 #include <algorithm>
+#include <cassert>
 #include <chrono>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
 
-using std::pair;
-using std::string;
-using std::vector;
+#include "aoc_runner.h"
+#include "string_utils.h"
 
-static vector<string> read_and_parse_data(string filename) {
-    std::ifstream input;
-    input.open(filename);
-    if (!input.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
-        return {};
-    }
-    string line;
-    vector<string> compartments;
-    while (getline(input, line)) {
-        compartments.emplace_back(line);
-    }
-    return compartments;
-}
+using std::vector;
 
 static int char_to_int(unsigned char ch) {
     int out = 0;
@@ -34,7 +21,7 @@ static int char_to_int(unsigned char ch) {
     return out;
 }
 
-static int count_and_sum_priorities(string input, int occurence) {
+static int count_and_sum_priorities(std::string input, int occurence) {
     vector<int> character_frequency(26 * 2 + 1, 0);
     for (char item : input) {
         ++character_frequency.at(char_to_int(item));
@@ -43,7 +30,7 @@ static int count_and_sum_priorities(string input, int occurence) {
     return static_cast<int>(ind - character_frequency.begin());
 }
 
-static int solution_1(vector<string> input) {
+int solve_1(std::vector<std::string> input) {
     int sum_of_priorities = 0;
     for (auto& rucksack : input) {
         auto compartment_1 = rucksack.substr(0, rucksack.size() / 2);
@@ -64,7 +51,7 @@ static int solution_1(vector<string> input) {
     return sum_of_priorities;
 }
 
-static int solution_2(vector<string> input) {
+int solve_2(std::vector<std::string> input) {
     int sum_of_priorities = 0;
     for (size_t i = 0; i < input.size() / 3; ++i) {
         std::string combined_unique_rucksacks = "";
@@ -82,22 +69,23 @@ static int solution_2(vector<string> input) {
     return sum_of_priorities;
 }
 
-static void run_and_check_solutions(string task, int (*solution_1)(vector<string>), int expected_1,
-                                    int (*solution_2)(vector<string>), int expected_2) {
-    auto start_time = std::chrono::high_resolution_clock::now();
-
-    auto input = read_and_parse_data(task);
-    std::cout << task << std::endl;
-    std::cout << "\ttask 1: " << solution_1(input) << " (" << expected_1 << ")" << std::endl;
-    std::cout << "\ttask 2: " << solution_2(input) << " (" << expected_2 << ")" << std::endl;
-
-    auto end_time = std::chrono::high_resolution_clock::now();
-    std::cout << "execution time: "
-              << std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - start_time).count() << " ns"
-              << std::endl;
+void samples() {
+    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    assert(solve_1(sample) == 157);
+    assert(solve_2(sample) == 70);
 }
 
-int main(void) {
-    run_and_check_solutions("day03-sample.input", solution_1, 157, solution_2, 70);
-    run_and_check_solutions("day03.input", solution_1, 8153, solution_2, 2342);
+int main(int argc, char** argv) {
+    auto input = string_utils::read_input(AOC_INPUT);
+
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part1 = solve_1(inp);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part2 = solve_2(inp);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
+
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

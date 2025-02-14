@@ -4,15 +4,16 @@ aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY}-sample)
 
 add_executable(${TASK} ${AOC_DAY}.cpp)
 
-add_custom_target(${TASK}-preprocess
-    COMMAND ./preprocess.awk ${TASK}-sample.input > ${TASK}-sample.prep.input;
-    COMMAND ./preprocess.awk ${TASK}.input > ${TASK}.prep.input;
-    WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
+target_link_libraries(${TASK}
+    PRIVATE
+    icecream
+    aoc-runner
+    string-utils
 )
 
 add_custom_target(${TASK}-run
     COMMAND ./${TASK}
-    DEPENDS ${TASK} # ${TASK}-preprocess
+    DEPENDS ${TASK}
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
 

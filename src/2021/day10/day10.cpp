@@ -9,6 +9,9 @@
 #include <string>
 #include <vector>
 
+#include "aoc_runner.h"
+#include "string_utils.h"
+
 char matching_closure(char open) {
     switch (open) {
         case '<':
@@ -94,26 +97,18 @@ int64_t solve_2(std::vector<std::string> inp) {
     return scores.at(scores.size() / 2);
 }
 
-int main() {
-    std::ifstream input_file;
-    // input_file.open(AOC_SAMPLE_INPUT);
-    input_file.open(AOC_INPUT);
-    if (!input_file.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
-        return -1;
-    }
-    std::vector<std::string> input;
-    std::string line;
-    while (getline(input_file, line)) {
-        input.push_back(line);
-    }
+int main(int argc, char** argv) {
+    auto input = string_utils::read_input(AOC_INPUT);
 
-    auto part1 = solve_1(input);
-    auto part2 = solve_2(input);
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part1 = solve_1(inp);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part2 = solve_2(inp);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
 
-    std::cout << "output:" << std::endl;
-    std::cout << part1 << std::endl;
-    std::cout << part2 << std::endl;
-
-    return 0;
+    return aoc::run(
+        argc, argv, []() {}, solve_1_wrapper, solve_2_wrapper, input);
 }

@@ -43,7 +43,7 @@ Triangles transpose_triangles(Triangles& triangles) {
     return triangles_vertical;
 }
 
-std::pair<int, int> solve(std::vector<std::string>& input) {
+std::pair<int, int> solve(std::vector<std::string> input) {
     Triangles triangles = parse_data(input);
     auto triangles_transposed = transpose_triangles(triangles);
 

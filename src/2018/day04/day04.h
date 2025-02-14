@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
-std::pair<int, int> solve(std::vector<std::string>& input);
+int solve_1(std::vector<std::string> input);
+int solve_2(std::vector<std::string> input);
 
 #endif

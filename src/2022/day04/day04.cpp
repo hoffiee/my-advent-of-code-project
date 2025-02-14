@@ -1,23 +1,15 @@
-#include <chrono>
-#include <fstream>
+#include <cassert>
 #include <iostream>
+#include <string>
 #include <tuple>
 #include <vector>
 
-using std::string;
-using std::tuple;
-using std::vector;
+#include "aoc_runner.h"
+#include "string_utils.h"
 
-static vector<tuple<int, int, int, int>> read_and_parse_data(string filename) {
-    std::ifstream input;
-    input.open(filename);
-    if (!input.is_open()) {
-        std::cout << "couldn't read file" << std::endl;
-        return {};
-    }
-    string line;
-    vector<std::tuple<int, int, int, int>> pairs;
-    while (getline(input, line)) {
+std::vector<std::tuple<int, int, int, int>> read_and_parse_data(std::vector<std::string> const& input) {
+    std::vector<std::tuple<int, int, int, int>> pairs;
+    for (auto const& line : input) {
         int elf_1_start, elf_1_end;
         int elf_2_start, elf_2_end;
         sscanf(line.c_str(), "%d-%d,%d-%d", &elf_1_start, &elf_1_end, &elf_2_start, &elf_2_end);
@@ -26,7 +18,7 @@ static vector<tuple<int, int, int, int>> read_and_parse_data(string filename) {
     return pairs;
 }
 
-static int solution_1(vector<tuple<int, int, int, int>> input) {
+int solve_1(std::vector<std::tuple<int, int, int, int>> input) {
     int count = 0;
     for (auto& it : input) {
         auto [a, b, c, d] = it;
@@ -37,7 +29,7 @@ static int solution_1(vector<tuple<int, int, int, int>> input) {
     return count;
 }
 
-static int solution_2(vector<tuple<int, int, int, int>> input) {
+int solve_2(std::vector<std::tuple<int, int, int, int>> input) {
     int count = 0;
     for (auto& it : input) {
         auto [a, b, c, d] = it;
@@ -48,22 +40,26 @@ static int solution_2(vector<tuple<int, int, int, int>> input) {
     return count;
 }
 
-static void run_and_check_solutions(string task, int (*solution_1)(vector<tuple<int, int, int, int>>), int expected_1,
-                                    int (*solution_2)(vector<tuple<int, int, int, int>>), int expected_2) {
-    auto start_time = std::chrono::high_resolution_clock::now();
-
-    auto input = read_and_parse_data(task);
-    std::cout << task << std::endl;
-    std::cout << "\ttask 1: " << solution_1(input) << " (" << expected_1 << ")" << std::endl;
-    std::cout << "\ttask 2: " << solution_2(input) << " (" << expected_2 << ")" << std::endl;
-
-    auto end_time = std::chrono::high_resolution_clock::now();
-    std::cout << "execution time: "
-              << std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - start_time).count() << " ns"
-              << std::endl;
+void samples() {
+    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto tmp = read_and_parse_data(sample);
+    assert(solve_1(tmp) == 2);
+    assert(solve_2(tmp) == 4);
 }
 
-int main(void) {
-    run_and_check_solutions("day04-sample.input", solution_1, 2, solution_2, 4);
-    run_and_check_solutions("day04.input", solution_1, 466, solution_2, 865);
+int main(int argc, char** argv) {
+    auto input = string_utils::read_input(AOC_INPUT);
+
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto tmp = read_and_parse_data(inp);
+        auto part1 = solve_1(tmp);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto tmp = read_and_parse_data(inp);
+        auto part2 = solve_2(tmp);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
+
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

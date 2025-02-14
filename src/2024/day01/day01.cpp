@@ -50,6 +50,11 @@ int solve_2(std::vector<std::string> inp) {
                            [&lst2](auto const sum, auto const val) { return sum + lst2[val] * val; });
 }
 
+void samples() {
+    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    assert(solve_1(sample) == 26397);
+}
+
 int main(int argc, char** argv) {
     auto input = string_utils::read_input(AOC_INPUT);
 
@@ -60,6 +65,5 @@ int main(int argc, char** argv) {
         std::cout << "part 2: " << solve_2(inp) << std::endl;
     };
 
-    return aoc::run(
-        argc, argv, []() {}, solve_1_wrapper, solve_2_wrapper, input);
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

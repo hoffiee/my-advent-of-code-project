@@ -9,27 +9,13 @@
 #include <string>
 #include <vector>
 
-static void solution_1(std::vector<int64_t> sorted_inventory) {
-    std::cout << "Biggest inventory: " << sorted_inventory.front() << std::endl;
-}
+#include "aoc_runner.h"
+#include "string_utils.h"
 
-static void solution_2(std::vector<int64_t> sorted_inventory) {
-    std::cout << "sum: "
-              << std::accumulate(sorted_inventory.begin(), sorted_inventory.begin() + 3, static_cast<int64_t>(0))
-              << std::endl;
-}
-
-static std::vector<int64_t> read_and_process_data(std::string filename) {
-    std::fstream infile(filename);
-    if (!infile.is_open()) {
-        std::cout << "failed to open: " << filename << std::endl;
-        exit(EXIT_FAILURE);
-    }
-
+static std::vector<int64_t> process_data(std::vector<std::string> const& data) {
     std::vector<int64_t> calories;
     int64_t current_calories = 0;
-    std::string line;
-    while (std::getline(infile, line)) {
+    for (auto line : data) {
         if (line.empty()) {
             calories.push_back(current_calories);
             current_calories = 0;
@@ -42,12 +28,28 @@ static std::vector<int64_t> read_and_process_data(std::string filename) {
     return calories;
 }
 
-int main(void) {
-    auto sample_input = read_and_process_data("day01-sample.input");
-    solution_1(sample_input);
-    solution_2(sample_input);
+int solve_1(std::vector<std::string> input) {
+    auto sorted_inventory = process_data(input);
+    return sorted_inventory.front();
+}
 
-    auto input = read_and_process_data("day01.input");
-    solution_1(input);
-    solution_2(input);
+int solve_2(std::vector<std::string> input) {
+    auto sorted_inventory = process_data(input);
+    return std::accumulate(sorted_inventory.begin(), sorted_inventory.begin() + 3, static_cast<int64_t>(0));
+}
+
+int main(int argc, char** argv) {
+    auto input = string_utils::read_input(AOC_INPUT);
+
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part1 = solve_1(inp);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part2 = solve_2(inp);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
+
+    return aoc::run(
+        argc, argv, []() {}, solve_1_wrapper, solve_2_wrapper, input);
 }

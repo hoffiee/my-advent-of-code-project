@@ -4,11 +4,11 @@ aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY}-sample)
 
 add_executable(${TASK} ${AOC_DAY}.cpp)
 
-add_definitions(
-    -DAOC_TEST=year_${TASK}
-    -DAOC_TASK="${TASK}"
-    -DAOC_INPUT="${AOC_DAY}.input"
-    -DAOC_HEADER="${AOC_DAY}.h"
+target_link_libraries(${TASK}
+    PRIVATE
+    icecream
+    aoc-runner
+    string-utils
 )
 
 add_custom_target(${TASK}-run

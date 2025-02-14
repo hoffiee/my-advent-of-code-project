@@ -16,6 +16,9 @@ add_executable(${TASK} main.cpp)
 
 target_link_libraries(${TASK}
     lib-${TASK}
+    icecream
+    aoc-runner
+    string-utils
 )
 
 add_custom_target(${TASK}-run
@@ -39,6 +42,6 @@ add_custom_target(${TASK}-runtest
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
 
-aoc_add_python_target(${TASK}-py ${TASK}.py)
+aoc_add_python_target(${TASK}-py ${AOC_DAY}.py)
 
 aoc_bench_add_target(${TASK})

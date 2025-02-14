@@ -5,6 +5,6 @@
 #include <vector>
 
 void shift_cipher(std::string& input, int shift);
-std::pair<int, int> solve(std::vector<std::string>& input);
+std::pair<int, int> solve(std::vector<std::string> input);
 
 #endif

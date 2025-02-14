@@ -45,7 +45,7 @@ void shift_cipher(std::string& input, int shift) {
     }
 }
 
-std::pair<int, int> solve(std::vector<std::string>& input) {
+std::pair<int, int> solve(std::vector<std::string> input) {
     int count = 0;
     int nortphole_sector_id;
     for (auto room : input) {

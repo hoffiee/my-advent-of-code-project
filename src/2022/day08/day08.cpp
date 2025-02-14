@@ -85,7 +85,20 @@ static void count_scenic_score(Grid& grid, ssize_t row, ssize_t col) {
     }
 }
 
-int64_t solve1(Grid& grid) {
+Grid preprocess(std::vector<std::string> input) {
+    Grid grid;
+    for (size_t i = 0; i < input.size(); ++i) {
+        std::vector<Tree> row;
+        grid.push_back(std::move(row));
+        for (auto height : input.at(i)) {
+            grid.back().emplace_back(height - '0', false);
+        }
+    }
+    return grid;
+}
+
+int64_t solve_1(std::vector<std::string> input) {
+    auto grid = preprocess(input);
     /* left to right */
     for (size_t row = 1; row < grid.size() - 1; ++row) {
         int max = grid.at(row).front()._height;
@@ -126,7 +139,8 @@ int64_t solve1(Grid& grid) {
     return 2 * grid.size() + 2 * grid.front().size() - 4 + sum;
 }
 
-int64_t solve2(Grid& grid) {
+int64_t solve_2(std::vector<std::string> input) {
+    auto grid = preprocess(input);
     for (size_t row = 0; row < grid.size(); ++row) {
         for (size_t col = 0; col < grid.at(row).size(); ++col) {
             count_scenic_score(grid, row, col);
@@ -142,17 +156,4 @@ int64_t solve2(Grid& grid) {
         }
     }
     return max;
-}
-
-std::pair<int64_t, int64_t> solve(std::vector<std::string>& input) {
-    Grid grid;
-    for (size_t i = 0; i < input.size(); ++i) {
-        std::vector<Tree> row;
-        grid.push_back(std::move(row));
-        for (auto height : input.at(i)) {
-            grid.back().emplace_back(height - '0', false);
-        }
-    }
-
-    return {solve1(grid), solve2(grid)};
 }

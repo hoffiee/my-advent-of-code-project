@@ -96,7 +96,7 @@ int Fabric::find_claim(std::vector<Claim> claims) {
     return 0;
 }
 
-std::pair<int, int> solve(std::vector<std::string>& claims) {
+std::pair<int, int> solve(std::vector<std::string> claims) {
     Fabric fabric;
     std::vector<Claim> vclaims;
     for (auto& claim : claims) {
