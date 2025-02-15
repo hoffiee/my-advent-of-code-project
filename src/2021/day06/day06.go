@@ -9,6 +9,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -73,11 +74,19 @@ func main() {
 	}
 	defer file.Close()
 
+	var part int
+	flag.IntVar(&part, "part", 0, "part")
+	flag.Parse()
+
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
 		input := parse(line)
-		solve(input, 80)
-		solve(input, 256)
+		if part == 0 || part == 1 {
+			solve(input, 80)
+		}
+		if part == 0 || part == 2 {
+			solve(input, 256)
+		}
 	}
 }

@@ -5,6 +5,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -57,6 +58,15 @@ func main() {
 		}
 
 	}
-	fmt.Println(valid1)
-	fmt.Println(valid2)
+
+	var part int
+	flag.IntVar(&part, "part", 0, "part")
+	flag.Parse()
+
+	if part == 0 || part == 1 {
+		fmt.Println(valid1)
+	}
+	if part == 0 || part == 2 {
+		fmt.Println(valid2)
+	}
 }

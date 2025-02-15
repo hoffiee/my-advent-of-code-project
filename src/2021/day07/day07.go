@@ -8,6 +8,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -84,18 +85,26 @@ func solve2(positions []int) {
 }
 
 func main() {
-	// file, err := os.Open("day07-sample.input")
 	file, err := os.Open("day07.input")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
 
+	var part int
+	flag.IntVar(&part, "part", 0, "part")
+	flag.Parse()
+
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
 		input := parse(line)
-		solve1(input)
-		solve2(input)
+
+		if part == 0 || part == 1 {
+			solve1(input)
+		}
+		if part == 0 || part == 2 {
+			solve2(input)
+		}
 	}
 }

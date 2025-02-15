@@ -5,6 +5,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -106,10 +107,19 @@ func main() {
 
 	scanner := bufio.NewScanner(file)
 
+	var part int
+	flag.IntVar(&part, "part", 0, "part")
+	flag.Parse()
+
 	for scanner.Scan() {
 		line := scanner.Text()
 		layers := parse(line)
-		solve1(layers)
-		solve2(layers)
+
+		if part == 0 || part == 1 {
+			solve1(layers)
+		}
+		if part == 0 || part == 2 {
+			solve2(layers)
+		}
 	}
 }

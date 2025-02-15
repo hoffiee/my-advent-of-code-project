@@ -4,6 +4,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -78,6 +79,14 @@ func main() {
 		entries[i] = val
 	}
 
-	solve1(entries)
-	solve2(entries)
+	var part int
+	flag.IntVar(&part, "part", 0, "part")
+	flag.Parse()
+
+	if part == 0 || part == 1 {
+		solve1(entries)
+	}
+	if part == 0 || part == 2 {
+		solve2(entries)
+	}
 }
