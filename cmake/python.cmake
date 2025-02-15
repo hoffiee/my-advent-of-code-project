@@ -27,14 +27,6 @@ macro(aoc_add_python_test)
     )
 endmacro()
 
-macro(aoc_add_python_benchmark)
-    add_custom_target(${ARGV0}
-        COMMAND hyperfine ${VENV_PYTHON} ${CMAKE_CURRENT_SOURCE_DIR}/${ARGV1}
-        DEPENDS venv-update
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    )
-endmacro()
-
 # Python tooling
 add_custom_target(lint-pylint
     COMMAND find . -name '*.py' | grep -v build | xargs ${PROJECT_BINARY_DIR}/venv/bin/pylint
@@ -42,17 +34,11 @@ add_custom_target(lint-pylint
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
-# add_custom_target(lint-mypy
-#     COMMAND find . -name '*.py' | grep -v build | xargs ${PROJECT_BINARY_DIR}/venv/bin/mypy --strict
-#     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-# )
-
 add_custom_target(lint-mypy
     COMMAND git ls-files .
         | grep -E  '\\.py$$'
         | xargs -I{} ${PROJECT_BINARY_DIR}/venv/bin/mypy --explicit-package-bases --check-untyped-defs {}
         | grep -v "Success: no issues found in 1 source file"
-    # COMMAND find . -name '*.py' | grep -v build | xargs ${PROJECT_BINARY_DIR}/venv/bin/mypy --strict --ignore-missing-imports
     DEPENDS venv-update
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )

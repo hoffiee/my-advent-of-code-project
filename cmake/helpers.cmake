@@ -4,7 +4,6 @@ macro(aoc_copy_input_file)
     )
 endmacro()
 
-
 macro(aoc_set_task_variables)
     get_filename_component(AOC_DAY ${CMAKE_CURRENT_SOURCE_DIR} NAME)
     set(TASK ${AOC_YEAR}_${AOC_DAY})
