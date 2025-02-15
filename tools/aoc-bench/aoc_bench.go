@@ -143,7 +143,8 @@ func store_benchmark(db_path string, benchmark *benchmarkData) {
 			benchmark.times_min[part_i],
 			benchmark.times_max[part_i])
 		if err != nil {
-			log.Fatalf("Failed to execute insert: %v\n", err)
+			// If one part fails, I want it to continue and try to write the other one.
+			log.Printf("Failed to execute insert: %v\n", err)
 		}
 	}
 }
