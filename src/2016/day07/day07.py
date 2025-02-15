@@ -1,5 +1,8 @@
 import re
 import string
+import sys
+
+from libs.python.aoc_runner import aoc_runner
 
 
 def is_abba(substr):
@@ -30,7 +33,7 @@ def sol1(data):
             continue
         if check_condition(ips, is_abba):
             count += 1
-    print(count)
+    return count
 
 
 def generate_candidates():
@@ -61,16 +64,24 @@ def sol2(data):
             ):
                 count += 1
                 break
-    print(count)
+    return count
 
 
-def main() -> None:
-    for filename in ["day07-sample.input", "day07.input"]:
-        with open(filename, "r", encoding="utf8") as file:
-            lines = file.read().splitlines()
-            sol1(lines)
-            sol2(lines)
+def samples():
+    with open("day07-sample.input", "r", encoding="utf8") as file:
+        lines = file.read().splitlines()
+    assert sol1(lines) == 2
+    assert sol2(lines) == 3
 
 
 if __name__ == "__main__":
-    main()
+    with open("day07.input", "r", encoding="utf8") as file:
+        lines = file.read().splitlines()
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            lines,
+        )
+    )

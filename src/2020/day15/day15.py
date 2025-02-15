@@ -1,3 +1,8 @@
+import sys
+
+from libs.python.aoc_runner import aoc_runner
+
+
 def update(td, turn, num):
     n = td.get(num)
 
@@ -15,7 +20,7 @@ def update(td, turn, num):
     return td
 
 
-def sol1(l, turns):
+def sol(l, turns):
     td = {}
     new_n = 0
     for i in range(1, turns + 1):
@@ -51,14 +56,31 @@ def sol1(l, turns):
     return new_n
 
 
-def main() -> None:
-    sam = [0, 3, 6]
-    prob = [2, 1, 10, 11, 0, 6]
+def samples() -> None:
+    assert sol([0, 3, 6], 2020) == 436
+    assert sol([1, 3, 2], 2020) == 1
+    assert sol([2, 1, 3], 2020) == 10
+    assert sol([1, 2, 3], 2020) == 27
+    assert sol([2, 3, 1], 2020) == 78
+    assert sol([3, 2, 1], 2020) == 438
+    assert sol([3, 1, 2], 2020) == 1836
 
-    print(f"sample 1: {sol1(sam, 2020)}\tcorrect: 436")
-    print(f"solut. 1: {sol1(prob, 2020)}\tcorrect: 232")
-    print(f"solut. 2: {sol1(prob, 30000000)}\tcorrect: [1892917, inf]")
+    assert sol([0, 3, 6], 30000000) == 175594
+    assert sol([1, 3, 2], 30000000) == 2578
+    assert sol([2, 1, 3], 30000000) == 3544142
+    assert sol([1, 2, 3], 30000000) == 261214
+    assert sol([2, 3, 1], 30000000) == 6895259
+    assert sol([3, 2, 1], 30000000) == 18
+    assert sol([3, 1, 2], 30000000) == 362
 
 
 if __name__ == "__main__":
-    main()
+    inp = [2, 1, 10, 11, 0, 6]
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol(x, 2020)}"),
+            lambda x: print(f"problem 2: {sol(x, 30000000)}"),
+            inp,
+        )
+    )

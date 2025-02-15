@@ -1,4 +1,5 @@
 import re
+import sys
 
 from libs.python.aoc_runner import aoc_runner
 
@@ -81,19 +82,22 @@ def sol2(passports):
     return c
 
 
-def main() -> None:
+def samples() -> None:
     sample_input = read_and_parse("sample.input")
-    print(f"sample 1: {sol1(sample_input)}")
+    assert sol1(sample_input) == 2
     strict_valid_passports = read_and_parse("valid.input")
-    print(f"sample 2 valid: {sol2(strict_valid_passports)}")
+    assert sol2(strict_valid_passports) == 4
     strict_invalid_passports = read_and_parse("invalid.input")
-    print(f"sample 2 invalid: {sol2(strict_invalid_passports)}")
-
-    inp = read_and_parse("day04.input")
-    print(f"problem 1: {sol1(inp)}")
-    print(f"problem 2: {sol2(inp)}")
+    assert sol2(strict_invalid_passports) == 0
 
 
 if __name__ == "__main__":
-    print(aoc_runner.aoc_runner())
-    main()
+    inp = read_and_parse("day04.input")
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            inp,
+        )
+    )

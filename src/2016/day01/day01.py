@@ -1,6 +1,6 @@
-#!usr/bin/env Python
-# -*- coding: utf-8 -*-
+import sys
 
+from libs.python.aoc_runner import aoc_runner
 
 # Examples
 ex_1 = ["R2", "L3"]
@@ -61,33 +61,36 @@ def read_data():
     return m
 
 
-if __name__ == "__main__":
-    print(
-        "Test 1:      ",
-    )
+def samples():
     test1 = person()
     test1.handle_input(ex_1)
-    print(test1.length_to_origo(), " blocks away")
+    assert test1.length_to_origo() == 5
 
-    print(
-        "Test 2:      ",
-    )
     test2 = person()
     test2.handle_input(ex_2)
-    print(test2.length_to_origo(), " blocks away")
+    assert test2.length_to_origo() == 2
 
-    print(
-        "Test 3:      ",
-    )
     test3 = person()
     test3.handle_input(ex_3)
-    print(test3.length_to_origo(), " blocks away")
+    assert test3.length_to_origo() == 12
 
-    print(
-        "Real case:       ",
-    )
+
+def sol1(inp):
     bill = person()
-    # inp = read_data()
-    bill.handle_input(real_case)
-    print("(", bill.pos_x, ", ", bill.pos_y, ")")
-    print(bill.length_to_origo(), " blocks away")
+    bill.handle_input(inp)
+    return bill.length_to_origo()
+
+
+def sol2(inp):
+    pass
+
+
+if __name__ == "__main__":
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            real_case,
+        )
+    )

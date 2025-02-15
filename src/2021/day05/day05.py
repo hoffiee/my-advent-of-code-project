@@ -1,5 +1,8 @@
 import re
 from typing import Dict, Tuple
+import sys
+
+from libs.python.aoc_runner import aoc_runner
 
 DISABLE_PRINT: bool = True
 
@@ -55,32 +58,40 @@ def populate_grid(entries):
     return grid, (min_x, max_x, min_y, max_y)
 
 
-def sol1(data):
+def sol1(lines):
+    data = [list(map(int, re.findall(r"\d+", line))) for line in lines]
     only_horizontal_and_vertical = filter(
         lambda it: it[0] == it[2] or it[1] == it[3], data
     )
     grid, limits = populate_grid(list(only_horizontal_and_vertical))
     print_grid(grid, limits)
     points = [x for x in grid.values() if x > 1]
-    print(f"solution 1:\t{len(points)}")
+    return len(points)
 
 
-def sol2(entries):
+def sol2(lines):
+    entries = [list(map(int, re.findall(r"\d+", line))) for line in lines]
     grid, limits = populate_grid(entries)
     print_grid(grid, limits)
     points = [x for x in grid.values() if x > 1]
-    print(f"solution 2:\t{len(points)}")
+    return len(points)
 
 
-def main() -> None:
-    for filename in ["day05-sample.input", "day05.input"]:
-        with open(filename, "r", encoding="utf8") as f:
-            lines = f.readlines()
-
-            data = [list(map(int, re.findall(r"\d+", line))) for line in lines]
-            sol1(data)
-            sol2(data)
+def samples():
+    with open("day05-sample.input", "r", encoding="utf8") as f:
+        sample = f.readlines()
+    assert sol1(sample) == 5
+    assert sol2(sample) == 12
 
 
 if __name__ == "__main__":
-    main()
+    with open("day05.input", "r", encoding="utf8") as f:
+        inp = f.readlines()
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            inp,
+        )
+    )

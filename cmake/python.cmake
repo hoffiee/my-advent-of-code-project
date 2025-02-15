@@ -1,12 +1,23 @@
-# Usage: aoc_add_python_target(${TASK} ${AOC_DAY})
-macro(aoc_add_python_target)
-    add_custom_target(${ARGV0}
-        COMMAND ${CMAKE_COMMAND} -E env PYTHONPATH=${PROJECT_SOURCE_DIR}:$ENV{PYTHONPATH}
-        ${VENV_PYTHON} ${CMAKE_CURRENT_SOURCE_DIR}/${ARGV1}
-        DEPENDS venv-update
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+find_package(Python3 REQUIRED)
+
+set(TOOLS_DIR ${PROJECT_SOURCE_DIR}/tools)
+
+function(aoc_add_python_target TARGET_NAME PYTHON_SOURCE)
+    add_custom_target(${TARGET_NAME}
+        COMMAND ${CMAKE_COMMAND} -E copy
+            ${CMAKE_CURRENT_SOURCE_DIR}/${PYTHON_SOURCE}
+            ${CMAKE_CURRENT_BINARY_DIR}/solve.py
+        COMMAND ${CMAKE_COMMAND} -E copy
+            ${TOOLS_DIR}/aoc-bench/py_launcher
+            ${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}
+        COMMENT "Copying python files for ${TARGET_NAME}"
     )
-endmacro()
+
+    add_custom_target(${TARGET_NAME}-run
+        COMMAND ./${TARGET_NAME}
+        DEPENDS ${TARGET_NAME}
+    )
+endfunction()
 
 macro(aoc_add_python_test)
     add_custom_target(${ARGV0}

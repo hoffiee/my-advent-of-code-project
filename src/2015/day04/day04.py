@@ -1,4 +1,7 @@
 import hashlib
+import sys
+
+from libs.python.aoc_runner import aoc_runner
 
 
 def solve(key: str, zeroes: int) -> int:
@@ -9,12 +12,18 @@ def solve(key: str, zeroes: int) -> int:
     return 0
 
 
-def main() -> None:
-    print(f"abcdef: {solve('abcdef', 5)} expects: 609043")
-    print(f"abcdef: {solve('pqrstuv', 5)} expects: 1048970")
-    print(solve("iwrupvqb", 5))
-    print(solve("iwrupvqb", 6))
+def samples():
+    assert solve("abcdef", 5) == 609043
+    assert solve("pqrstuv", 5) == 1048970
 
 
 if __name__ == "__main__":
-    main()
+    inp = "iwrupvqb"
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {solve(x, 5)}"),
+            lambda x: print(f"problem 2: {solve(x, 6)}"),
+            inp,
+        )
+    )

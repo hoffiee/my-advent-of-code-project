@@ -1,4 +1,7 @@
 from collections import defaultdict
+import sys
+
+from libs.python.aoc_runner import aoc_runner
 
 
 def distance(p1, p2):
@@ -74,7 +77,8 @@ def preprocess(data):
     return grid, points, dims, offsets
 
 
-def sol1(grid, points, offsets, dims):
+def sol1(lines):
+    grid, points, dims, offsets = preprocess(lines)
     x_dim, y_dim = dims
     x_offset, y_offset = offsets
 
@@ -86,10 +90,11 @@ def sol1(grid, points, offsets, dims):
                 continue
             grid[y][x] = get_closest(points, (x + x_offset, y + y_offset))
             count[grid[y][x]] += 1
-    print(f"sol1: {max(count.values())+1}")
+    return max(count.values()) + 1
 
 
-def sol2(grid, points, offsets, dims):
+def sol2(lines):
+    grid, points, dims, offsets = preprocess(lines)
     x_dim, y_dim = dims
     x_offset, y_offset = offsets
 
@@ -99,19 +104,24 @@ def sol2(grid, points, offsets, dims):
             # We want to include the point in the count, so set check that for distances too
             grid[y][x] = calculate_distance(points, (x + x_offset, y + y_offset))
             count[grid[y][x]] += 1
-    print(f'sol2: {count["#"]}')
+    return count["#"]
 
 
-def main() -> None:
-    for filename in ["day06-sample.input", "day06.input"]:
-        with open(filename, "r", encoding="utf8") as file:
-            lines = file.read().splitlines()
-
-            print(f"file: {filename}")
-            grid, points, dims, offsets = preprocess(lines)
-            sol1(grid.copy(), points.copy(), offsets, dims)
-            sol2(grid.copy(), points.copy(), offsets, dims)
+def samples():
+    with open("day06-sample.input", "r", encoding="utf8") as f:
+        sample = f.read().splitlines()
+    assert sol1(sample) == 17
+    assert sol2(sample) == 72
 
 
 if __name__ == "__main__":
-    main()
+    with open("day06.input", "r", encoding="utf8") as f:
+        inp = f.read().splitlines()
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            inp,
+        )
+    )

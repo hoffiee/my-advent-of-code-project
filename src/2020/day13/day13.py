@@ -1,5 +1,8 @@
 import math as m
 import numpy as np
+import sys
+
+from libs.python.aoc_runner import aoc_runner
 
 
 def read_and_parse_lines(filename):
@@ -43,14 +46,19 @@ def sol2(lines):
     print(tf_vec / bi_vec)
 
 
-def main() -> None:
+def samples() -> None:
     sam = read_and_parse_lines("day13-sample.input")
-    inp = read_and_parse_lines("day13.input")
-
-    print(f"sample 1: {sol1(sam)}\tcorrect: 295")
-    print(f"solut. 1: {sol1(inp)}\tcorrect: 2305")
-    print(f"sample 1: {sol2(sam)}\tcorrect: 286")
+    assert sol1(sam) == 295
+    assert sol2(sam) == 3417
 
 
 if __name__ == "__main__":
-    main()
+    inp = read_and_parse_lines("day13.input")
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            inp,
+        )
+    )

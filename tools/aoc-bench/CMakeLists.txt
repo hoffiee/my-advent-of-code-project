@@ -3,7 +3,6 @@ add_custom_target(aoc_bench
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-
 add_custom_target(aoc_bench-example
     # Set a name that matches the others.
     COMMAND go build -o 2013_day03 ${CMAKE_CURRENT_SOURCE_DIR}/example.go
@@ -17,7 +16,6 @@ add_custom_target(aoc_bench-dev
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-
 macro(aoc_bench_add_target TARGET_NAME)
     get_target_property(BENCH_BINARY_DIR aoc_bench BINARY_DIR)
     # message("target binary dir: ${bench_binary_dir}")
@@ -25,7 +23,6 @@ macro(aoc_bench_add_target TARGET_NAME)
     # message("target_name: ${target_name}")
     add_custom_target(${TARGET_NAME}-bench
         COMMAND ${BENCH_BINARY_DIR}/aoc_bench --target=./${TARGET_NAME} --db=${CMAKE_SOURCE_DIR}/bench.db
-
         DEPENDS aoc_bench ${TARGET_NAME}
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     )

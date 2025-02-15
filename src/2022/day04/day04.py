@@ -1,9 +1,12 @@
 """After completing this in C++ I wanted to make a set based approach too"""
 
 import re
+import sys
+
+from libs.python.aoc_runner import aoc_runner
 
 
-def solution_1(list_of_pairs: list[tuple[set[int], set[int]]]) -> int:
+def sol1(list_of_pairs: list[tuple[set[int], set[int]]]) -> int:
     """Counts occurences by checking if the sets are subsets to one another"""
     count = 0
     for elf_1, elf_2 in list_of_pairs:
@@ -13,7 +16,7 @@ def solution_1(list_of_pairs: list[tuple[set[int], set[int]]]) -> int:
     return count
 
 
-def solution_2(list_of_pairs: list[tuple[set[int], set[int]]]) -> int:
+def sol2(list_of_pairs: list[tuple[set[int], set[int]]]) -> int:
     """Checks if the sets intersects at any points"""
     count = 0
     for elf_1, elf_2 in list_of_pairs:
@@ -42,16 +45,19 @@ def read_and_parse(filename: str) -> list[tuple[set[int], set[int]]]:
         return list_of_pairs
 
 
-def main() -> None:
+def samples():
     sample = read_and_parse("day04-sample.input")
-    puzzle = read_and_parse("day04.input")
-
-    print(solution_1(sample))
-    print(solution_1(puzzle))
-
-    print(solution_2(sample))
-    print(solution_2(puzzle))
+    assert sol1(sample) == 2
+    assert sol2(sample) == 4
 
 
 if __name__ == "__main__":
-    main()
+    inp = read_and_parse("day04.input")
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            inp,
+        )
+    )

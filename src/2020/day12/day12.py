@@ -1,5 +1,8 @@
 import math
 import numpy as np
+import sys
+
+from libs.python.aoc_runner import aoc_runner
 
 
 def read_and_parse_lines(filename: str) -> list[str]:
@@ -110,15 +113,19 @@ def sol2(lines: list[str]) -> float:
     return round(abs(x) + abs(y))
 
 
-def main() -> None:
+def samples() -> None:
     sam = read_and_parse_lines("day12-sample.input")
-    inp = read_and_parse_lines("day12.input")
-
-    print(f"sample 1: {sol1(sam)}\tcorrect: 25")
-    print(f"solut. 1: {sol1(inp)}\tcorrect: 1589")
-    print(f"sample 1: {sol2(sam)}\tcorrect: 286")
-    print(f"solut. 2: {sol2(inp)}\tcorrect: 23960")
+    assert sol1(sam) == 25
+    assert sol2(sam) == 286
 
 
 if __name__ == "__main__":
-    main()
+    inp = read_and_parse_lines("day12.input")
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            inp,
+        )
+    )

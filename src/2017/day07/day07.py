@@ -10,6 +10,9 @@ that it founds it.
 import random
 import statistics
 from collections import defaultdict
+import sys
+
+from libs.python.aoc_runner import aoc_runner
 
 
 def sol1(data):
@@ -59,7 +62,9 @@ class DFS:
         return program_weight
 
 
-def sol2(data, root):
+def sol2(data):
+    root = sol1(data)
+
     weights = {}
     children = defaultdict(list)
 
@@ -80,16 +85,25 @@ def sol2(data, root):
         solver.reset()
         solver.dfs(children, weights, root)
         corrected_weights.append(solver.corrected_weight)
-    print(f"correct weight: {int(statistics.median(corrected_weights))}")
+    return int(statistics.median(corrected_weights))
 
 
-def main() -> None:
-    for filename in ["day07-sample.input", "day07.input"]:
-        with open(filename, "r", encoding="utf8") as file:
-            lines = file.read().splitlines()
-            print(root := sol1(lines))
-            sol2(lines, root)
+def samples():
+    with open("day07-sample.input", "r", encoding="utf8") as file:
+        sample = file.read().splitlines()
+
+    assert sol1(sample) == "tknk"
+    assert sol2(sample) == 60
 
 
 if __name__ == "__main__":
-    main()
+    with open("day07.input", "r", encoding="utf8") as file:
+        inp = file.read().splitlines()
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            inp,
+        )
+    )

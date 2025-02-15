@@ -1,32 +1,9 @@
 from collections import defaultdict
 from typing import List
 from icecream import ic
+import sys
 
-
-attempts_1 = [
-    ("", ""),
-    ("CABDFE", "part 1 sample solution"),
-    ("EBHQVW", "wrong"),
-    ("EUGJKYFQSCLTWXNIZMAPVORDBH", "correct!"),
-]
-
-attempts_2 = [
-    (0, ""),
-    (15, "part 2 sample solution"),
-    (179, "Too low"),
-    (253, "not correct"),
-    (1014, "Correct!"),
-    (1192, "Too high"),
-    (1193, "Too high"),
-]
-
-
-def suggest_solution(attempts, inp):
-    for value, msg in attempts:
-        if inp == value:
-            print(f"{value}\t<-- {msg}")
-            return
-    print(inp)
+from libs.python.aoc_runner import aoc_runner
 
 
 class Tree:
@@ -82,11 +59,13 @@ class Tree:
         return sorted(out)
 
 
-def sol1(tree):
+def sol1(lines):
+    tree = Tree(lines)
     return tree.get_sequence()
 
 
-def sol2(tree):
+def sol2(lines):
+    tree = Tree(lines)
     sequence = tree.get_sequence()
 
     # Don't like doing this, but from the sequence length we see that we're doing the example where the
@@ -128,14 +107,21 @@ def sol2(tree):
     return 0
 
 
-def main() -> None:
-    for filename in ["day07-sample.input", "day07.input"]:
-        with open(filename, "r", encoding="utf8") as file:
-            lines = file.read().splitlines()
-            tree = Tree(lines)
-            suggest_solution(attempts_1, sol1(tree))
-            suggest_solution(attempts_2, sol2(tree))
+def samples():
+    with open("day07-sample.input", "r", encoding="utf8") as f:
+        sample = f.read().splitlines()
+    assert sol1(sample) == "CABDFE"
+    assert sol2(sample) == 15
 
 
 if __name__ == "__main__":
-    main()
+    with open("day07.input", "r", encoding="utf8") as f:
+        inp = list(map(str.rstrip, f.readlines()))
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            inp,
+        )
+    )

@@ -1,5 +1,6 @@
 pytest
 icecream
+sympy
 pylint
 mypy
 black

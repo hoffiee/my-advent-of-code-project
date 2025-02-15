@@ -1,7 +1,10 @@
 import hashlib
+import sys
+
+from libs.python.aoc_runner import aoc_runner
 
 
-def solve(key: str, zeroes: int = 5) -> str:
+def sol1(key: str, zeroes: int = 5) -> str:
     out: str = ""
     for i in range(int(1e9)):
         test = hashlib.md5(f"{key}{i}".encode()).hexdigest()
@@ -12,7 +15,7 @@ def solve(key: str, zeroes: int = 5) -> str:
     return out
 
 
-def solve2(key: str, zeroes: int = 5) -> str:
+def sol2(key: str, zeroes: int = 5) -> str:
     out: str = "________"
     for i in range(int(1e9)):
         test = hashlib.md5(f"{key}{i}".encode()).hexdigest()
@@ -27,12 +30,18 @@ def solve2(key: str, zeroes: int = 5) -> str:
     return out
 
 
-def main():
-    print(f"abc: {solve('abc')} expects: 18f47a30")
-    print(f"abc: {solve2('abc')} expects: 05ace8e3")
-    print(solve("ffykfhsq"))
-    print(solve2("ffykfhsq"))
+def samples():
+    assert sol1("abc") == "18f47a30"
+    assert sol2("abc") == "05ace8e3"
 
 
 if __name__ == "__main__":
-    main()
+    inp = "ffykfhsq"
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            inp,
+        )
+    )

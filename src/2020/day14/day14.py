@@ -1,3 +1,8 @@
+import sys
+
+from libs.python.aoc_runner import aoc_runner
+
+
 def read_and_parse_lines(filename):
     with open(filename, "r", encoding="utf8") as f:
         lines = f.readlines()
@@ -18,8 +23,6 @@ def create_mask(mask):
 
 
 def sol1(lines):
-    # print(lines)
-
     mem = {}
     for l in lines:
         if "mask" in l:
@@ -36,13 +39,22 @@ def sol1(lines):
     return out
 
 
-def main() -> None:
-    sam = read_and_parse_lines("day14-sample.input")
-    inp = read_and_parse_lines("day14.input")
+def sol2(lines):
+    return 0
 
-    print(f"sample 1: {sol1(sam)}\tcorrect: 165")
-    print(f"solut. 1: {sol1(inp)}\tcorrect: 8566770985168")
+
+def samples() -> None:
+    sam = read_and_parse_lines("day14-sample.input")
+    assert sol1(sam) == 165
 
 
 if __name__ == "__main__":
-    main()
+    inp = read_and_parse_lines("day14.input")
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            inp,
+        )
+    )

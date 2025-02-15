@@ -1,5 +1,8 @@
 import collections
 from typing import List, Tuple
+import sys
+
+from libs.python.aoc_runner import aoc_runner
 
 
 def sol1(data: List[Tuple[str, ...]]) -> None:
@@ -7,7 +10,7 @@ def sol1(data: List[Tuple[str, ...]]) -> None:
     for it in data:
         k, _ = collections.Counter(it).most_common(1)[0]
         out += k
-    print(out)
+    return out
 
 
 def sol2(data: List[Tuple[str, ...]]) -> None:
@@ -15,20 +18,28 @@ def sol2(data: List[Tuple[str, ...]]) -> None:
     for it in data:
         d = dict(collections.Counter(it))
         out += min(d, key=d.get)
-    print(out)
+    return out
 
 
-def main() -> None:
-    for filename in ["day06-sample.input", "day06.input"]:
-        with open(filename, "r", encoding="utf8") as file:
-            lines = file.read().splitlines()
-
-            # neat way of transposing data
-            transposed = list(zip(*lines))
-
-            sol1(transposed)
-            sol2(transposed)
+def samples():
+    with open("day06-sample.input", "r", encoding="utf8") as file:
+        lines = file.read().splitlines()
+        transposed = list(zip(*lines))
+    assert sol1(transposed) == "easter"
+    assert sol2(transposed) == "advent"
 
 
 if __name__ == "__main__":
-    main()
+    with open("day06.input", "r", encoding="utf8") as file:
+        lines = file.read().splitlines()
+        # neat way of transposing data
+        transposed = list(zip(*lines))
+
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            transposed,
+        )
+    )

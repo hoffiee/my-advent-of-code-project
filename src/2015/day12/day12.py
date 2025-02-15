@@ -1,6 +1,7 @@
-import re
-from icecream import ic
 import json
+import sys
+
+from libs.python.aoc_runner import aoc_runner
 
 
 def solve(data, validate=False):
@@ -34,22 +35,27 @@ def solve(data, validate=False):
 def sol1(lines):
     data = json.loads(lines[0])
     part, _ = solve(data)
-    print(part)
+    return part
 
 
 def sol2(lines):
     data = json.loads(lines[0])
     part, _ = solve(data, True)
-    print(part)
+    return part
 
 
-def main() -> None:
-    for filename in ["day12.input"]:
-        with open(filename, "r", encoding="utf8") as f:
-            lines = f.readlines()
-            sol1(lines)
-            sol2(lines)
+def samples():
+    pass
 
 
 if __name__ == "__main__":
-    main()
+    with open("day12.input", "r", encoding="utf8") as f:
+        inp = f.readlines()
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            inp,
+        )
+    )

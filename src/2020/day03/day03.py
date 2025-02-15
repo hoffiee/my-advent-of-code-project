@@ -1,3 +1,8 @@
+import sys
+
+from libs.python.aoc_runner import aoc_runner
+
+
 def sol1(m, p) -> int:
     c, v, h = 0, 0, 0
     while True:
@@ -10,26 +15,29 @@ def sol1(m, p) -> int:
     return c
 
 
-def sol2(m, ps) -> int:
+def sol2(m) -> int:
+    ps = [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]]
     r = 1
     for p in ps:
         r *= sol1(m, p)
     return r
 
 
-def main() -> None:
+def samples():
     with open("day03-sample.input", "r", encoding="utf8") as f:
         sample = list(map(str.rstrip, f.readlines()))
-
-    with open("day03.input", "r", encoding="utf8") as f:
-        puzzle = list(map(str.rstrip, f.readlines()))
-    ps = [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]]
-
-    print(f"sample 1:\ttrees:\t{sol1(sample, [3,1])}")
-    print(f"solution 1:\ttrees:\t{sol1(puzzle, [3,1])}")
-    print(f"sample 2:\tmult:\t{sol2(sample, ps)}")
-    print(f"solution 2:\tmult:\t{sol2(puzzle, ps)}")
+    assert sol1(sample, [3, 1]) == 7
+    assert sol2(sample) == 336
 
 
 if __name__ == "__main__":
-    main()
+    with open("day03.input", "r", encoding="utf8") as f:
+        inp = list(map(str.rstrip, f.readlines()))
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x, [3,1])}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            inp,
+        )
+    )

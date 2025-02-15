@@ -1,4 +1,7 @@
+import sys
 from functools import reduce
+
+from libs.python.aoc_runner import aoc_runner
 
 
 def read_and_split_into_groups(filename):
@@ -35,15 +38,19 @@ def sol2(grps):
     return sum(out)
 
 
-def main() -> None:
+def samples() -> None:
     sam = read_and_split_into_groups("day06-sample.input")
-    inp = read_and_split_into_groups("day06.input")
-
-    print(f"sample 1: {sol1(sam)}, correct: 11")
-    print(f"solut. 1: {sol1(inp)}, correct: 6170")
-    print(f"sample 2: {sol2(sam)}, correct: 6")
-    print(f"solut. 2: {sol2(inp)}, correct: 2947")
+    assert sol1(sam) == 11
+    assert sol2(sam) == 6
 
 
 if __name__ == "__main__":
-    main()
+    inp = read_and_split_into_groups("day06.input")
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            inp,
+        )
+    )

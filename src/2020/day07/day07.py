@@ -1,4 +1,7 @@
 import re
+import sys
+
+from libs.python.aoc_runner import aoc_runner
 
 
 def read_and_parse_lines(filename):
@@ -74,16 +77,19 @@ def sol2(inp):
     return 0
 
 
-def main() -> None:
+def samples() -> None:
     sam = read_and_parse_lines("day07-sample.input")
-    inp = read_and_parse_lines("day07.input")
+    assert sol1(sam) == 4
+    assert sol2(sam) == 126
 
-    print(f"sample 1:\t{sol1(sam)}")
-    print(f"solution 1:\t{sol1(inp)}")
-    print(f"sample 2:\t{sol2(sam)}")
-
-
-# print(f"solution 2:\t{sol2(inp)},\tcorrect: ?")
 
 if __name__ == "__main__":
-    main()
+    inp = read_and_parse_lines("day07.input")
+    sys.exit(
+        aoc_runner.aoc_runner(
+            samples,
+            lambda x: print(f"problem 1: {sol1(x)}"),
+            lambda x: print(f"problem 2: {sol2(x)}"),
+            inp,
+        )
+    )
