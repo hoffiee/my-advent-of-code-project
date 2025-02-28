@@ -14,6 +14,7 @@ add_subdirectory(day11)
 add_subdirectory(day12)
 add_subdirectory(day14)
 add_subdirectory(day15)
+add_subdirectory(day16)
 add_subdirectory(day24)
 
 add_custom_target(${AOC_YEAR}-runtest
