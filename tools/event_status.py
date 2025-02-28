@@ -5,7 +5,7 @@ from typing import Final
 def main() -> None:
     events_stars = {
         2024: 50,
-        2023: 30,
+        2023: 32,
         2022: 26,
         2021: 20,
         2020: 23,
@@ -17,8 +17,8 @@ def main() -> None:
     }
     targets_stars = {
         2024: 50,
-        2023: 20,
-        2022: 20,
+        2023: 40,
+        2022: 30,
         2021: 20,
         2020: 20,
         2019: 20,
@@ -46,7 +46,7 @@ def main() -> None:
     )
     print(out)
 
-    print("Tasks left to complete")
+    print(f"Tasks left to complete: {sum(goal.values())}")
     for key in sorted(goal.keys()):
         if goal[key] > 0:
             print(f"\t{key}: {goal[key]}")
