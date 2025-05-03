@@ -9,6 +9,7 @@ def solution_2(inp):
     return inp - 1
 
 
+# TODO Aoc runner
 def main():
     print("hello")
     print(f"solution_1(1): {solution_1(1)}")

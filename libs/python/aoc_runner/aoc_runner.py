@@ -32,6 +32,7 @@ def aoc_runner(prechecks, sol1, sol2, data) -> None:
 
     if args.samples:
         prechecks()
+        print("checks done")
 
     if args.part_1:
         sol1(data)
