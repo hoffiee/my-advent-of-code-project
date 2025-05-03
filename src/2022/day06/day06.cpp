@@ -9,7 +9,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
-#include "string_utils.h"
+#include "aoc_utils.h"
 
 using std::string;
 
@@ -32,14 +32,14 @@ static int64_t solve(string message, size_t offset) {
 }
 
 void samples() {
-    // auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    // auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     // auto [tmp1, tmp2] = read_and_parse_data(sample);
     // assert(solve_1(tmp1, tmp2) == "CMZ");
     // assert(solve_2(tmp1, tmp2) == "MCD");
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = solve(inp.front(), 4);

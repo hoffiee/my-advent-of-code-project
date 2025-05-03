@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
+#include "aoc_utils.h"
 #include "string_utils.h"
 
 bool safe_level(std::vector<int64_t> vec) {
@@ -63,7 +64,7 @@ int solve_2(std::vector<std::string> inp) {
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         std::cout << "part 1: " << solve_1(inp) << std::endl;

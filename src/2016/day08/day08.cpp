@@ -111,12 +111,12 @@ int64_t solve(std::vector<std::string> const& inp, int64_t width = 50, int64_t h
 }
 
 void samples() {
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve(sample, 7, 3) == 6);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = solve(inp);

@@ -12,7 +12,7 @@
 #include "string_utils.h"
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto inst = string_utils::numbers_from_string(inp[0]);

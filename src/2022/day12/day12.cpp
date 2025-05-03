@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
-#include "string_utils.h"
+#include "aoc_utils.h"
 
 namespace {
 using std::queue;
@@ -231,14 +231,14 @@ void samples() {
     test_mark_finder();
     test_struct_compare();
     test_adjacent_edges();
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     auto tmp = read_and_parse_data(sample);
     assert(solve_1(tmp) == 31);
     assert(solve_2(tmp) == 29);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto tmp = read_and_parse_data(inp);

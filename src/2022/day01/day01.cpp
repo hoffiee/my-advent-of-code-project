@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
-#include "string_utils.h"
+#include "aoc_utils.h"
 
 static std::vector<int64_t> process_data(std::vector<std::string> const& data) {
     std::vector<int64_t> calories;
@@ -39,7 +39,7 @@ int solve_2(std::vector<std::string> input) {
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = solve_1(inp);

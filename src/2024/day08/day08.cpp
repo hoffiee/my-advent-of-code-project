@@ -13,7 +13,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
-#include "string_utils.h"
+#include "aoc_utils.h"
 
 struct Antennas {
     std::complex<int> size_{};
@@ -163,22 +163,22 @@ int64_t solve_1(std::vector<std::string> inp) { return solver(inp, generator1); 
 int64_t solve_2(std::vector<std::string> inp) { return solver(inp, generator2); }
 
 void samples() {
-    auto sample1 = string_utils::read_input("day08-sample-1.input");
+    auto sample1 = aoc::utils::read_input("day08-sample-1.input");
     assert(solve_1(sample1) == 2);
 
-    auto sample2 = string_utils::read_input("day08-sample-2.input");
+    auto sample2 = aoc::utils::read_input("day08-sample-2.input");
     assert(solve_1(sample2) == 4);
 
-    auto sample3 = string_utils::read_input("day08-sample-3.input");
+    auto sample3 = aoc::utils::read_input("day08-sample-3.input");
     assert(solve_1(sample3) == 14);
 
-    auto sample4 = string_utils::read_input("day08-sample-4.input");
+    auto sample4 = aoc::utils::read_input("day08-sample-4.input");
     assert(solve_2(sample4) == 9);
     assert(solve_2(sample3) == 34);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         std::cout << "part 1: " << solve_1(inp) << std::endl;

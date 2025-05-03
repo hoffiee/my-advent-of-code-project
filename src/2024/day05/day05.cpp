@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
+#include "aoc_utils.h"
 #include "string_utils.h"
 
 bool valid_line(std::unordered_map<int64_t, std::vector<int64_t>> dependencies,
@@ -201,7 +202,7 @@ int64_t solve_2_sort(std::vector<std::string> inp) {
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         std::cout << "part 1: " << solve_1(inp) << std::endl;

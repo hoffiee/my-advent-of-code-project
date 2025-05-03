@@ -20,7 +20,8 @@ TEST(AOC_TEST, test_case_1) {
                                     "1518-11-05 00:03 Guard #99 begins shift",
                                     "1518-11-05 00:45 falls asleep",
                                     "1518-11-05 00:55 wakes up"};
-    auto [part1, part2] = solve(inp);
+    auto part1 = solve_1(inp);
+    auto part2 = solve_2(inp);
     ASSERT_EQ(part1, 240);
     ASSERT_EQ(part2, 4455);
 }

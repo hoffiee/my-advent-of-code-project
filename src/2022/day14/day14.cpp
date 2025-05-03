@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
-#include "string_utils.h"
+#include "aoc_utils.h"
 
 static const int height = 1000;
 static const int width = 1000;
@@ -168,14 +168,14 @@ int solve_2(map m) {
 }
 
 void samples() {
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     auto tmp = read_and_parse_data(sample);
     assert(solve_1(tmp) == 24);
     assert(solve_2(tmp) == 93);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto tmp = read_and_parse_data(inp);

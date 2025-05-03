@@ -26,7 +26,7 @@ int64_t solve_2(std::vector<std::string> const& inp_) {
 void samples() {}
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = solve_1(inp);

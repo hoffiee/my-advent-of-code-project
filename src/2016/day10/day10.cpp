@@ -12,7 +12,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 struct Bot {
     std::string name_{};
@@ -99,13 +98,13 @@ int64_t solve_2(std::vector<std::string> const& inp, std::tuple<int, int> target
 }
 
 void samples() {
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve_1(sample, {2, 5}) == 2);
     assert(solve_2(sample, {2, 5}) == 5 * 2 * 3);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = solve_1(inp);

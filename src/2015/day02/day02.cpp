@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
-#include "string_utils.h"
+#include "aoc_utils.h"
 
 static std::pair<int, int> gift_wrapping(std::string input) {
     int length = 0;
@@ -61,7 +61,7 @@ static void test() {
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto [part1, _] = solve(inp);

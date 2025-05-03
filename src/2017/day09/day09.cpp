@@ -11,7 +11,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 std::tuple<int64_t, size_t> dive_garbage(std::string const& inp, size_t idx) {
     if (idx >= inp.size()) {
@@ -98,54 +97,54 @@ int64_t solve_2(std::vector<std::string> const& inp) {
 }
 
 void samples() {
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve_1(sample) == 1);
 
-    auto sample1 = string_utils::read_input("day09-sample-1.input");
+    auto sample1 = aoc::utils::read_input("day09-sample-1.input");
     assert(solve_1(sample1) == 6);
 
-    auto sample2 = string_utils::read_input("day09-sample-2.input");
+    auto sample2 = aoc::utils::read_input("day09-sample-2.input");
     assert(solve_1(sample2) == 5);
 
-    auto sample3 = string_utils::read_input("day09-sample-3.input");
+    auto sample3 = aoc::utils::read_input("day09-sample-3.input");
     assert(solve_1(sample3) == 16);
 
-    auto sample4 = string_utils::read_input("day09-sample-4.input");
+    auto sample4 = aoc::utils::read_input("day09-sample-4.input");
     assert(solve_1(sample4) == 1);
 
-    auto sample5 = string_utils::read_input("day09-sample-5.input");
+    auto sample5 = aoc::utils::read_input("day09-sample-5.input");
     assert(solve_1(sample5) == 9);
 
-    auto sample6 = string_utils::read_input("day09-sample-6.input");
+    auto sample6 = aoc::utils::read_input("day09-sample-6.input");
     assert(solve_1(sample6) == 9);
 
-    auto sample7 = string_utils::read_input("day09-sample-7.input");
+    auto sample7 = aoc::utils::read_input("day09-sample-7.input");
     assert(solve_1(sample7) == 3);
 
-    auto sample8 = string_utils::read_input("day09-sample-8.input");
+    auto sample8 = aoc::utils::read_input("day09-sample-8.input");
     assert(solve_2(sample8) == 0);
 
-    auto sample9 = string_utils::read_input("day09-sample-9.input");
+    auto sample9 = aoc::utils::read_input("day09-sample-9.input");
     assert(solve_2(sample9) == 17);
 
-    auto sample10 = string_utils::read_input("day09-sample-10.input");
+    auto sample10 = aoc::utils::read_input("day09-sample-10.input");
     assert(solve_2(sample10) == 3);
 
-    auto sample11 = string_utils::read_input("day09-sample-11.input");
+    auto sample11 = aoc::utils::read_input("day09-sample-11.input");
     assert(solve_2(sample11) == 2);
 
-    auto sample12 = string_utils::read_input("day09-sample-12.input");
+    auto sample12 = aoc::utils::read_input("day09-sample-12.input");
     assert(solve_2(sample12) == 0);
 
-    auto sample13 = string_utils::read_input("day09-sample-13.input");
+    auto sample13 = aoc::utils::read_input("day09-sample-13.input");
     assert(solve_2(sample13) == 0);
 
-    auto sample14 = string_utils::read_input("day09-sample-14.input");
+    auto sample14 = aoc::utils::read_input("day09-sample-14.input");
     assert(solve_2(sample14) == 10);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = solve_1(inp);

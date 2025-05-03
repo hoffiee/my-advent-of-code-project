@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
-#include "string_utils.h"
+#include "aoc_utils.h"
 
 #define MAX_CRATES 9
 
@@ -77,14 +77,14 @@ string solve_2(stacks_t stack_of_crates, instructions_t instructions) {
 }
 
 void samples() {
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     auto [tmp1, tmp2] = read_and_parse_data(sample);
     assert(solve_1(tmp1, tmp2) == "CMZ");
     assert(solve_2(tmp1, tmp2) == "MCD");
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto [tmp1, tmp2] = read_and_parse_data(inp);

@@ -31,7 +31,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
-#include "string_utils.h"
+#include "aoc_utils.h"
 
 // TODO Move to helper and create a template? feels like I can reduce it quite alot given the amount of grid problems
 using Pos = std::complex<int64_t>;
@@ -298,12 +298,12 @@ int64_t solve_1(std::vector<std::string> const& inp) { return solve(inp, 2); }
 int64_t solve_2(std::vector<std::string> inp) { return solve(inp, 25); }
 
 void samples() {
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve_1(sample) == 126384);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         std::cout << "part 1: " << solve_1(inp) << std::endl;

@@ -12,7 +12,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
-#include "string_utils.h"
+#include "aoc_utils.h"
 
 template <typename T>
 struct Pos_t {
@@ -370,10 +370,10 @@ int64_t solve_2(std::vector<std::string> inp) {
 }
 
 void tests() {
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve_1(sample) == 102);
 
-    auto sample_1 = string_utils::read_input("day17-sample-1.input");
+    auto sample_1 = aoc::utils::read_input("day17-sample-1.input");
     assert(solve_2(sample_1) == 71);
 
     assert(solve_2(sample) == 94);
@@ -382,7 +382,7 @@ void tests() {
 }  // namespace aoc::y2023::d17
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = aoc::y2023::d17::solve_1(inp);

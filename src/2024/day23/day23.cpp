@@ -9,7 +9,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 using Graph = std::unordered_map<std::string, std::vector<std::string>>;
 using Edges = std::vector<std::tuple<std::string, std::string>>;
@@ -123,13 +122,13 @@ std::string solve_2(std::vector<std::string> inp) {
 }
 
 void samples() {
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve_1(sample) == 7);
     assert(solve_2(sample) == "co,de,ka,ta");
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         std::cout << "part 1: " << solve_1(inp) << std::endl;

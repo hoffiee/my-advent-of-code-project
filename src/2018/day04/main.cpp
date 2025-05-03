@@ -2,12 +2,12 @@
 #include <iostream>
 
 #include "aoc_runner.h"
-#include "string_utils.h"
+#include "aoc_utils.h"
 
 #include AOC_HEADER
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input("day04.preprocessed.input");
+    auto input = aoc::utils::read_input("day04.preprocessed.input");
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = solve_1(inp);

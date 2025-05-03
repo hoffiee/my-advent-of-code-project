@@ -10,6 +10,7 @@ target_link_libraries(${TASK}
     string-utils
     aoc-runner
     openmp-wrapper
+    aoc-utils
 )
 
 add_custom_target(${TASK}-run

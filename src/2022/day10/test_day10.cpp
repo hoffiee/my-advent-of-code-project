@@ -22,7 +22,8 @@ TEST(AOC_TEST, test_case_1) {
         "noop",     "noop",     "addx 20",  "addx 1",  "addx 2",   "addx 2",  "addx -6",  "addx -11", "noop",
         "noop",     "noop",
     };
-    auto [part1, part2] = solve(inp);
+    auto part1 = solve_1(inp);
+    auto part2 = solve_2(inp);
     ASSERT_EQ(part1, 13140);
     ASSERT_EQ(part2, 0);
 }

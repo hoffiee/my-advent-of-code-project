@@ -90,27 +90,27 @@ int64_t solve(std::vector<std::string> const& inp, int64_t multiplier = 1) {
 }
 
 void samples() {
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve(sample) == 32);
 
-    auto sample1 = string_utils::read_input("day09-sample-1.input");
+    auto sample1 = aoc::utils::read_input("day09-sample-1.input");
     assert(solve(sample1) == 8317);
 
-    auto sample2 = string_utils::read_input("day09-sample-2.input");
+    auto sample2 = aoc::utils::read_input("day09-sample-2.input");
     assert(solve(sample2) == 146373);
 
-    auto sample3 = string_utils::read_input("day09-sample-3.input");
+    auto sample3 = aoc::utils::read_input("day09-sample-3.input");
     assert(solve(sample3) == 2764);
 
-    auto sample4 = string_utils::read_input("day09-sample-4.input");
+    auto sample4 = aoc::utils::read_input("day09-sample-4.input");
     assert(solve(sample4) == 54718);
 
-    auto sample5 = string_utils::read_input("day09-sample-5.input");
+    auto sample5 = aoc::utils::read_input("day09-sample-5.input");
     assert(solve(sample5) == 37305);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = solve(inp);

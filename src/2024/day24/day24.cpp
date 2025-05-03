@@ -216,15 +216,15 @@ std::string solve_2(std::vector<std::string> inp) {
 }
 
 void samples() {
-    auto sample1 = string_utils::read_input("day24-sample-1.input");
+    auto sample1 = aoc::utils::read_input("day24-sample-1.input");
     assert(solve_1(sample1) == 4);
 
-    auto sample2 = string_utils::read_input("day24-sample-2.input");
+    auto sample2 = aoc::utils::read_input("day24-sample-2.input");
     assert(solve_1(sample2) == 2024);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = solve_1(inp);
@@ -232,7 +232,7 @@ int main(int argc, char** argv) {
         std::cout << "part 1: " << part1 << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
-        auto fixed = string_utils::read_input("day24-fixed.input");
+        auto fixed = aoc::utils::read_input("day24-fixed.input");
         auto part2 = solve_2(fixed);
         assert(part2 == "cdj,dhm,gfm,mrb,qjd,z08,z16,z32");
         std::cout << "part 2: " << part2 << std::endl;

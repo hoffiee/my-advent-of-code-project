@@ -8,21 +8,6 @@
 
 namespace string_utils {
 
-std::vector<std::string> read_input(std::string filename) {
-    std::ifstream input_file{};
-    input_file.open(filename);
-    if (!input_file.is_open()) {
-        std::cerr << "couldn't read file" << std::endl;
-        return {};
-    }
-    std::vector<std::string> input{};
-    std::string line{};
-    while (getline(input_file, line)) {
-        input.push_back(line);
-    }
-    return input;
-}
-
 std::vector<int64_t> numbers_from_string(std::string str) {
     std::vector<int64_t> out{};
 

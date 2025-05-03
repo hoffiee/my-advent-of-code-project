@@ -13,7 +13,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 struct HexTile {
     int64_t q_{};
@@ -92,25 +91,25 @@ int64_t solve_2(std::vector<std::string> const& inp) {
 }
 
 void samples() {
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve_1(sample) == 3);
     assert(solve_2(sample) == 3);
 
-    auto sample1 = string_utils::read_input("day11-sample-1.input");
+    auto sample1 = aoc::utils::read_input("day11-sample-1.input");
     assert(solve_1(sample1) == 0);
     assert(solve_2(sample) == 3);
 
-    auto sample2 = string_utils::read_input("day11-sample-2.input");
+    auto sample2 = aoc::utils::read_input("day11-sample-2.input");
     assert(solve_1(sample2) == 2);
     assert(solve_2(sample) == 3);
 
-    auto sample3 = string_utils::read_input("day11-sample-3.input");
+    auto sample3 = aoc::utils::read_input("day11-sample-3.input");
     assert(solve_1(sample3) == 3);
     assert(solve_2(sample) == 3);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = solve_1(inp);

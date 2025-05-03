@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
-#include "string_utils.h"
+#include "aoc_utils.h"
 
 using Pos = std::complex<int64_t>;
 
@@ -303,34 +303,34 @@ int64_t solve_2(std::vector<std::string> inp) {
 }
 
 void samples() {
-    auto sample1 = string_utils::read_input("day16-sample-1.input");
+    auto sample1 = aoc::utils::read_input("day16-sample-1.input");
     assert(solve_1(sample1) == 7036);
     assert(solve_2(sample1) == 45);
 
-    auto sample2 = string_utils::read_input("day16-sample-2.input");
+    auto sample2 = aoc::utils::read_input("day16-sample-2.input");
     assert(solve_1(sample2) == 11048);
     assert(solve_2(sample2) == 64);
 
-    auto sample3 = string_utils::read_input("day16-sample-3.input");
+    auto sample3 = aoc::utils::read_input("day16-sample-3.input");
     assert(solve_1(sample3) == 1004);
     assert(solve_2(sample3) == 5);
 
-    auto sample4 = string_utils::read_input("day16-sample-4.input");
+    auto sample4 = aoc::utils::read_input("day16-sample-4.input");
     assert(solve_1(sample4) == 4013);
     assert(solve_2(sample4) == 14);
 
-    auto sample5 = string_utils::read_input("day16-sample-5.input");
+    auto sample5 = aoc::utils::read_input("day16-sample-5.input");
     assert(solve_1(sample5) == 21148);
     assert(solve_2(sample5) == 149);
 
-    auto sample6 = string_utils::read_input("day16-sample-6.input");
+    auto sample6 = aoc::utils::read_input("day16-sample-6.input");
     assert(solve_1(sample6) == 5078);
     assert(solve_2(sample6) == 413);
 
-    auto sample7 = string_utils::read_input("day16-sample-7.input");
+    auto sample7 = aoc::utils::read_input("day16-sample-7.input");
     assert(solve_1(sample7) == 21110);
 
-    auto sample8 = string_utils::read_input("day16-sample-8.input");
+    auto sample8 = aoc::utils::read_input("day16-sample-8.input");
     assert(solve_1(sample8) == 41210);
 
     // These samples caused infinite loops in my solution, altough they're not representative of the problem at hand
@@ -341,7 +341,7 @@ void samples() {
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         std::cout << "part 1: " << solve_1(inp) << std::endl;

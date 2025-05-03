@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
+#include "aoc_utils.h"
 #include "string_utils.h"
 
 int64_t op3(int64_t lhs, int64_t rhs) {
@@ -50,7 +51,7 @@ int64_t solver(std::vector<std::string> const& inp, bool third = false) {
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         std::cout << "part 1: " << solver(inp) << std::endl;

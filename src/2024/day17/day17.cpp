@@ -275,38 +275,38 @@ uint64_t solve_2_fuzzing(std::vector<std::string> inp) {
 }
 
 void samples() {
-    auto sample1 = string_utils::read_input("day17-sample-1.input");
+    auto sample1 = aoc::utils::read_input("day17-sample-1.input");
     assert(solve_1(sample1).register_b_ == 1);
 
-    auto sample2 = string_utils::read_input("day17-sample-2.input");
+    auto sample2 = aoc::utils::read_input("day17-sample-2.input");
     assert(solve_1(sample2).output() == "0,1,2");
 
-    auto sample3 = solve_1(string_utils::read_input("day17-sample-3.input"));
+    auto sample3 = solve_1(aoc::utils::read_input("day17-sample-3.input"));
     assert(sample3.output() == "4,2,5,6,7,7,7,7,3,1,0");
     assert(sample3.register_a_ == 0);
 
-    auto sample5 = solve_1(string_utils::read_input("day17-sample-5.input"));
+    auto sample5 = solve_1(aoc::utils::read_input("day17-sample-5.input"));
     assert(sample5.register_b_ == 44354);
 
-    auto sample = solve_1(string_utils::read_input(AOC_SAMPLE_INPUT));
+    auto sample = solve_1(aoc::utils::read_input(AOC_SAMPLE_INPUT));
     assert(sample.output() == "4,6,3,5,6,3,5,2,1,0");
 
-    auto sample6 = string_utils::read_input("day17-sample-6.input");
+    auto sample6 = aoc::utils::read_input("day17-sample-6.input");
     assert(solve_2(sample6) == 117440);
 
-    auto sample7 = string_utils::read_input("day17-sample-7.input");
+    auto sample7 = aoc::utils::read_input("day17-sample-7.input");
     assert(solve_1(sample7).output() == "6,0,4,5,4,5,2,0");
     assert(solve_2_fuzzing(sample7) == 202797954918051);
 
-    auto sample8 = string_utils::read_input("day17-sample-8.input");
+    auto sample8 = aoc::utils::read_input("day17-sample-8.input");
     assert(solve_1(sample8).output() == "3,4,4,1,7,0,2,2");
     assert(solve_2(sample8) == 266926175730705);
 
-    auto sample9 = string_utils::read_input("day17-sample-9.input");
+    auto sample9 = aoc::utils::read_input("day17-sample-9.input");
     assert(solve_2(sample9) == 164540892147389);
     // assert(solve_2_fuzzing(sample9) == 164540892147389);
 
-    // auto sample10 = string_utils::read_input("day17-sample-10.input");
+    // auto sample10 = aoc::utils::read_input("day17-sample-10.input");
     // for (auto pvec: sample10) {
     //     std::vector<std::string> inp{
     //         { "Register A: 0" },
@@ -322,7 +322,7 @@ void samples() {
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         std::cout << "part 1: " << solve_1(inp).output() << std::endl;

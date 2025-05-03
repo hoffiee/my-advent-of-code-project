@@ -13,6 +13,12 @@
 
 namespace aoc {
 
+namespace utils {
+
+std::vector<std::string> read_input(std::string filename);
+
+};  // namespace utils
+
 namespace vector {
 };
 

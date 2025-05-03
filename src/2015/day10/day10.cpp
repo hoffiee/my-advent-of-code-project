@@ -13,7 +13,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 int64_t solve(std::vector<std::string> const& inp, int64_t steps) {
     std::string current{inp[0]};
@@ -39,25 +38,25 @@ int64_t solve(std::vector<std::string> const& inp, int64_t steps) {
 }
 
 void samples() {
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve(sample, 1) == 2);
     assert(solve(sample, 5) == 6);
 
-    auto sample1 = string_utils::read_input("day10-sample-1.input");
+    auto sample1 = aoc::utils::read_input("day10-sample-1.input");
     assert(solve(sample1, 1) == 2);
 
-    auto sample2 = string_utils::read_input("day10-sample-2.input");
+    auto sample2 = aoc::utils::read_input("day10-sample-2.input");
     assert(solve(sample2, 1) == 4);
 
-    auto sample3 = string_utils::read_input("day10-sample-3.input");
+    auto sample3 = aoc::utils::read_input("day10-sample-3.input");
     assert(solve(sample3, 1) == 6);
 
-    auto sample4 = string_utils::read_input("day10-sample-4.input");
+    auto sample4 = aoc::utils::read_input("day10-sample-4.input");
     assert(solve(sample4, 1) == 6);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = solve(inp, 40);

@@ -35,6 +35,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
+#include "aoc_utils.h"
 #include "string_utils.h"
 
 struct Target {
@@ -91,15 +92,15 @@ int64_t solve_2(std::vector<std::string> inp) {
 }
 
 void samples() {
-    auto sample1 = string_utils::read_input("day13-sample-1.input");
+    auto sample1 = aoc::utils::read_input("day13-sample-1.input");
     assert(solve_1(sample1) == 280);
 
-    auto sample2 = string_utils::read_input("day13-sample-2.input");
+    auto sample2 = aoc::utils::read_input("day13-sample-2.input");
     assert(solve_1(sample2) == 480);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         std::cout << "part 1: " << solve_1(inp) << std::endl;

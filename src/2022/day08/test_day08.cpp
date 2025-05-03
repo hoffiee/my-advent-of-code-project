@@ -6,7 +6,8 @@ TEST(AOC_TEST, test_case_1) {
     std::vector<std::string> inp = {
         "30373", "25512", "65332", "33549", "35390",
     };
-    auto [part1, part2] = solve(inp);
+    auto part1 = solve_1(inp);
+    auto part2 = solve_2(inp);
     ASSERT_EQ(part1, 21);
     ASSERT_EQ(part2, 8);
 }

@@ -26,6 +26,7 @@ target_link_libraries(${TASK}
     lib-${TASK}
     icecream
     aoc-runner
+    aoc-utils
     string-utils
 )
 

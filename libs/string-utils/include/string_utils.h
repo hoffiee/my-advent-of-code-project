@@ -7,8 +7,6 @@
 
 namespace string_utils {
 
-std::vector<std::string> read_input(std::string filename);
-
 // TODO: Generalize as template
 std::vector<int64_t> numbers_from_string(std::string str);
 

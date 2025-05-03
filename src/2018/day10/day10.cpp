@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
+#include "aoc_utils.h"
 #include "lodepng.h"
 #include "string_utils.h"
 
@@ -111,12 +112,12 @@ int64_t solve(std::vector<std::string> const& inp) {
 }
 
 void samples() {
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve(sample) == 3);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = solve(inp);

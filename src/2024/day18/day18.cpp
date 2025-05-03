@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
+#include "aoc_utils.h"
 #include "string_utils.h"
 
 // TODO Move to helper and create a template? feels like I can reduce it quite alot given the amount of grid problems
@@ -201,13 +202,13 @@ std::string solve_2(std::vector<std::string> inp, bool sample = false) {
 }
 
 void samples() {
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve_1(sample, true) == 22);
     assert(solve_2(sample, true) == "6,1");
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         std::cout << "part 1: " << solve_1(inp) << std::endl;

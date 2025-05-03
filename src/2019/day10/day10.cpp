@@ -17,7 +17,6 @@
 #include "aoc_runner.h"
 #include "aoc_utils.h"
 #include "intcode_computer.h"
-#include "string_utils.h"
 
 namespace aoc::y2019::d10 {
 
@@ -122,19 +121,19 @@ int64_t solve_2(std::vector<std::string> const& inp) {
 }
 
 void samples() {
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve_1(sample) == 8);
 
-    auto sample1 = string_utils::read_input("day10-sample-1.input");
+    auto sample1 = aoc::utils::read_input("day10-sample-1.input");
     assert(solve_1(sample1) == 33);
 
-    auto sample2 = string_utils::read_input("day10-sample-2.input");
+    auto sample2 = aoc::utils::read_input("day10-sample-2.input");
     assert(solve_1(sample2) == 35);
 
-    auto sample3 = string_utils::read_input("day10-sample-3.input");
+    auto sample3 = aoc::utils::read_input("day10-sample-3.input");
     assert(solve_1(sample3) == 41);
 
-    auto sample4 = string_utils::read_input("day10-sample-4.input");
+    auto sample4 = aoc::utils::read_input("day10-sample-4.input");
     assert(solve_1(sample4) == 210);
     assert(solve_2(sample4) == 802);
 }
@@ -142,7 +141,7 @@ void samples() {
 };  // namespace aoc::y2019::d10
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = aoc::y2019::d10::solve_1(inp);

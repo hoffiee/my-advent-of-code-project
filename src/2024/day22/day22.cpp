@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
+#include "aoc_utils.h"
 #include "string_utils.h"
 
 // TODO Add to utils, fix so that I can template the amount of tuples?
@@ -116,7 +117,7 @@ void samples() {
     assert(mix_prune(42, 15) == 37);
     assert(mix_prune(100000000, 0) == 16113920);
 
-    auto sample1 = string_utils::read_input("day22-sample-1.input");
+    auto sample1 = aoc::utils::read_input("day22-sample-1.input");
     assert(solve_1(sample1, 1) == 15887950);
     assert(solve_1(sample1, 2) == 16495136);
     assert(solve_1(sample1, 3) == 527345);
@@ -129,15 +130,15 @@ void samples() {
     assert(solve_1(sample1, 10) == 5908254);
     assert(solve_2(sample1, 10) == 6);
 
-    auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve_1(sample) == 37327623);
 
-    auto sample2 = string_utils::read_input("day22-sample-2.input");
+    auto sample2 = aoc::utils::read_input("day22-sample-2.input");
     assert(solve_2(sample2) == 23);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         std::cout << "part 1: " << solve_1(inp) << std::endl;

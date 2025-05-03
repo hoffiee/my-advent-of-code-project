@@ -12,6 +12,7 @@ target_link_libraries(${TASK}
     icecream
     string-utils
     aoc-runner
+    aoc-utils
     ncurses
 )
 

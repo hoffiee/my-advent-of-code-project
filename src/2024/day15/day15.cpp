@@ -13,7 +13,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
-#include "string_utils.h"
+#include "aoc_utils.h"
 
 namespace {
 
@@ -426,19 +426,19 @@ int64_t solve_2(std::vector<std::string> inp, bool render = false) {
 }
 
 void samples() {
-    auto sample1 = string_utils::read_input("day15-sample-1.input");
+    auto sample1 = aoc::utils::read_input("day15-sample-1.input");
     assert(solve_1(sample1) == 2028);
 
-    auto sample2 = string_utils::read_input("day15-sample-2.input");
+    auto sample2 = aoc::utils::read_input("day15-sample-2.input");
     assert(solve_1(sample2) == 10092);
 
-    auto sample3 = string_utils::read_input("day15-sample-3.input");
+    auto sample3 = aoc::utils::read_input("day15-sample-3.input");
     assert(solve_2(sample3) == (105 + 100 * 2 + 7 + 100 * 3 + 6));
     assert(solve_2(sample2) == 9021);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         std::cout << "part 1: " << solve_1(inp) << std::endl;

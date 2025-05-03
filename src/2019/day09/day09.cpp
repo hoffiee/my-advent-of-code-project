@@ -53,19 +53,19 @@ void samples() {
         IC(comp.output_);
     }
 
-    // auto sample = string_utils::read_input(AOC_SAMPLE_INPUT);
+    // auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     // assert(solve_1(sample) == 1);
     // assert(solve_2(sample) == 0);
     //
-    // auto sample1 = string_utils::read_input("day09-sample-1.input");
+    // auto sample1 = aoc::utils::read_input("day09-sample-1.input");
     // assert(solve_1(sample1) == 0);
     // assert(solve_2(sample) == 0);
     //
-    // auto sample2 = string_utils::read_input("day09-sample-2.input");
+    // auto sample2 = aoc::utils::read_input("day09-sample-2.input");
     // assert(solve_1(sample2) == 0);
     // assert(solve_2(sample) == 0);
     //
-    // auto sample3 = string_utils::read_input("day09-sample-3.input");
+    // auto sample3 = aoc::utils::read_input("day09-sample-3.input");
     // assert(solve_1(sample3) == 0);
     // assert(solve_2(sample) == 0);
 }
@@ -73,7 +73,7 @@ void samples() {
 };  // namespace aoc::y2019::d9
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = aoc::y2019::d9::solve_1(inp);

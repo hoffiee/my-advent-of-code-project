@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "aoc_runner.h"
-#include "string_utils.h"
+#include "aoc_utils.h"
 
 struct Block {
     enum struct Type : int32_t {
@@ -195,13 +195,13 @@ int64_t solve_2(std::vector<std::string> inp) {
 }
 
 void samples() {
-    auto sample1 = string_utils::read_input(AOC_SAMPLE_INPUT);
+    auto sample1 = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     assert(solve_1(sample1) == 1928);
     assert(solve_2(sample1) == 2858);
 }
 
 int main(int argc, char** argv) {
-    auto input = string_utils::read_input(AOC_INPUT);
+    auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         std::cout << "part 1: " << solve_1(inp) << std::endl;

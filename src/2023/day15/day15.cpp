@@ -10,7 +10,6 @@
 #include <numeric>
 
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 size_t internal::hash(std::string inp) {
     size_t sum = 0;

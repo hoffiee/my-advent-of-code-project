@@ -3,8 +3,8 @@
 #include AOC_HEADER
 
 TEST(AOC_TEST, test_case_1) {
-    std::vector<int> inp = {
-        0, 3, 0, 1, -3,
+    std::vector<std::string> inp = {
+        "0", "3", "0", "1", "-3",
     };
     auto [part1, part2] = solve(inp);
     ASSERT_EQ(part1, 5);
