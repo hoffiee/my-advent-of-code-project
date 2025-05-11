@@ -94,6 +94,25 @@ def plot(part_df):
     fig.show()
 
 
+def biggest_contributor(year):
+    conn = sqlite3.connect("bench.db")
+    query = "SELECT * FROM entries"
+    if year:
+        query += " WHERE year == " + str(year)
+    df = pd.read_sql_query(query, conn)
+    conn.close()
+
+    total_runtime_ms: float = df["mean_ms"].sum()
+    biggest_contributors = df.sort_values(by="mean_ms", ascending=False).head(5)
+
+    print("Top 5 contributors of runtime and their impact in percentage")
+    for _, row in biggest_contributors.iterrows():
+        print(
+            f"{int(row['year'])}_day{int(row['day'])}\tpart {int(row['part'])}"
+            + f"\t{int(row['mean_ms'])} ms {int(row['mean_ms']/total_runtime_ms*100.0)}%"
+        )
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -104,10 +123,18 @@ def main():
         metavar="[2015-2024]",
         help="Specify year (optional)",
     )
+    parser.add_argument(
+        "--contributor",
+        action="store_true",
+        help="Check the 5 solutions that takes the most time.",
+    )
     args = parser.parse_args()
 
-    df = get_data(args.year)
-    plot(df)
+    if args.contributor:
+        biggest_contributor(args.year)
+    else:
+        df = get_data(args.year)
+        plot(df)
 
 
 if __name__ == "__main__":
