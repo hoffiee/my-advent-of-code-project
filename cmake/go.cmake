@@ -10,7 +10,7 @@ macro(aoc_add_go_target)
 endmacro()
 
 add_custom_target(format-go
-    COMMAND git ls-files .
+    COMMAND git ls-files src libs tools
         | grep -E  '\\.go$$'
         | xargs -I {} go fmt {}
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}

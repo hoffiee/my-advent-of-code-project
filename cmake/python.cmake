@@ -29,13 +29,15 @@ endmacro()
 
 # Python tooling
 add_custom_target(lint-pylint
-    COMMAND find . -name '*.py' | grep -v build | xargs ${PROJECT_BINARY_DIR}/venv/bin/pylint
+    COMMAND git ls-files src tools libs
+        | grep -E "\\.py$$"
+        | xargs ${PROJECT_BINARY_DIR}/venv/bin/pylint
     DEPENDS venv-update
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
 add_custom_target(lint-mypy
-    COMMAND git ls-files .
+    COMMAND git ls-files src tools libs
         | grep -E  '\\.py$$'
         | xargs -I{} ${PROJECT_BINARY_DIR}/venv/bin/mypy --explicit-package-bases --check-untyped-defs {}
         | grep -v "Success: no issues found in 1 source file"
@@ -49,7 +51,7 @@ add_custom_target(lint-py
 )
 
 add_custom_target(format-py
-    COMMAND git ls-files .
+    COMMAND git ls-files src tools libs
         | grep -E  '\\.py$$'
         | xargs ${PROJECT_BINARY_DIR}/venv/bin/black
     DEPENDS venv-update
