@@ -18,3 +18,4 @@ add_custom_target(format
 
 add_subdirectory(aoc-bench)
 add_subdirectory(python-example)
+add_subdirectory(setup-day)

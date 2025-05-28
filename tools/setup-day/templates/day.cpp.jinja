@@ -1,0 +1,44 @@
+/**
+ * https://adventofcode.com/{{ year }}/day/{{ day_int }}
+ */
+#include <icecream.hpp>
+#include <string>
+#include <vector>
+
+#include "aoc_runner.h"
+#include "aoc_utils.h"
+
+namespace aoc::y{{ year }}::d{{ day }} {
+
+int64_t solve_1(std::vector<std::string> inp) {
+    static_cast<void>(inp);
+    return 0;
+}
+
+int64_t solve_2(std::vector<std::string> inp) {
+    static_cast<void>(inp);
+    return 0;
+}
+
+void samples() {
+    auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
+    assert(solve_1(sample) == 0);
+    assert(solve_2(sample) == 0);
+}
+
+};  // namespace aoc::y{{ year }}::d{{ day }}
+
+int main(int argc, char** argv) {
+    auto input = aoc::utils::read_input(AOC_INPUT);
+
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part1 = aoc::y{{ year }}::d{{ day }}::solve_1(inp);
+        std::cout << "part 1: " << part1 << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto part2 = aoc::y{{ year }}::d{{ day }}::solve_2(inp);
+        std::cout << "part 2: " << part2 << std::endl;
+    };
+
+    return aoc::run(argc, argv, aoc::y{{ year }}::d{{ day }}::samples, solve_1_wrapper, solve_2_wrapper, input);
+}
