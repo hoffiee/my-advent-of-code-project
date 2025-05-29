@@ -1,16 +1,25 @@
 # Advent of code
 
-This is my repo for [Advent of Code](https://adventofcode.com/). This project
-has morphed over the years as I've mainly used this to learn methods,
-languages, tooling, etc. throughout the years. For now it has converged towards
-running this as a CMake project focusing on C++/Python.
+This is my [Advent of Code](https://adventofcode.com/) project. This has
+morphed over the years as I've mainly used this to learn methods, languages,
+tooling, etc. throughout the years. For now it has converged towards running
+this as a CMake project focusing on C++/Python.
 
 
-## Status
+## How to run
 
-To see the status of advent of code and what remains in order to reach some
-targets that I've set, update `tools/event_status.py` and run `ninja status`.
+Currently migrating this to have it's own work-space similar to python's
+virtual environment and have all tooling available through the command `aoc`.
 
+```bash
+source tools/workspace.sh
+
+# show usage and available commands
+aoc --help
+
+# and for example
+aoc build <target>
+```
 
 ## Dependencies
 
@@ -18,55 +27,6 @@ targets that I've set, update `tools/event_status.py` and run `ninja status`.
 - ninja
 - conan
 - Probably a few more... I have not setup this properly.
-
-
-## Setup
-
-```bash
-# stand in root of advent-of-code
-mkdir build
-conan install . --build=missing --output-folder=build
-cd build
-cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake ..
-```
-
-**Note**: I'm using some external libraries, these do not build due to my
-compiler flags, I brilliantly solved it by manually patching the files, but I
-should look into how to handle this properly so that I don't have to patch them
-locally.
-
-
-### Tips and notes
-
-- I often use icecream in both C++ and Python to do debug statements, it's
-  quick and neat to use. For example in Python:
-
-```python
-from icecream import ic
-a = "moo"
-ic(a)
-```
-
-
-### Other targets than C++ or Python
-
-This project mainly targets C++ and Python, at the moment other target
-languages will have to be handled manually, and I doubt that I'll fix so that
-they will run unless I aim to learn that specific language for a specific year.
-At the moment running `ninja used-file-extensions` gives:
-
-```
-    164 cpp
-     40 h
-     30 py
-      5 go
-      5 awk
-      3 hs
-      1 sh
-      1 md
-      1 jl
-      1 ipynb
-```
 
 
 ## Puzzle inputs
@@ -114,6 +74,6 @@ resources I've found:
 
 **Note**: Since I have hosted this repository privately before I haven't been
 strict on emphasizing which solutions are purely my own and when I took
-inspiration from elsewher. The result of this is that I may have some solutions
+inspiration from elsewhere. The result of this is that I may have some solutions
 that are not entirely mine. With this in mind I have in the last years been
 more explicit about mentioning this in the solution.
