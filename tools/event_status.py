@@ -2,7 +2,7 @@ import datetime as dt
 from typing import Final
 
 
-def main() -> None:
+def eventStatus() -> None:
     events_stars = {
         2024: 50,
         2023: 38,
@@ -56,5 +56,7 @@ def main() -> None:
     print(f"in {(endofyear - today).days} days before the end of this year")
 
 
+__all__ = ["eventStatus"]
+
 if __name__ == "__main__":
-    main()
+    eventStatus()

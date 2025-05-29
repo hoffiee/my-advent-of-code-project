@@ -4,20 +4,49 @@ import subprocess
 import os
 
 
+def setup_build(args, forward_args):
+    """This method sets up the build environment"""
+    build_path = os.path.join("build")
+    os.makedirs(build_path, exist_ok=True)
+    subprocess.run(
+        ["conan", "install", ".", "--build=missing", "--output-folder=" + build_path],
+        check=True,
+    )
+    subprocess.run(
+        [
+            "cmake",
+            "-B",
+            build_path,
+            "-G",
+            "Ninja",
+            "--toolchain",
+            "conan_toolchain.cmake",
+            ".",
+        ],
+        check=True,
+    )
+
+
 def build(args, forward_args):
     if args.release or args.debug:
         assert False, "Not supported yet!"
-    build_dir = os.path.join("build")
-    subprocess.run(["ninja", *args.targets], cwd=build_dir, check=True)
+    build_path = os.path.join("build")
+    if not os.path.exists(build_path):
+        setup_build(args, forward_args)
+
+    subprocess.run(["ninja", *args.targets], cwd=build_path, check=True)
 
 
 def format(args, forward_args):
-    print("Not supported yet.")
-    return
     if not any([args.cpp, args.python, args.go]):
         args.cpp = True
         args.python = True
         args.go = True
+
+    build_path = os.path.join("build")
+    if not os.path.exists(build_path):
+        setup_build(args, forward_args)
+    subprocess.run(["ninja", "format"], cwd=build_path, check=True)
 
 
 def lint(args, forward_args):
@@ -27,12 +56,14 @@ def lint(args, forward_args):
 
 def event_status(args, forward_args):
     import tools.event_status as ev
+
     ev.eventStatus()
 
 
 def setup_day(args, forward_args):
     print(args, forward_args)
     from tools.setup_day import SetupTemplateDay
+
     SetupTemplateDay(forward_args)
 
 
@@ -83,6 +114,13 @@ def main():
     parser_setup_day = subparsers.add_parser("setup_day", add_help=False)
     parser_setup_day.set_defaults(func=setup_day)
 
+    parser_event_status = subparsers.add_parser(
+        "status", help="Shows the status on completed starts and targets"
+    )
+    parser_event_status.set_defaults(func=event_status)
+
+    parser_setup_build = subparsers.add_parser("setup", help="Setup build system")
+    parser_setup_build.set_defaults(func=setup_build)
 
     parser_setup_build = subparsers.add_parser(
         "used_file_extensions",
