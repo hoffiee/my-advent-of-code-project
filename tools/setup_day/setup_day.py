@@ -1,9 +1,10 @@
 import argparse
 import os
+import sys
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
 
-def puzzle_inputs(year_in, day_in):
+def _puzzle_inputs(year_in, day_in):
     """
     Create the dir and empty files, don't modify the file if it already exists
     """
@@ -22,7 +23,7 @@ def puzzle_inputs(year_in, day_in):
     open(sample_path, "a").close()
 
 
-def create_year(year_in):
+def _create_year(year_in):
     """
     If year[in] doesn't exist, this will create a new directory in `src/` and
     setup a new CMakeLists.txt
@@ -36,7 +37,7 @@ def create_year(year_in):
         os.makedirs(path)
 
         env = Environment(
-            loader=FileSystemLoader("tools/setup-day/templates"),
+            loader=FileSystemLoader("tools/setup_day/templates"),
             undefined=StrictUndefined,
         )
         template = env.get_template("year.CMakeLists.txt.jinja")
@@ -50,12 +51,12 @@ def create_year(year_in):
             f.write(f"\nadd_subdirectory({year})\n")
 
 
-def create_day_cpp(year, day):
+def _create_day_cpp(year, day):
     cmakelists_path = os.path.join("src", year, f"day{day}", "CMakeLists.txt")
     if not os.path.exists(cmakelists_path):
         print(f"create {cmakelists_path}")
         env = Environment(
-            loader=FileSystemLoader("tools/setup-day/templates"),
+            loader=FileSystemLoader("tools/setup_day/templates"),
             undefined=StrictUndefined,
         )
         template = env.get_template("day.CMakeLists.txt.jinja")
@@ -68,7 +69,7 @@ def create_day_cpp(year, day):
     print(f"create {cpp_path}")
     if not os.path.exists(cpp_path):
         env = Environment(
-            loader=FileSystemLoader("tools/setup-day/templates"),
+            loader=FileSystemLoader("tools/setup_day/templates"),
             undefined=StrictUndefined,
         )
         template = env.get_template("day.cpp.jinja")
@@ -84,7 +85,7 @@ def _create_day_python(day):
     assert False
 
 
-def create_day(year_in, day_in, lang_in):
+def _create_day(year_in, day_in, lang_in):
     """
     Creates a new dir for the day unless it already exists.
     """
@@ -107,14 +108,14 @@ def create_day(year_in, day_in, lang_in):
 
     match lang:
         case "cpp":
-            create_day_cpp(year, day)
+            _create_day_cpp(year, day)
         case "py":
             create_day_python(year, day)
         case _:
             assert False
 
 
-def main():
+def main(args):
     parser = argparse.ArgumentParser(description="Setup template for a new day")
     parser.add_argument(
         "year",
@@ -128,12 +129,13 @@ def main():
         "day", nargs=1, type=int, choices=range(1, 26), metavar="DAY", help="day"
     )
     parser.add_argument("lang", nargs=1, type=str, choices=["cpp"], help="language")
-    args = parser.parse_args()
+    args = parser.parse_args(args)
 
-    create_year(args.year)
-    create_day(args.year, args.day, args.lang)
-    puzzle_inputs(args.year, args.day)
+    _create_year(args.year)
+    _create_day(args.year, args.day, args.lang)
+    _puzzle_inputs(args.year, args.day)
 
 
 if __name__ == "__main__":
-    main()
+    print(sys.argv[1:])
+    main(sys.argv[1:])
