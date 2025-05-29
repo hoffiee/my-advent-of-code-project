@@ -26,15 +26,35 @@ def lint(args, forward_args):
 
 
 def event_status(args, forward_args):
-    print("Not supported yet.")
-    return
+    import tools.event_status as ev
+    ev.eventStatus()
 
 
 def setup_day(args, forward_args):
     print(args, forward_args)
     from tools.setup_day import SetupTemplateDay
-
     SetupTemplateDay(forward_args)
+
+
+def used_file_extensions(args, forward_args):
+    """
+    Python variant of the cmake alternative that I had before.
+    find src -type f
+        | grep -vE '\(CMakeLists.txt\)'
+        | cut -d"." -f2 # cut at delimeter . and print second field
+        | sort | uniq -c | sort -nr
+    )
+    """
+    from collections import Counter
+
+    extensions = []
+    for dirpath, dirnames, filenames in os.walk("src"):
+        for file in filenames:
+            _, ext = os.path.splitext(file)
+            extensions.append(ext)
+    counts = Counter(extensions)
+    for ext, count in counts.most_common():
+        print(f"{count:>4} | {ext}")
 
 
 def main():
@@ -62,6 +82,13 @@ def main():
 
     parser_setup_day = subparsers.add_parser("setup_day", add_help=False)
     parser_setup_day.set_defaults(func=setup_day)
+
+
+    parser_setup_build = subparsers.add_parser(
+        "used_file_extensions",
+        help="Summarizes and displays amount of files for each extension",
+    )
+    parser_setup_build.set_defaults(func=used_file_extensions)
 
     args, forward_args = parser.parse_known_args()
     args.func(args, forward_args)
