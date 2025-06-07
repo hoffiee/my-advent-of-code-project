@@ -18,6 +18,7 @@ add_subdirectory(day16)
 add_subdirectory(day17)
 add_subdirectory(day18)
 add_subdirectory(day24)
+add_subdirectory(day25)
 
 add_custom_target(${AOC_YEAR}-runtest
     COMMAND ctest --output-on-failure
