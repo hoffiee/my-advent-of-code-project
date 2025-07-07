@@ -6,12 +6,12 @@
 #include "aoc_runner.h"
 #include "aoc_utils.h"
 
-static std::pair<int, int> solve(std::string input) {
-    int floor = 0;
-    int position = -1;
+static std::pair<int, int> solve(std::string const& input) {
+    int floor{0};
+    int position{-1};
 
-    for (size_t i = 0; i < input.size(); ++i) {
-        floor += (input.at(i) == '(') ? +1 : -1;
+    for (size_t i{0}; i < input.size(); ++i) {
+        floor += (input.at(i) == '(') ? 1 : -1;
 
         if (floor < 0 && position == -1) {
             position = static_cast<int>(i + 1);

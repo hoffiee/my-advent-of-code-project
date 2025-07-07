@@ -71,6 +71,7 @@ struct Computer {
                 assert(false);
                 break;
         }
+        return 0u;
     }
 
     std::string output() const {
