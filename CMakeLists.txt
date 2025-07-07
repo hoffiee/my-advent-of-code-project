@@ -18,8 +18,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Make Clang Debug info compatible with GDB
 set(CMAKE_CXX_FLAGS_DEBUG  "-gdwarf-4")
 
-set(CMAKE_BUILD_TYPE Debug)
-
 set(ASAN_OPTIONS abort_on_error=1:halt_on_error=1)
 set(UBSAN_OPTIONS abort_on_error=1:halt_on_error=1)
 
