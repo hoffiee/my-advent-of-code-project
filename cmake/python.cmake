@@ -2,6 +2,9 @@ find_package(Python3 REQUIRED)
 
 set(TOOLS_DIR ${PROJECT_SOURCE_DIR}/tools)
 
+include(CMakePrintHelpers)
+cmake_print_variables(TOOLS_DIR)
+
 function(aoc_add_python_target TARGET_NAME PYTHON_SOURCE)
     add_custom_target(${TARGET_NAME}
         COMMAND ${CMAKE_COMMAND} -E copy
