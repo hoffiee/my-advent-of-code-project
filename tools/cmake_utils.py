@@ -1,6 +1,6 @@
 import subprocess
 
-from tools.setup_conan import setup_conan
+from tools.conan_utils import setup_conan
 from tools.toolchain_utils import remove_dir_if_exists
 
 
