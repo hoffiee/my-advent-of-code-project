@@ -3,17 +3,7 @@ import argparse
 import subprocess
 import os
 
-from tools.cmake_utils import setup_cmake
-
-
-def build(args, forward_args):
-    build_path = os.path.join("build/debug")
-    if args.release:
-        build_path = os.path.join("build/release")
-    if not os.path.exists(build_path):
-        setup_cmake(args, forward_args)
-
-    subprocess.run(["ninja", *args.targets], cwd=build_path, check=True)
+from tools.cmake_utils import cmake_setup, cmake_build
 
 
 def format(args, forward_args):
@@ -24,7 +14,7 @@ def format(args, forward_args):
 
     build_path = os.path.join("build/debug")
     if not os.path.exists(build_path):
-        setup_cmake(args, forward_args)
+        cmake_setup(args, forward_args)
     subprocess.run(["ninja", "format"], cwd=build_path, check=True)
 
 
@@ -82,7 +72,7 @@ def main():
         "--debug", action="store_true", help="Build in debug mode"
     )
     parser_build.add_argument("targets", nargs="+", help="List of targets to build")
-    parser_build.set_defaults(func=build)
+    parser_build.set_defaults(func=cmake_build)
 
     parser_format = subparsers.add_parser("format", help="format command")
     parser_format.add_argument("--cpp", action="store_true", help="format C++")
@@ -99,7 +89,7 @@ def main():
     parser_event_status.set_defaults(func=event_status)
 
     parser_setup_build = subparsers.add_parser("setup", help="Setup build system")
-    parser_setup_build.set_defaults(func=setup_cmake)
+    parser_setup_build.set_defaults(func=cmake_setup)
 
     parser_setup_build = subparsers.add_parser(
         "used_file_extensions",
