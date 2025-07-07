@@ -21,24 +21,39 @@ set(CMAKE_CXX_FLAGS_DEBUG  "-gdwarf-4")
 set(ASAN_OPTIONS abort_on_error=1:halt_on_error=1)
 set(UBSAN_OPTIONS abort_on_error=1:halt_on_error=1)
 
-# https://stackoverflow.com/questions/59107988/correct-way-to-handle-compiler-flags-when-using-cmake
 add_compile_options(
-    -Wall -Werror -pedantic
-    -g3 -ggdb
-    # trying these out for a bit
     -Wdouble-promotion
     # -Wconversion  # external lib doesn't work with this.
     -Wnull-dereference
     -Wwrite-strings
     -Wformat=2
     -Wcast-align
+    -Werror
     # -Wswitch-enum  # handles enums even when default is present
-    $<$<CONFIG:RELEASE>:-Ofast>
-    $<$<CONFIG:DEBUG>:-O0>
-    $<$<CONFIG:DEBUG>:-ggdb3>
-    # $<$<CONFIG:DEBUG>:-fsanitize=undefined,address>
-    # $<$<CONFIG:DEBUG>:-fsanitize-undefined-trap-on-error>
+
+    $<$<CONFIG:Release>:-O3>
+    $<$<CONFIG:Release>:-march=native>
+    $<$<CONFIG:Release>:-flto>
+
+    $<$<CONFIG:Debug>:-O0>
+    $<$<CONFIG:Debug>:-Wall>
+    $<$<CONFIG:Debug>:-Werror>
+    $<$<CONFIG:Debug>:-pedantic>
+    $<$<CONFIG:Debug>:-g3>
+    $<$<CONFIG:Debug>:-ggdb>
+    $<$<CONFIG:Debug>:-ggdb3>
+    # $<$<CONFIG:Debug>:-fsanitize=undefined,address>
+    # $<$<CONFIG:Debug>:-fsanitize-undefined-trap-on-error>
+    # $<$<CONFIG:Debug>:-fno-omit-frame-pointer>
 )
+
+add_link_options(
+    # $<$<CONFIG:Debug>:-fsanitize=undefined,address>
+    # $<$<CONFIG:Debug>:-fsanitize-undefined-trap-on-error>
+    # $<$<CONFIG:Debug>:-fno-omit-frame-pointer>
+)
+
+
 # add_link_options(-fsanitize=undefined,address)
 # execute with gdb and ASAN_OPTIONS=abort_on_error=1, see
 # https://www.reddit.com/r/C_Programming/comments/ycaexu/easy_c_debugging/?utm_name=androidcss
