@@ -12,7 +12,7 @@ Currently migrating this to have it's own work-space similar to python's
 virtual environment and have all tooling available through the command `aoc`.
 
 ```bash
-source tools/workspace.sh
+source tools/activate.sh
 
 # show usage and available commands
 aoc --help
