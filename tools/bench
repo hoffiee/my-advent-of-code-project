@@ -1,8 +1,9 @@
 #!/bin/bash
+# TODO: Create help/usage
 
 bench_year() {
     path=$(git rev-parse --show-toplevel)
-    cd ${path}/build
+    cd ${path}/build/release
     targets=$(ninja -t targets | grep -oE "^${1}.*-bench" | grep bench)
     for target in ${targets}; do
         echo ${target}
