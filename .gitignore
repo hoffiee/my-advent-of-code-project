@@ -1,5 +1,6 @@
-.ccls-cache
 build
+.cache
+.ccls-cache
 CMakeUserPresets.json
 aoc-puzzle-inputs
 __pycache__
