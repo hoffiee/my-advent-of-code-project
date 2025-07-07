@@ -2,7 +2,7 @@
 
 _aoc_ninja_targets() {
     (
-        cd build 2>/dev/null || return
+        cd build/debug 2>/dev/null || return
         ninja -t targets all 2>/dev/null | awk '{print $1}'
     )
 }
