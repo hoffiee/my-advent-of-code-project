@@ -23,10 +23,10 @@
  * https://en.wikipedia.org/wiki/Stoer%E2%80%93Wagner_algorithm
  */
 #include <Eigen/Dense>
+#include <algorithm>
 #include <cassert>
 #include <icecream.hpp>
 #include <random>
-#include <algorithm>
 #include <string>
 #include <vector>
 
@@ -36,8 +36,7 @@
 
 namespace aoc::y2023::d25 {
 
-__attribute__((unused))
-int64_t spectral_bisection(std::vector<std::string> inp) {
+__attribute__((unused)) int64_t spectral_bisection(std::vector<std::string> inp) {
     // create a str -> id map
     std::unordered_map<std::string, std::size_t> node_to_id{};
     std::size_t id{0u};
@@ -120,10 +119,8 @@ struct Edge {
     int32_t node_1_{};
     int32_t node_2_{};
     bool operator==(Edge const& other) const {
-        return (
-            (node_1_ == other.node_1_ && node_2_ == other.node_2_)
-            || (node_1_ == other.node_2_ && node_2_ == other.node_1_)
-        );
+        return ((node_1_ == other.node_1_ && node_2_ == other.node_2_) ||
+                (node_1_ == other.node_2_ && node_2_ == other.node_1_));
     }
 
     friend std::ostream& operator<<(std::ostream& os, Edge const& e) {
@@ -147,7 +144,7 @@ struct Edges {
         auto it = std::find(edges_.begin(), edges_.end(), edge);
 
         if (it == edges_.end()) {
-            std::cout << "Edge " << edge <<  " doesn't exist!" << std::endl;
+            std::cout << "Edge " << edge << " doesn't exist!" << std::endl;
             return;
         }
         edges_.erase(it);
@@ -161,7 +158,7 @@ struct Edges {
     }
 };
 
-struct Graph{
+struct Graph {
     Edges edges_{};
     std::unordered_map<int32_t, std::unordered_map<int32_t, bool>> graph_{};
     std::unordered_map<int32_t, int32_t> value_{};
@@ -190,14 +187,14 @@ struct Graph{
 
         // iterate through connecting nodes
         std::vector<Edge> edges_to_remove{edge};
-        for (auto const [node, _]: graph_.at(edge.node_1_)) {
+        for (auto const [node, _] : graph_.at(edge.node_1_)) {
             if (node == edge.node_2_) {
                 continue;
             }
             edges_to_remove.push_back(Edge{edge.node_1_, node});
             addEdge(new_node, node);
         }
-        for (auto const [node, _]: graph_.at(edge.node_2_)) {
+        for (auto const [node, _] : graph_.at(edge.node_2_)) {
             if (node == edge.node_1_) {
                 continue;
             }
@@ -205,7 +202,7 @@ struct Graph{
             addEdge(new_node, node);
         }
 
-        for (auto const& edge_to_remove: edges_to_remove) {
+        for (auto const& edge_to_remove : edges_to_remove) {
             removeEdge(edge_to_remove);
         }
 
@@ -215,8 +212,7 @@ struct Graph{
     }
 };
 
-__attribute__((unused))
-int64_t kargers_algorithm(std::vector<std::string> inp) {
+__attribute__((unused)) int64_t kargers_algorithm(std::vector<std::string> inp) {
     Graph graph{};
 
     std::unordered_map<std::string, int32_t> node_to_id{};
@@ -248,9 +244,8 @@ int64_t kargers_algorithm(std::vector<std::string> inp) {
         IC(graph.value_);
     }
 
-
     int32_t prodsum{1};
-    for (auto const& [a,b] : graph.graph_) {
+    for (auto const& [a, b] : graph.graph_) {
         IC(a, graph.value_[a]);
         prodsum *= graph.value_[a];
     }
@@ -259,9 +254,7 @@ int64_t kargers_algorithm(std::vector<std::string> inp) {
     return prodsum;
 }
 
-int64_t solve_1(std::vector<std::string> inp) {
-    return spectral_bisection(inp);
-}
+int64_t solve_1(std::vector<std::string> inp) { return spectral_bisection(inp); }
 
 int64_t solve_2(std::vector<std::string> inp) { return 0; }
 
@@ -274,7 +267,6 @@ void tests() {
     edges.addEdge(10, 12);
     edges.addEdge(12, 10);
     assert(edges.edges_.size() == 1u);
-
 
     /**  Test contract the edge 2-3
      *      1     2     3     4
@@ -316,7 +308,7 @@ void tests() {
         graph.addEdge(3, 6);
 
         assert(graph.graph_.size() == 6u);
-        graph.contractNodes(Edge{2,3});
+        graph.contractNodes(Edge{2, 3});
         assert(graph.graph_.at(1).at(7));
         assert(graph.graph_.at(5).at(7));
         assert(graph.graph_.at(4).at(7));
