@@ -21,13 +21,6 @@ aoc --help
 aoc build <target>
 ```
 
-## Dependencies
-
-- Cmake
-- ninja
-- conan
-- Probably a few more... I have not setup this properly.
-
 
 ## Puzzle inputs
 
