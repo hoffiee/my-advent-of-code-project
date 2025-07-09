@@ -53,15 +53,8 @@ add_link_options(
     # $<$<CONFIG:Debug>:-fno-omit-frame-pointer>
 )
 
-
-# add_link_options(-fsanitize=undefined,address)
-# execute with gdb and ASAN_OPTIONS=abort_on_error=1, see
-# https://www.reddit.com/r/C_Programming/comments/ycaexu/easy_c_debugging/?utm_name=androidcss
-
-# https://stackoverflow.com/questions/50861636/using-google-tests-with-cmake-ctest-with-the-new-command-gtest-discover-tests
 include(GoogleTest)
 enable_testing()
-# include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
 
 add_subdirectory(libs)
 add_subdirectory(tools)

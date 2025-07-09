@@ -2,6 +2,8 @@
 # inspo
 # https://stackoverflow.com/questions/30802485/cmake-setting-up-python-virtualenv
 
+find_package(Python3 REQUIRED)
+
 set(VENV_PYTEST ${CMAKE_BINARY_DIR}/venv/bin/pytest)
 set(VENV_PYTHON ${CMAKE_BINARY_DIR}/venv/bin/python)
 set(VENV_PIP ${CMAKE_BINARY_DIR}/venv/bin/pip)
