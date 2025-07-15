@@ -4,6 +4,7 @@ import subprocess
 import os
 
 from tools.cmake_utils import cmake_setup, cmake_build
+from tools.go_utils import setup_aoc_fetch
 
 
 def format(args, forward_args):
@@ -96,6 +97,11 @@ def main():
         help="Summarizes and displays amount of files for each extension",
     )
     parser_setup_build.set_defaults(func=used_file_extensions)
+
+    parser_setup_aoc_fetch = subparsers.add_parser(
+        "build_aoc_fetch", help="Builds Go binaries and installs them."
+    )
+    parser_setup_aoc_fetch.set_defaults(func=setup_aoc_fetch)
 
     args, forward_args = parser.parse_known_args()
     args.func(args, forward_args)
