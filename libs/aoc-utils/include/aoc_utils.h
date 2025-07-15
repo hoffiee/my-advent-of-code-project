@@ -10,37 +10,42 @@
 #include <string>
 #include <vector>
 
-
 namespace aoc {
 
 namespace utils {
 
-std::vector<std::string> read_input(std::string filename);
+std::vector<std::string> read_input(std::string const& filename);
 
 };  // namespace utils
 
 namespace vector {
 };
 
-
 namespace print {
 };
 
 namespace string {
 
-std::string join(std::vector<std::string> const& vec, std::string const delim="");
+// TODO numbers from string (templated type)
+// TODO Words from string
+// TODO filter characters/words?
+std::string join(std::vector<std::string> const& vec, std::string const delim = "");
 
-std::vector<std::string> split(std::string str, char delim=',');
+// TODO this variant too, either delim can be multiple chars such as ,:-, or words? for example cow
+std::vector<std::string> split(std::string str, char delim = ',');
 
-};
+};  // namespace string
 
 namespace math {
 
 int64_t lcm(std::vector<int64_t> vec);
 
+/// Handles negative numbers
+int64_t mod(int64_t a, int64_t b);
+
 /// Based on
 /// https://en.wikipedia.org/wiki/Newton_polynomial
-template<typename T, int64_t degree>
+template <typename T, int64_t degree>
 struct PolynomialInterpolation {
     std::vector<T> xvec_{};
     std::vector<T> yvec_{};
@@ -56,9 +61,9 @@ struct PolynomialInterpolation {
 
         for (std::size_t j{1}; j < degree; j++) {
             for (std::size_t i{0}; i < (degree - j); i++) {
-                T num = divided_diff_table[i+1][j-1] - divided_diff_table[i][j-1];
-                T den = xvec_.at(i+j) - xvec_.at(i);
-                divided_diff_table[i][j] = num/den;
+                T num = divided_diff_table[i + 1][j - 1] - divided_diff_table[i][j - 1];
+                T den = xvec_.at(i + j) - xvec_.at(i);
+                divided_diff_table[i][j] = num / den;
             }
         }
     }
@@ -72,10 +77,10 @@ struct PolynomialInterpolation {
         T val{0};
         for (std::int64_t k{0}; k < degree; k++) {
             T prod{1};
-            for (std::int64_t j{0}; j <= (k-1); j++) {
+            for (std::int64_t j{0}; j <= (k - 1); j++) {
                 prod *= (x - xvec_.at(j));
             }
-            val += divided_diff_table[0][k]*prod;
+            val += divided_diff_table[0][k] * prod;
         }
         return val;
     }
@@ -90,6 +95,6 @@ namespace puzzle {
 
 };
 
-}; // aoc
+};  // namespace aoc
 
 #endif

@@ -7,7 +7,7 @@
 #include <numeric>
 #include <sstream>
 
-std::vector<std::string> aoc::utils::read_input(std::string filename) {
+std::vector<std::string> aoc::utils::read_input(std::string const& filename) {
     std::ifstream input_file{};
     input_file.open(filename);
     if (!input_file.is_open()) {
