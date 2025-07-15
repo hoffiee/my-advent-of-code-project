@@ -60,6 +60,12 @@ TEST(AOC_UTILS_TEST, test_string_split) {
     ASSERT_TRUE(aoc::string::split(inp, ',') == expected);
 }
 
+TEST(AOC_UTILS_TEST, test_math_mod) {
+    ASSERT_EQ(aoc::math::mod(-7, 10), 3);
+    ASSERT_EQ(aoc::math::mod(7, -10), 7);
+    ASSERT_EQ(aoc::math::mod(-7, -10), 3);
+}
+
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

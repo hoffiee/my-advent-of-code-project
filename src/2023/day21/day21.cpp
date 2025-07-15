@@ -1,7 +1,7 @@
 /**
  * https://adventofcode.com/2023/day/21
- *
  */
+
 #include <icecream.hpp>
 #include <queue>
 #include <set>
@@ -57,7 +57,8 @@ struct Grid {
 
     Grid(std::vector<std::string> const& inp)
         : x_sz_{static_cast<std::int64_t>(inp.at(0).size())}, y_sz_{static_cast<std::int64_t>(inp.size())}, map_{inp} {
-        assert(find_start_position());
+        bool found_start{find_start_position()};
+        assert(found_start);
     }
 
     char& operator[](Pos const& pos) { return map_.at(pos.y).at(pos.x); }
@@ -203,19 +204,54 @@ int64_t solve_2(std::vector<std::string> inp, int64_t const steps) {
     Grid2 grid(inp);
     assert(inp.at(0).size() == inp.size());
 
-    return 0;
+    // sample input, make sure the possible_grid works as expected for sample
+    // input
+    if (steps <= 1000) {
+        return possible_tiles(grid, steps);
+    }
+
+    // My solution didn't scale well with `steps`. I did some attempts with
+    // caching varying aspects but didn't really get far. I started to look
+    // into the input and noticed some patterns. After a while I started
+    // looking into how others had solved this, and found that one of the
+    // insights is that the input behaves as a quadratic function over 131k+65
+    // for k=0,1,2,.. whereas the requested steps exists for an integer k
+    //
+    // So the approach is to calculate for a few k and then extrapolate for the
+    // amount of steps.
+    int64_t nr_of_samples{3};
+    std::vector<double> xvec{};
+    std::vector<double> yvec{};
+    xvec.reserve(nr_of_samples);
+    yvec.reserve(nr_of_samples);
+    for (int64_t i{0}; i < nr_of_samples; i++) {
+        double step{131 * static_cast<double>(i) + 65};
+        xvec.push_back(step);
+        yvec.push_back(static_cast<double>(possible_tiles(grid, step)));
+    }
+
+    aoc::math::PolynomialInterpolation<double, 3u> inter(xvec, yvec);
+    auto interp_res = static_cast<int64_t>(inter.interpolate(steps));
+
+    return static_cast<int64_t>(interp_res);
 }
 
 void samples() {
     auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
-    assert(solve_1(sample, 6) == 16);
-    // assert(solve_2(sample, 6) == 16);
-    // assert(solve_2(sample, 10) == 50);
-    // assert(solve_2(sample, 50) == 1594);
-    // assert(solve_2(sample, 100) == 6536);
-    // assert(solve_2(sample, 500) == 167004);
-    // assert(solve_2(sample, 1000) == 668697);
-    // assert(solve_2(sample, 5000) == 16733044);
+    auto ans = solve_1(sample, 6);
+    assert(ans == 16);
+    ans = solve_2(sample, 6);
+    assert(ans == 16);
+    ans = solve_2(sample, 10);
+    assert(ans == 50);
+    ans = solve_2(sample, 50);
+    assert(ans == 1594);
+    ans = solve_2(sample, 100);
+    assert(ans == 6536);
+    ans = solve_2(sample, 500);
+    assert(ans == 167004);
+    ans = solve_2(sample, 1000);
+    assert(ans == 668697);
 }
 
 };  // namespace aoc::y2023::d21
@@ -225,10 +261,12 @@ int main(int argc, char** argv) {
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part1 = aoc::y2023::d21::solve_1(inp, 64);
+        assert(part1 == 3751);
         std::cout << "part 1: " << part1 << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto part2 = aoc::y2023::d21::solve_2(inp, 26501365);
+        assert(part2 == 619407349431167);
         std::cout << "part 2: " << part2 << std::endl;
     };
 

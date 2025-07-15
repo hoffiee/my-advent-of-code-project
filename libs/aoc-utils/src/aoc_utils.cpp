@@ -32,6 +32,11 @@ int64_t aoc::math::lcm(std::vector<int64_t> vec) {
     return res;
 }
 
+int64_t aoc::math::mod(int64_t a, int64_t b) {
+    auto const babs = std::abs(b);
+    return ((a % babs) + babs) % babs;
+}
+
 std::string aoc::string::join(std::vector<std::string> const& vec, std::string const delim) {
     std::string out{};
     for (auto entry : vec) {
