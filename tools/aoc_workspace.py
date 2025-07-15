@@ -30,6 +30,16 @@ def event_status(args, forward_args):
     ev.eventStatus()
 
 
+def ctest_test(args=None, forward_args=None) -> int:
+    build_path = os.path.join("build/debug")
+    if args.release:
+        build_path = os.path.join("build/release")
+    if not os.path.exists(build_path):
+        cmake_setup(args, forward_args)
+    result = subprocess.run(["ctest"], cwd=build_path, check=True)
+    return result.returncode
+
+
 def setup_day(args, forward_args):
     print(args, forward_args)
     from tools.setup_day import SetupTemplateDay
@@ -97,6 +107,13 @@ def main():
         help="Summarizes and displays amount of files for each extension",
     )
     parser_setup_build.set_defaults(func=used_file_extensions)
+
+    parser_test = subparsers.add_parser("test", help="TODO")
+    parser_test.add_argument(
+        "--release", action="store_true", help="Test in release mode"
+    )
+    parser_test.add_argument("--debug", action="store_true", help="Test in debug mode")
+    parser_test.set_defaults(func=ctest_test)
 
     parser_setup_aoc_fetch = subparsers.add_parser(
         "build_aoc_fetch", help="Builds Go binaries and installs them."
