@@ -19,9 +19,14 @@ std::vector<std::string> read_input(std::string const& filename);
 };  // namespace utils
 
 namespace vector {
+
+// TODO Split vector at entry, example input vectors with a "" separator.
+// TODO cartesian product
+
 };
 
 namespace print {
+// TODO Print different representations of numbers, octals hex, binary etc
 };
 
 namespace string {
@@ -37,7 +42,10 @@ std::vector<std::string> split(std::string str, char delim = ',');
 };  // namespace string
 
 namespace math {
-
+// TODO number of digits in number (templated)
+// TODO: Setup templates?
+// int64_t gcd(int64_t a, int64_t b);
+// Test this one
 int64_t lcm(std::vector<int64_t> vec);
 
 /// Handles negative numbers
@@ -86,14 +94,54 @@ struct PolynomialInterpolation {
     }
 };
 
-namespace graph { };
+};  // namespace math
 
 namespace grid2d {
+
+struct Pos {
+    int64_t x{};
+    int64_t y{};
+
+    Pos& operator+=(Pos const& other) {
+        x += other.x;
+        y += other.y;
+        return *this;
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, Pos const& p) {
+        os << "(" << p.x << "," << p.y << ")" << std::endl;
+        return os;
+    }
+
+    bool operator==(Pos const& other) const {
+        return x == other.x && y == other.y;
+    }
+
+    bool operator<(Pos const& other) const {
+        if (x != other.x) {
+            return x < other.x;
+        }
+        return y < other.y;
+    }
+
+    struct Hash {
+        size_t operator()(Pos const& pos) const {
+            size_t hx = std::hash<int64_t>()(pos.x);
+            size_t hy = std::hash<int64_t>()(pos.y) << 8;
+            return hx ^ hy;
+        }
+    };
 };
 
-namespace puzzle {
+// `inline` to avoid linker errors due to multiple definitions over multiple
+// translation units
+inline Pos operator+(Pos const& lhs, Pos const& rhs) { return Pos{lhs.x + rhs.x, lhs.y + rhs.y}; }
+inline Pos operator-(Pos const& lhs, Pos const& rhs) { return Pos{lhs.x - rhs.x, lhs.y - rhs.y}; }
+inline Pos operator*(int64_t const val, Pos const& rhs) { return Pos{val*rhs.x, val*rhs.y}; }
 
 };
+
+
 
 };  // namespace aoc
 

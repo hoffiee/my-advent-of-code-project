@@ -14,40 +14,7 @@
 
 namespace aoc::y2023::d21 {
 
-struct Pos {
-    int64_t x{};
-    int64_t y{};
-
-    Pos& operator+(Pos const& other) {
-        x += other.x;
-        y += other.y;
-        return *this;
-    }
-
-    friend std::ostream& operator<<(std::ostream& os, Pos const& p) {
-        os << "(" << p.x << "," << p.y << ")" << std::endl;
-        return os;
-    }
-
-    bool operator==(Pos const& other) const { return x == other.x && y == other.y; }
-
-    bool operator<(Pos const& other) const {
-        if (x != other.x) {
-            return x < other.x;
-        }
-        return y < other.y;
-    }
-
-    struct Hash {
-        size_t operator()(Pos const& pos) const {
-            size_t hx = std::hash<int64_t>()(pos.x);
-            size_t hy = std::hash<int64_t>()(pos.y) << 8;
-            return hx ^ hy;
-        }
-    };
-};
-
-Pos operator+(Pos const& lhs, Pos const& rhs) { return Pos{lhs.x + rhs.x, lhs.y + rhs.y}; }
+using Pos = aoc::grid2d::Pos;
 
 struct Grid {
     std::int64_t const x_sz_{};
