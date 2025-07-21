@@ -4,7 +4,7 @@ import subprocess
 import os
 
 from tools.cmake_utils import cmake_setup, cmake_build
-from tools.go_utils import setup_aoc_fetch
+# from tools.go_utils import setup_aoc_fetch
 
 
 def format(args, forward_args):
@@ -115,10 +115,10 @@ def main():
     parser_test.add_argument("--debug", action="store_true", help="Test in debug mode")
     parser_test.set_defaults(func=ctest_test)
 
-    parser_setup_aoc_fetch = subparsers.add_parser(
-        "build_aoc_fetch", help="Builds Go binaries and installs them."
-    )
-    parser_setup_aoc_fetch.set_defaults(func=setup_aoc_fetch)
+    # parser_setup_aoc_fetch = subparsers.add_parser(
+    #     "build_aoc_fetch", help="Builds Go binaries and installs them."
+    # )
+    # parser_setup_aoc_fetch.set_defaults(func=setup_aoc_fetch)
 
     args, forward_args = parser.parse_known_args()
     args.func(args, forward_args)
