@@ -52,7 +52,7 @@ int solve_2(std::vector<std::string> inp) {
 
 void samples() {
     auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
-    assert(solve_1(sample) == 26397);
+    assert(solve_1(sample) == 11);
 }
 
 int main(int argc, char** argv) {
