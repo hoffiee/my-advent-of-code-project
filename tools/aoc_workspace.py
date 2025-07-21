@@ -50,11 +50,6 @@ def setup_day(args, forward_args):
 def used_file_extensions(args, forward_args):
     """
     Python variant of the cmake alternative that I had before.
-    find src -type f
-        | grep -vE '\(CMakeLists.txt\)'
-        | cut -d"." -f2 # cut at delimeter . and print second field
-        | sort | uniq -c | sort -nr
-    )
     """
     from collections import Counter
 
