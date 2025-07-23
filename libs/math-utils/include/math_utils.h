@@ -2,6 +2,7 @@
 #define MATH_UTILS_H_
 
 #include <vector>
+#include <cstdint>
 
 namespace math_utils {
 

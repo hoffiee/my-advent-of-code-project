@@ -80,7 +80,7 @@ struct Disk {
     }
 
     bool available_space(int64_t size) const {
-        for (auto const [key, val] : size_count_) {
+        for (auto const& [key, val] : size_count_) {
             if (key >= size && val > 0) {
                 return true;
             }
