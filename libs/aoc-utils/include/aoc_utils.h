@@ -113,9 +113,7 @@ struct Pos {
         return os;
     }
 
-    bool operator==(Pos const& other) const {
-        return x == other.x && y == other.y;
-    }
+    bool operator==(Pos const& other) const { return x == other.x && y == other.y; }
 
     bool operator<(Pos const& other) const {
         if (x != other.x) {
@@ -137,11 +135,9 @@ struct Pos {
 // translation units
 inline Pos operator+(Pos const& lhs, Pos const& rhs) { return Pos{lhs.x + rhs.x, lhs.y + rhs.y}; }
 inline Pos operator-(Pos const& lhs, Pos const& rhs) { return Pos{lhs.x - rhs.x, lhs.y - rhs.y}; }
-inline Pos operator*(int64_t const val, Pos const& rhs) { return Pos{val*rhs.x, val*rhs.y}; }
+inline Pos operator*(int64_t const val, Pos const& rhs) { return Pos{val * rhs.x, val * rhs.y}; }
 
-};
-
-
+};  // namespace grid2d
 
 };  // namespace aoc
 
