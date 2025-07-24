@@ -5,6 +5,7 @@ CMakeUserPresets.json
 aoc-puzzle-inputs
 __pycache__
 TODO.md
+compile_commands.json
 
 # jupyter files
 .virtual_documents
