@@ -4,6 +4,7 @@ import subprocess
 import os
 
 from tools.cmake_utils import cmake_setup, cmake_build
+
 # from tools.go_utils import setup_aoc_fetch
 
 
