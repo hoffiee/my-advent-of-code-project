@@ -109,7 +109,7 @@ struct Pos {
     }
 
     friend std::ostream& operator<<(std::ostream& os, Pos const& p) {
-        os << "(" << p.x << "," << p.y << ")" << std::endl;
+        os << "(" << p.x << "," << p.y << ")";
         return os;
     }
 
