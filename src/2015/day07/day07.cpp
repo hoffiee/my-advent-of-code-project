@@ -1,7 +1,7 @@
 #include AOC_HEADER
 
-#include <functional>
 #include <cstdint>
+#include <functional>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>

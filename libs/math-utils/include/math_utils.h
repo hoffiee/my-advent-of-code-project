@@ -1,8 +1,8 @@
 #ifndef MATH_UTILS_H_
 #define MATH_UTILS_H_
 
-#include <vector>
 #include <cstdint>
+#include <vector>
 
 namespace math_utils {
 

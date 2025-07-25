@@ -1,10 +1,10 @@
 /**
  * https://adventofcode.com/2021/day/11
  */
-#include <icecream.hpp>
-#include <string>
 #include <array>
+#include <icecream.hpp>
 #include <queue>
+#include <string>
 #include <vector>
 
 #include "aoc_runner.h"
@@ -17,14 +17,7 @@ using Grid = std::vector<std::vector<int64_t>>;
 using Flashed = std::vector<std::vector<bool>>;
 
 constexpr std::array<Pos, 8> directions{
-    Pos{-1, -1},
-    Pos{-1,  0},
-    Pos{-1,  1},
-    Pos{ 0, -1},
-    Pos{ 0,  1},
-    Pos{ 1, -1},
-    Pos{ 1,  0},
-    Pos{ 1,  1},
+    Pos{-1, -1}, Pos{-1, 0}, Pos{-1, 1}, Pos{0, -1}, Pos{0, 1}, Pos{1, -1}, Pos{1, 0}, Pos{1, 1},
 };
 
 bool valid(Grid const& grid, Pos const& pos) {
@@ -38,8 +31,8 @@ bool valid(Grid const& grid, Pos const& pos) {
 }
 
 bool all_zero(Grid const& grid) {
-    for (auto const& row: grid) {
-        for (auto const& col: row) {
+    for (auto const& row : grid) {
+        for (auto const& col : row) {
             if (col > 0) {
                 return false;
             }
@@ -59,8 +52,8 @@ Grid parse(std::vector<std::string> const& inp) {
 }
 
 void reset_flashed(Grid& grid) {
-    for (auto& row: grid) {
-        for (auto& col: row) {
+    for (auto& row : grid) {
+        for (auto& col : row) {
             if (col > 9) {
                 col = 0;
             }
@@ -70,8 +63,8 @@ void reset_flashed(Grid& grid) {
 
 int64_t count_flashed(Flashed& flashed) {
     int64_t count{0};
-    for (auto const& row: flashed) {
-        for (auto const& col: row) {
+    for (auto const& row : flashed) {
+        for (auto const& col : row) {
             if (col) {
                 count++;
             }
@@ -175,15 +168,15 @@ void samples() {
     assert(solve_1(sample1, 2) == 9);
 
     auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
-    assert(solve_1(sample, 1)  == 0);
-    assert(solve_1(sample, 2)  == 35);
-    assert(solve_1(sample, 3)  == 35 + 45);
-    assert(solve_1(sample, 4)  == 35 + 45 + 16);
-    assert(solve_1(sample, 5)  == 35 + 45 + 16 + 8);
-    assert(solve_1(sample, 6)  == 35 + 45 + 16 + 8 + 1);
-    assert(solve_1(sample, 7)  == 35 + 45 + 16 + 8 + 1 + 7);
-    assert(solve_1(sample, 8)  == 35 + 45 + 16 + 8 + 1 + 7 + 24);
-    assert(solve_1(sample, 9)  == 35 + 45 + 16 + 8 + 1 + 7 + 24 + 39);
+    assert(solve_1(sample, 1) == 0);
+    assert(solve_1(sample, 2) == 35);
+    assert(solve_1(sample, 3) == 35 + 45);
+    assert(solve_1(sample, 4) == 35 + 45 + 16);
+    assert(solve_1(sample, 5) == 35 + 45 + 16 + 8);
+    assert(solve_1(sample, 6) == 35 + 45 + 16 + 8 + 1);
+    assert(solve_1(sample, 7) == 35 + 45 + 16 + 8 + 1 + 7);
+    assert(solve_1(sample, 8) == 35 + 45 + 16 + 8 + 1 + 7 + 24);
+    assert(solve_1(sample, 9) == 35 + 45 + 16 + 8 + 1 + 7 + 24 + 39);
     assert(solve_1(sample, 10) == 35 + 45 + 16 + 8 + 1 + 7 + 24 + 39 + 29);
     assert(solve_1(sample, 100) == 1656);
     assert(solve_2(sample, 195) == 195);
