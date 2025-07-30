@@ -54,7 +54,6 @@ class Counter:
                     assert False
                 self.relations[bag] = [*self.relations[bag], (digit, rest)]
 
-
     @cache
     def count_bags(self, root_bag):
         assert root_bag in self.relations
@@ -65,7 +64,7 @@ class Counter:
         count: int = 1
         for nr_of_bags, subbag in self.relations[root_bag]:
             bags = self.count_bags(subbag)
-            count += nr_of_bags*self.count_bags(subbag)
+            count += nr_of_bags * self.count_bags(subbag)
 
         return count
 

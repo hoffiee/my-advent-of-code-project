@@ -7,79 +7,57 @@ def read_and_parse_lines(filename):
     with open(filename, "r", encoding="utf8") as f:
         lines = f.readlines()
         f.close()
-    out = list(map(str.strip, lines))
-    out = list(map(str.split, out))
+    out = [tuple(line.strip().split()) for line in lines]
     return out
 
 
-def sol1(lines):
+def parse_arg(arg):
+    if arg[0] == "+":
+        return int(arg[1:])
+    return -int(arg[1:])
+
+
+def solve(lines_in):
+    lines = lines_in.copy()
+    count = [0] * len(lines_in)
     i = 0
-    c = 0
     acc = 0
+    terminated = True
     while i < len(lines):
-        c += 1
-        if lines[i][0] == "nop" and len(lines[i]) < 3:
-            lines[i].append("nop: " + str(c))
-            i += 1
-        elif lines[i][0] == "acc" and len(lines[i]) < 3:
-            lines[i].append("acc: " + str(c))
-            if lines[i][1][0] == "+":
-                acc += int(lines[i][1][1:])
-            else:
-                acc -= int(lines[i][1][1:])
-            i += 1
-        elif lines[i][0] == "jmp" and len(lines[i]) < 3:
-            lines[i].append("jmp: " + str(c))
-            if lines[i][1][0] == "+":
-                i += int(lines[i][1][1:])
-            else:
-                i -= int(lines[i][1][1:])
-        elif len(lines[i]) == 3:
+        if count[i] > 0:
+            terminated = False
             break
 
-    return acc
+        oper, arg = lines[i]
+        if oper == "nop":
+            count[i] += 1
+            i += 1
+        elif oper == "acc":
+            count[i] += 1
+            acc += parse_arg(arg)
+            i += 1
+        elif oper == "jmp":
+            count[i] += 1
+            i += parse_arg(arg)
+
+    return acc, terminated
 
 
-def sol2(lines):
-    # Remains to do and investigate a bit further.
+def sol1(lines_in):
+    out, _ = solve(lines_in)
+    return out
 
-    i = 0
-    ii = 0
-    c = 0
-    acc = 0
-    while i < len(lines):
-        c += 1
-        if len(lines[i]) >= 3:
+
+def sol2(lines_in):
+    for i in range(len(lines_in)):
+        lines = lines_in.copy()
+        if lines[i][0] == "nop":
+            lines[i] = ("jmp", lines[i][1])
+        elif lines[i][0] == "jmp":
+            lines[i] = ("nop", lines[i][1])
+        acc, term = solve(lines)
+        if term:
             break
-
-        match lines[i][0]:
-            case "nop":
-                lines[i].append("nop: " + str(c))
-                i += 1
-            case "acc":
-                lines[i].append("acc: " + str(c))
-                if lines[i][1][0] == "+":
-                    acc += int(lines[i][1][1:])
-                else:
-                    acc -= int(lines[i][1][1:])
-                i += 1
-            case "jmp":
-                lines[i].append("jmp: " + str(c))
-                if lines[i][1][0] == "+":
-                    ii += int(lines[i][1][1:])
-                else:
-                    ii -= int(lines[i][1][1:])
-
-                if len(lines[ii]) == 3:
-                    lines[i][0] = "nop"
-                else:
-                    i = ii
-            case _:
-                assert False
-
-    for lm in lines:
-        print(lm)
-
     return acc
 
 
