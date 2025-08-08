@@ -39,13 +39,54 @@ def sol1(lines):
     return out
 
 
+def expand_masks(mask: str):
+    results = [""]
+    for char in mask:
+        if char == "X":
+            results = [r + bit for r in results for bit in "01"]
+        else:
+            results = [r + char for r in results]
+    results = list(map(lambda x: int(x, 2), results))
+    return results
+
+
+def apply_mask(addr, mask):
+    addr_bin = f"{addr:0{len(mask)}b}"
+    masked = []
+    for m, a in zip(mask, addr_bin):
+        if m == "X":
+            masked.append("X")  # Placeholder for expansion
+        elif m in "1":
+            masked.append(m)
+        else:
+            masked.append(a)
+    return expand_masks("".join(masked))
+
+
 def sol2(lines):
-    return 0
+    mem = {}
+    for l in lines:
+        if "mask" in l:
+            masks = l.split(" = ")[1]
+        else:
+            instr = l.replace("mem[", "").replace("] ", "").replace(" ", "")
+            k, v = instr.split("=")
+            for addr in apply_mask(int(k), masks):
+                mem.update({addr: int(v)})
+
+    out = 0
+    for _, v in mem.items():
+        out += v
+
+    return out
 
 
 def samples() -> None:
     sam = read_and_parse_lines("day14-sample.input")
     assert sol1(sam) == 165
+
+    sam1 = read_and_parse_lines("day14-sample-1.input")
+    assert sol2(sam1) == 208
 
 
 if __name__ == "__main__":
