@@ -8,19 +8,19 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 #include "intcode_computer.h"
+#include "string_utils.h"
 
 namespace aoc::y2019::d11 {
 
 using Pos = aoc::grid2d::Pos;
 
-struct PosDir{
+struct PosDir {
     Pos pos_{};
     Pos dir_{};
 
-    PosDir(Pos pos): pos_{pos}, dir_{Pos{0, 1}} {}
-    PosDir(Pos pos, Pos dir): pos_{pos}, dir_{dir} {}
+    PosDir(Pos pos) : pos_{pos}, dir_{Pos{0, 1}} {}
+    PosDir(Pos pos, Pos dir) : pos_{pos}, dir_{dir} {}
 
     /// Rotate
     /// <= 0: Left
@@ -36,11 +36,9 @@ struct PosDir{
     Pos rotate_left() {
         if (dir_.x != 0) {
             dir_ = {0, dir_.x};
-        }
-        else if (dir_.y != 0) {
+        } else if (dir_.y != 0) {
             dir_ = {-dir_.y, 0};
-        }
-        else {
+        } else {
             // unreachable, logic fault..
             assert(false);
         }
@@ -49,11 +47,9 @@ struct PosDir{
     Pos rotate_right() {
         if (dir_.x != 0) {
             dir_ = {0, -dir_.x};
-        }
-        else if (dir_.y != 0) {
+        } else if (dir_.y != 0) {
             dir_ = {dir_.y, 0};
-        }
-        else {
+        } else {
             // unreachable, logic fault..
             assert(false);
         }
@@ -66,15 +62,12 @@ struct PosDir{
     }
 };
 
-
 using Grid = std::unordered_map<Pos, int, Pos::Hash>;
 using Dim = std::array<int64_t, 4u>;
 
 std::pair<Grid, Dim> paint(IntcodeComputer& comp, int const start_panel_color) {
-    PosDir current_pos(Pos{0,0});
-    std::unordered_map<Pos, int, Pos::Hash> grid{
-        {current_pos.pos_, start_panel_color}
-    };
+    PosDir current_pos(Pos{0, 0});
+    std::unordered_map<Pos, int, Pos::Hash> grid{{current_pos.pos_, start_panel_color}};
 
     int64_t min_x{INT64_MAX};
     int64_t min_y{INT64_MAX};
@@ -138,7 +131,7 @@ int64_t solve_2(std::vector<std::string> inp) {
     // Rotate y axis while printing
     for (int64_t y{size_y - 1}; 0 <= y; y--) {
         for (int64_t x{0}; x < size_x; x++) {
-            Pos const cand{x + min_x,y + min_y};
+            Pos const cand{x + min_x, y + min_y};
             if (grid.contains(cand) && grid.at(cand) == 1) {
                 std::cout << '#';
             } else {
@@ -152,15 +145,15 @@ int64_t solve_2(std::vector<std::string> inp) {
 }
 
 void samples() {
-    PosDir pos{Pos{0,0}};
-    assert((pos.step() == Pos{0,1}));
+    PosDir pos{Pos{0, 0}};
+    assert((pos.step() == Pos{0, 1}));
     assert((pos.rotate(0) == Pos{-1, 0}));
-    assert((pos.step() == Pos{-1,1}));
+    assert((pos.step() == Pos{-1, 1}));
     assert((pos.rotate(0) == Pos{0, -1}));
-    assert((pos.step() == Pos{-1,0}));
+    assert((pos.step() == Pos{-1, 0}));
     assert((pos.rotate(0) == Pos{1, 0}));
     assert((pos.rotate(0) == Pos{0, 1}));
-    assert((pos.rotate(1) == Pos{1, 0} ));
+    assert((pos.rotate(1) == Pos{1, 0}));
     assert((pos.rotate(1) == Pos{0, -1}));
     assert((pos.rotate(1) == Pos{-1, 0}));
     assert((pos.rotate(1) == Pos{0, 1}));

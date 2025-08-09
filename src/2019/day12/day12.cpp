@@ -2,11 +2,11 @@
  * https://adventofcode.com/2019/day/12
  *
  */
+#include <algorithm>
+#include <array>
 #include <icecream.hpp>
 #include <string>
-#include <algorithm>
 #include <vector>
-#include <array>
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
@@ -38,17 +38,17 @@ inline Vec operator+(const Vec& a, const Vec& b) {
 
 int64_t sum_abs(Vec const& vec) {
     int64_t sum{0};
-    for (auto const& v: vec) {
+    for (auto const& v : vec) {
         sum += std::abs(v);
     }
     return sum;
 }
 
-struct Moon{
+struct Moon {
     Vec x_{};
     Vec dx_{};
-    Moon(int64_t x, int64_t y, int64_t z): x_{x,y,z} {}
-    Moon(std::vector<int64_t> nums): Moon(nums.at(0), nums.at(1), nums.at(2)) {}
+    Moon(int64_t x, int64_t y, int64_t z) : x_{x, y, z} {}
+    Moon(std::vector<int64_t> nums) : Moon(nums.at(0), nums.at(1), nums.at(2)) {}
 
     void update_dx(Moon const& other) {
         assert(other.dx_.size() == dx_.size());
@@ -57,21 +57,13 @@ struct Moon{
         }
     }
 
-    void update_x() {
-        x_ = x_ + dx_;
-    }
+    void update_x() { x_ = x_ + dx_; }
 
-    int64_t potential_energy() const {
-        return sum_abs(x_);
-    }
+    int64_t potential_energy() const { return sum_abs(x_); }
 
-    int64_t kinetic_energy() const {
-        return sum_abs(dx_);
-    }
+    int64_t kinetic_energy() const { return sum_abs(dx_); }
 
-    int64_t total_energy() const {
-        return potential_energy() * kinetic_energy();
-    }
+    int64_t total_energy() const { return potential_energy() * kinetic_energy(); }
 
     friend std::ostream& operator<<(std::ostream& os, Moon const& m) {
         os << "pos=" << m.x_;
@@ -82,7 +74,7 @@ struct Moon{
 
 std::vector<Moon> parse_input(std::vector<std::string> const& inp) {
     std::vector<Moon> moons{};
-    for (auto const& line: inp) {
+    for (auto const& line : inp) {
         auto const parsed = string_utils::numbers_from_string(line);
         assert(parsed.size() == 3);
         moons.emplace_back(Moon{parsed});
@@ -126,7 +118,7 @@ int64_t solve_1(std::vector<std::string> inp, int64_t steps) {
     }
 
     int64_t system_total_energy{0};
-    for (auto const& moon: moons) {
+    for (auto const& moon : moons) {
         system_total_energy += moon.total_energy();
     }
     return system_total_energy;
@@ -155,7 +147,7 @@ int64_t solve_2(std::vector<std::string> inp) {
             }
 
             if (state_check_in_dimension(init_state, moons, dim)) {
-                periodicity.at(dim) = step +1;
+                periodicity.at(dim) = step + 1;
                 periodicity_dimensions_found++;
             }
         }
