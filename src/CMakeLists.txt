@@ -8,6 +8,7 @@ add_subdirectory(2021)
 add_subdirectory(2022)
 add_subdirectory(2023)
 add_subdirectory(2024)
+add_subdirectory(2025)
 
 add_custom_target(all-runtest
     COMMAND ctest --output-on-failure -j2

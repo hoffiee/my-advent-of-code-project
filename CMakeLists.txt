@@ -9,6 +9,7 @@ include(helpers)
 include(jupyter)
 include(python)
 include(go)
+include(rust)
 include(venv)
 
 set(CMAKE_CXX_STANDARD 23)

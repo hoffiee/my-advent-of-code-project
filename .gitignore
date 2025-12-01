@@ -12,3 +12,8 @@ compile_commands.json
 .ipynb_checkpoints
 
 bench.db
+
+# Rust related content
+# TODO fix Cmake so that these aren't put into src/
+src/**/target/
+src/**/Cargo.lock

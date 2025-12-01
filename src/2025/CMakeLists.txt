@@ -1,0 +1,9 @@
+set(AOC_YEAR 2025)
+
+add_subdirectory(day01)
+add_subdirectory(day02)
+
+add_custom_target(${AOC_YEAR}-runtest
+    COMMAND ctest --output-on-failure
+    WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
+)
