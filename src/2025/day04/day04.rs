@@ -1,17 +1,17 @@
+use aoc_runner::aoc_run;
 /**
 * TODO refactor
 */
 use aoc_utils::*;
-use aoc_runner::aoc_run;
 
 fn valid_point(point: (i64, i64), dim: (i64, i64)) -> bool {
     let (rz, cz) = dim;
     let (r, c) = point;
     if r < 0 || rz <= r {
-        return false
+        return false;
     }
     if c < 0 || cz <= c {
-        return false
+        return false;
     }
     true
 }
@@ -26,8 +26,8 @@ fn accessible(input: &Vec<Vec<char>>, dim: (i64, i64), point: (i64, i64)) -> boo
                 continue;
             }
 
-            let rcand: i64 = r+rc;
-            let ccand: i64 = c+cc;
+            let rcand: i64 = r + rc;
+            let ccand: i64 = c + cc;
 
             if !valid_point((rcand, ccand), dim) {
                 continue;
@@ -59,7 +59,6 @@ fn remove_rolls(grid: &mut Vec<Vec<char>>) {
     for r in 0..rz {
         for c in 0..cz {
             if grid[r][c] == 'x' {
-
                 grid[r][c] = '.';
             }
         }
@@ -127,12 +126,10 @@ fn solve_2(input: &Vec<String>) -> i64 {
         if removed == 0 {
             break;
         }
-
     }
 
     sum
 }
-
 
 fn samples() {
     let lines = read_input_file("day04-sample.input");
@@ -147,9 +144,7 @@ fn samples() {
     assert!(sample_part_2 == 43);
 }
 
-
 fn main() -> std::io::Result<()> {
-
     let lines = read_input_file("day04.input");
     // lines.iter().for_each(|x| println!("{}", x));
 
@@ -164,12 +159,7 @@ fn main() -> std::io::Result<()> {
         println!("part2: {}", ans);
     };
 
-    aoc_run(
-        samples,
-        solve_1_wrapper,
-        solve_2_wrapper,
-        lines
-    )
+    aoc_run(samples, solve_1_wrapper, solve_2_wrapper, lines)
 }
 
 #[cfg(test)]
@@ -183,11 +173,7 @@ mod tests {
 
     #[test]
     fn solve_1_test_1() {
-        let lines  = vec![
-            "@.@".to_string(),
-            ".@.".to_string(),
-            "@.@".to_string(),
-        ];
+        let lines = vec!["@.@".to_string(), ".@.".to_string(), "@.@".to_string()];
         let res = solve_1(&lines);
         assert_eq!(res, 4);
     }

@@ -1,10 +1,10 @@
-use aoc_utils::*;
 use aoc_runner::aoc_run;
+use aoc_utils::*;
 
 fn invalid_id(id: i64) -> bool {
     let id = id.to_string();
     if id.len() == 1 || id.len() % 2 != 0 {
-        return false
+        return false;
     }
 
     let mid: usize = id.chars().count() / 2;
@@ -15,16 +15,15 @@ fn invalid_id(id: i64) -> bool {
 
 fn repeated_sequence(rem: &str, cand: &str) -> bool {
     if rem.len() < cand.len() {
-        return false
+        return false;
     }
 
     if rem.len() == cand.len() {
-        return rem == cand
+        return rem == cand;
     }
 
     let size = cand.len();
     for chunk in rem.as_bytes().chunks(size) {
-
         let slice = std::str::from_utf8(chunk).expect("invalid utf-8");
 
         if slice != cand {
@@ -40,18 +39,16 @@ fn repeated_sequence(rem: &str, cand: &str) -> bool {
 fn invalid_id2(id: i64) -> bool {
     let id = id.to_string();
     if id.len() == 1 {
-        return false
+        return false;
     }
 
     repeated_sequence(&id[1..], &id[0..1])
 }
 
-
 fn solve_1(input: &Vec<String>) -> i64 {
     let mut sum: i64 = 0;
 
     for line in input[0].split(",") {
-
         let (first_id, last_id) = line.split_once("-").unwrap();
 
         assert!(first_id.chars().next().unwrap() != '0');
@@ -61,7 +58,6 @@ fn solve_1(input: &Vec<String>) -> i64 {
         let last_id = last_id.parse::<i64>().expect("Failed to parse last id");
 
         for id in first_id..=last_id {
-
             if invalid_id(id) {
                 sum += id;
             }
@@ -75,7 +71,6 @@ fn solve_2(input: &Vec<String>) -> i64 {
     let mut sum: i64 = 0;
 
     for line in input[0].split(",") {
-
         let (first_id, last_id) = line.split_once("-").unwrap();
 
         assert!(first_id.chars().next().unwrap() != '0');
@@ -122,12 +117,7 @@ fn main() -> std::io::Result<()> {
         println!("part2: {}", ans);
     };
 
-    aoc_run(
-        samples,
-        solve_1_wrapper,
-        solve_2_wrapper,
-        lines
-    )
+    aoc_run(samples, solve_1_wrapper, solve_2_wrapper, lines)
 }
 
 #[cfg(test)]
@@ -183,72 +173,56 @@ mod tests {
 
     #[test]
     fn solve_1_test_1() {
-        let lines  = vec![
-            "11-22".to_string()
-        ];
+        let lines = vec!["11-22".to_string()];
         let res = solve_1(&lines);
-        assert_eq!(res, 11+22);
+        assert_eq!(res, 11 + 22);
     }
 
     #[test]
     fn solve_1_test_2() {
-        let lines  = vec![
-            "95-115".to_string()
-        ];
+        let lines = vec!["95-115".to_string()];
         let res = solve_1(&lines);
         assert_eq!(res, 99);
     }
 
     #[test]
     fn solve_1_test_3() {
-        let lines  = vec![
-            "1188511880-1188511890".to_string()
-        ];
+        let lines = vec!["1188511880-1188511890".to_string()];
         let res = solve_1(&lines);
         assert_eq!(res, 1188511885);
     }
 
     #[test]
     fn solve_1_test_4() {
-        let lines  = vec![
-            "222220-222224".to_string()
-        ];
+        let lines = vec!["222220-222224".to_string()];
         let res = solve_1(&lines);
         assert_eq!(res, 222222);
     }
 
     #[test]
     fn solve_1_test_5() {
-        let lines  = vec![
-            "1698522-1698528".to_string()
-        ];
+        let lines = vec!["1698522-1698528".to_string()];
         let res = solve_1(&lines);
         assert_eq!(res, 0);
     }
 
     #[test]
     fn solve_1_test_6() {
-        let lines  = vec![
-            "446443-446449".to_string()
-        ];
+        let lines = vec!["446443-446449".to_string()];
         let res = solve_1(&lines);
         assert_eq!(res, 446446);
     }
 
     #[test]
     fn solve_1_test_7() {
-        let lines  = vec![
-            "38593856-38593862".to_string()
-        ];
+        let lines = vec!["38593856-38593862".to_string()];
         let res = solve_1(&lines);
         assert_eq!(res, 38593859);
     }
 
     #[test]
     fn solve_1_test_8() {
-        let lines  = vec![
-            "565653-565659,824824821-824824827,2121212118-2121212124".to_string()
-        ];
+        let lines = vec!["565653-565659,824824821-824824827,2121212118-2121212124".to_string()];
         let res = solve_1(&lines);
         assert_eq!(res, 0);
     }
@@ -256,111 +230,85 @@ mod tests {
     #[test]
     #[should_panic]
     fn solve_1_test_9() {
-        let lines  = vec![
-            "01-10".to_string()
-        ];
+        let lines = vec!["01-10".to_string()];
         let res = solve_1(&lines);
         assert_eq!(res, 0);
     }
 
-
     #[test]
     fn solve_2_test_1() {
-        let lines  = vec![
-            "11-22".to_string()
-        ];
+        let lines = vec!["11-22".to_string()];
         let res = solve_2(&lines);
-        assert_eq!(res, 11+22);
+        assert_eq!(res, 11 + 22);
     }
 
     #[test]
     fn solve_2_test_2() {
-        let lines  = vec![
-            "95-115".to_string()
-        ];
+        let lines = vec!["95-115".to_string()];
         let res = solve_2(&lines);
-        assert_eq!(res, 99+111);
+        assert_eq!(res, 99 + 111);
     }
 
     #[test]
     fn solve_2_test_3() {
-        let lines  = vec![
-            "998-1012".to_string()
-        ];
+        let lines = vec!["998-1012".to_string()];
         let res = solve_2(&lines);
-        assert_eq!(res, 999+1010);
+        assert_eq!(res, 999 + 1010);
     }
 
     #[test]
     fn solve_2_test_4() {
-        let lines  = vec![
-            "1188511880-1188511890".to_string()
-        ];
+        let lines = vec!["1188511880-1188511890".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 1188511885);
     }
 
     #[test]
     fn solve_2_test_5() {
-        let lines  = vec![
-            "222220-222224".to_string()
-        ];
+        let lines = vec!["222220-222224".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 222222);
     }
 
     #[test]
     fn solve_2_test_6() {
-        let lines  = vec![
-            "1698522-1698528".to_string()
-        ];
+        let lines = vec!["1698522-1698528".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 0);
     }
 
     #[test]
     fn solve_2_test_7() {
-        let lines  = vec![
-            "446443-446449".to_string()
-        ];
+        let lines = vec!["446443-446449".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 446446);
     }
 
     #[test]
     fn solve_2_test_8() {
-        let lines  = vec![
-            "38593856-38593862".to_string()
-        ];
+        let lines = vec!["38593856-38593862".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 38593859);
     }
 
     #[test]
     fn solve_2_test_9() {
-        let lines  = vec![
-            "565653-565659".to_string()
-        ];
+        let lines = vec!["565653-565659".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 565656);
     }
 
     #[test]
     fn solve_2_test_10() {
-        let lines  = vec![
-            "824824821-824824827".to_string()
-        ];
+        let lines = vec!["824824821-824824827".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 824824824);
     }
 
     #[test]
     fn solve_2_test_11() {
-        let lines  = vec![
-            "2121212118-2121212124".to_string()
-        ];
+        let lines = vec!["2121212118-2121212124".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 2121212121);
     }
-
 }

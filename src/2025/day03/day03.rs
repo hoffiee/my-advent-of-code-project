@@ -1,5 +1,5 @@
-use aoc_utils::*;
 use aoc_runner::aoc_run;
+use aoc_utils::*;
 
 fn find_max(battery_slice: &str) -> (i64, usize) {
     battery_slice
@@ -21,7 +21,7 @@ fn solver(line: &str, battery_size: usize) -> i64 {
     for offset in 0..battery_size {
         let (val, next_distance) = find_max(&line[start..line.len() - (battery_size - offset - 1)]);
         start += next_distance;
-        acc = 10*acc + val;
+        acc = 10 * acc + val;
     }
     acc
 }
@@ -61,12 +61,7 @@ fn main() -> std::io::Result<()> {
         println!("part2: {}", ans);
     };
 
-    aoc_run(
-        samples,
-        solve_1_wrapper,
-        solve_2_wrapper,
-        lines
-    )
+    aoc_run(samples, solve_1_wrapper, solve_2_wrapper, lines)
 }
 
 #[cfg(test)]
@@ -80,74 +75,57 @@ mod tests {
 
     #[test]
     fn solve_1_test_1() {
-        let lines  = vec![
-            "987654321111111".to_string()
-        ];
+        let lines = vec!["987654321111111".to_string()];
         let res = solve_1(&lines);
         assert_eq!(res, 98);
     }
 
     #[test]
     fn solve_1_test_2() {
-        let lines  = vec![
-            "811111111111119".to_string()
-        ];
+        let lines = vec!["811111111111119".to_string()];
         let res = solve_1(&lines);
         assert_eq!(res, 89);
     }
 
     #[test]
     fn solve_1_test_3() {
-        let lines  = vec![
-            "234234234234278".to_string()
-        ];
+        let lines = vec!["234234234234278".to_string()];
         let res = solve_1(&lines);
         assert_eq!(res, 78);
     }
 
     #[test]
     fn solve_1_test_4() {
-        let lines  = vec![
-            "818181911112111".to_string()
-        ];
+        let lines = vec!["818181911112111".to_string()];
         let res = solve_1(&lines);
         assert_eq!(res, 92);
     }
 
     #[test]
     fn solve_2_test_1() {
-        let lines  = vec![
-            "987654321111111".to_string()
-        ];
+        let lines = vec!["987654321111111".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 987654321111);
     }
 
     #[test]
     fn solve_2_test_2() {
-        let lines  = vec![
-            "811111111111119".to_string()
-        ];
+        let lines = vec!["811111111111119".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 811111111119);
     }
 
     #[test]
     fn solve_2_test_3() {
-        let lines  = vec![
-            "234234234234278".to_string()
-        ];
+        let lines = vec!["234234234234278".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 434234234278);
     }
 
     #[test]
     fn solve_2_test_4() {
-        let lines  = vec![
-            "818181911112111".to_string()
-        ];
+        let lines = vec!["818181911112111".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 888911112111);
     }
-
 }

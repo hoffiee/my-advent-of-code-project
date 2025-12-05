@@ -1,32 +1,35 @@
 use std::ops::RangeInclusive;
 
-use aoc_utils::*;
 use aoc_runner::aoc_run;
+use aoc_utils::*;
 
 fn split_on_empty(input: &Vec<String>) -> Vec<Vec<String>> {
-    input.into_iter().fold(Vec::new(), |mut acc, s| {
-        if s.is_empty() {
-            acc.push(Vec::new());
-        } else if let Some(last) = acc.last_mut() {
-            last.push(s.clone());
-        } else {
-            acc.push(vec![s.clone()]);
-        }
-        acc
-    }).into_iter().filter(|group| !group.is_empty()).collect()
+    input
+        .into_iter()
+        .fold(Vec::new(), |mut acc, s| {
+            if s.is_empty() {
+                acc.push(Vec::new());
+            } else if let Some(last) = acc.last_mut() {
+                last.push(s.clone());
+            } else {
+                acc.push(vec![s.clone()]);
+            }
+            acc
+        })
+        .into_iter()
+        .filter(|group| !group.is_empty())
+        .collect()
 }
 
 fn parse_range(s: &str) -> RangeInclusive<i64> {
-    let parts: Vec<i64> = s.split('-')
-        .map(|p| p.parse::<i64>().unwrap())
-        .collect();
+    let parts: Vec<i64> = s.split('-').map(|p| p.parse::<i64>().unwrap()).collect();
     assert_eq!(parts.len(), 2, "Must result in 2 parts");
     parts[0]..=parts[1]
 }
 
 fn range_len(range: &RangeInclusive<i64>) -> i64 {
     if range.is_empty() {
-        return 0
+        return 0;
     }
     *range.end() - *range.start() + 1
 }
@@ -37,29 +40,31 @@ fn solve_1(input: &Vec<String>) -> i64 {
 
     let valid_ids: Vec<RangeInclusive<i64>> = split[0].iter().map(|s| parse_range(&s)).collect();
 
-    split[1].iter()
+    split[1]
+        .iter()
         .map(|s| {
             let id = s.parse::<i64>().unwrap();
             for range in &valid_ids {
                 if range.contains(&id) {
-                    return 1
+                    return 1;
                 }
             }
             0
-        }).sum()
+        })
+        .sum()
 }
 
 fn solve_2(input: &Vec<String>) -> i64 {
     let split = split_on_empty(input);
     assert_eq!(split.len(), 2);
 
-    let mut valid_ids: Vec<RangeInclusive<i64>> = split[0].iter().map(|s| parse_range(&s)).collect();
+    let mut valid_ids: Vec<RangeInclusive<i64>> =
+        split[0].iter().map(|s| parse_range(&s)).collect();
     valid_ids.sort_unstable_by_key(|r| *r.start());
 
     let mut merged_ranges: Vec<RangeInclusive<i64>> = Vec::new();
 
     for cand_range in valid_ids {
-
         if merged_ranges.is_empty() {
             merged_ranges.push(cand_range);
             continue;
@@ -82,7 +87,9 @@ fn solve_2(input: &Vec<String>) -> i64 {
         }
     }
 
-    merged_ranges.iter().fold(0, |acc, range| acc + range_len(&range))
+    merged_ranges
+        .iter()
+        .fold(0, |acc, range| acc + range_len(&range))
 }
 
 fn samples() {
@@ -113,12 +120,7 @@ fn main() -> std::io::Result<()> {
         println!("part2: {}", ans);
     };
 
-    aoc_run(
-        samples,
-        solve_1_wrapper,
-        solve_2_wrapper,
-        lines
-    )
+    aoc_run(samples, solve_1_wrapper, solve_2_wrapper, lines)
 }
 
 #[cfg(test)]
@@ -132,7 +134,7 @@ mod tests {
 
     #[test]
     fn solve_2_test_1() {
-        let lines  = vec![
+        let lines = vec![
             "1-5".to_string(),
             "6-10".to_string(),
             "".to_string(),
@@ -144,7 +146,7 @@ mod tests {
 
     #[test]
     fn solve_2_test_2() {
-        let lines  = vec![
+        let lines = vec![
             "1-5".to_string(),
             "3-7".to_string(),
             "".to_string(),
@@ -156,7 +158,7 @@ mod tests {
 
     #[test]
     fn solve_2_test_3() {
-        let lines  = vec![
+        let lines = vec![
             "1-4".to_string(),
             "6-10".to_string(),
             "3-7".to_string(),
@@ -168,7 +170,7 @@ mod tests {
     }
     #[test]
     fn solve_2_test_4() {
-        let lines  = vec![
+        let lines = vec![
             "1-10".to_string(),
             "1-8".to_string(),
             "".to_string(),

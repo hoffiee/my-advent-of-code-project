@@ -77,3 +77,11 @@ macro(aoc_rust_add_test)
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
 endmacro()
+
+add_custom_target(format-rust
+    COMMAND find ${CMAKE_SOURCE_DIR} -name Cargo.toml -type f
+        | sed 's/Cargo.toml$$//'
+        | parallel 'cd '{}' && cargo fmt'
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    COMMENT "Rust: Formating"
+)

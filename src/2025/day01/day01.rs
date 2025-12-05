@@ -1,12 +1,11 @@
-use aoc_utils::*;
 use aoc_runner::aoc_run;
+use aoc_utils::*;
 
 fn get_number_from_string(s: &str) -> Option<i64> {
     let digits: String = s.chars().filter(|c| c.is_ascii_digit()).collect();
     if digits.is_empty() {
         None
-    }
-    else {
+    } else {
         digits.parse::<i64>().ok()
     }
 }
@@ -96,12 +95,7 @@ fn main() -> std::io::Result<()> {
         println!("part2: {}", ans);
     };
 
-    aoc_run(
-        samples,
-        solve_1_wrapper,
-        solve_2_wrapper,
-        lines
-    )
+    aoc_run(samples, solve_1_wrapper, solve_2_wrapper, lines)
 }
 
 #[cfg(test)]
@@ -130,134 +124,98 @@ mod tests {
 
     #[test]
     fn solve_2_test_1() {
-        let lines  = vec![
-            "L50".to_string(),
-            "L10".to_string(),
-        ];
+        let lines = vec!["L50".to_string(), "L10".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 1);
     }
 
     #[test]
     fn solve_2_test_2() {
-        let lines  = vec![
-            "R50".to_string(),
-            "R99".to_string(),
-        ];
+        let lines = vec!["R50".to_string(), "R99".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 1);
     }
 
     #[test]
     fn solve_2_test_3() {
-        let lines  = vec![
-            "R40".to_string(),
-            "R40".to_string(),
-        ];
+        let lines = vec!["R40".to_string(), "R40".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 1);
     }
 
     #[test]
     fn solve_2_test_4() {
-        let lines  = vec![
-            "L40".to_string(),
-            "L40".to_string(),
-        ];
+        let lines = vec!["L40".to_string(), "L40".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 1);
     }
 
     #[test]
     fn solve_2_test_5() {
-        let lines  = vec![
-            "L50".to_string(),
-        ];
+        let lines = vec!["L50".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 1);
     }
 
     #[test]
     fn solve_2_test_6() {
-        let lines  = vec![
-            "R50".to_string(),
-        ];
+        let lines = vec!["R50".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 1);
     }
 
     #[test]
     fn solve_2_test_7() {
-        let lines  = vec![
-            "L250".to_string(),
-        ];
+        let lines = vec!["L250".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 3)
     }
 
     #[test]
     fn solve_2_test_8() {
-        let lines  = vec![
-            "R250".to_string(),
-        ];
+        let lines = vec!["R250".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 3)
     }
 
     #[test]
     fn solve_2_test_9() {
-        let lines  = vec![
-            "L50".to_string(),
-            "L200".to_string(),
-        ];
+        let lines = vec!["L50".to_string(), "L200".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 3)
     }
 
     #[test]
     fn solve_2_test_10() {
-        let lines  = vec![
-            "R50".to_string(),
-            "R200".to_string(),
-        ];
+        let lines = vec!["R50".to_string(), "R200".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 3)
     }
 
     #[test]
     fn solve_2_test_11() {
-        let lines  = vec![
-            "R200".to_string(),
-            "R50".to_string(),
-        ];
+        let lines = vec!["R200".to_string(), "R50".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 3)
     }
 
     #[test]
     fn solve_2_test_12() {
-        let lines  = vec![
-            "R200".to_string(),
-            "L50".to_string(),
-        ];
+        let lines = vec!["R200".to_string(), "L50".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 3)
     }
 
     #[test]
     fn solve_2_test_13() {
-        let lines  = vec![
-            "L150".to_string(),
-        ];
+        let lines = vec!["L150".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 2)
     }
 
     #[test]
     fn solve_2_test_14() {
-        let lines  = vec![
-            "R150".to_string(),
-        ];
+        let lines = vec!["R150".to_string()];
         let res = solve_2(&lines);
         assert_eq!(res, 2)
     }
