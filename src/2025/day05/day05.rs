@@ -64,18 +64,22 @@ fn solve_2(input: &Vec<String>) -> i64 {
     let mut merged_ranges: Vec<RangeInclusive<i64>> = Vec::new();
 
     for cand_range in valid_ids {
+
+        if merged_ranges.is_empty() {
+            merged_ranges.push(cand_range);
+            continue;
+        }
+
         let cand_first = *cand_range.start();
         let mut modified = false;
-        for range in &mut merged_ranges {
-            if range.contains(&cand_first) {
-                let first = *range.start();
-                let cand_last = *cand_range.end();
-                let new_last = cand_last.max(*range.end());
-                *range = first..=new_last;
+        let range = merged_ranges.last_mut().unwrap();
+        if range.contains(&cand_first) {
+            let first = *range.start();
+            let cand_last = *cand_range.end();
+            let new_last = cand_last.max(*range.end());
+            *range = first..=new_last;
 
-                modified = true;
-                break;
-            }
+            modified = true;
         }
 
         if !modified {
