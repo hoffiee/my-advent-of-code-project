@@ -119,7 +119,7 @@ def main():
         "-y",
         "--year",
         type=int,
-        choices=range(2015, 2025),
+        choices=range(2015, 2026),
         metavar="[2015-2024]",
         help="Specify year (optional)",
     )

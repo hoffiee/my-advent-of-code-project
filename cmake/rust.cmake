@@ -23,15 +23,18 @@ message(STATUS "Found cargo: ${CARGO_EXECUTABLE}")
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     set(RUST_PROFILE release)
+    set(CARGO_BUILD_ARG --release)
 else()
     set(RUST_PROFILE debug)
+    set(CARGO_BUILD_ARG)
 endif()
 
 macro(aoc_rust_add_target)
     add_custom_command(
         OUTPUT ${ARGV0}_
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        COMMAND env CARGO_TARGET_DIR=${CMAKE_CURRENT_BINARY_DIR} cargo build
+        COMMAND env CARGO_TARGET_DIR=${CMAKE_CURRENT_BINARY_DIR} cargo build ${CARGO_BUILD_ARG}
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_BINARY_DIR}/${RUST_PROFILE} ${CMAKE_CURRENT_BINARY_DIR}/
         COMMENT "Building Rust executable ${ARGV0} with Cargo (${RUST_PROFILE})"
         VERBATIM
     )
