@@ -1,4 +1,5 @@
 use aoc_utils::*;
+use aoc_runner::aoc_run;
 
 fn find_max(battery_slice: &str) -> (i64, usize) {
     battery_slice
@@ -33,8 +34,8 @@ fn solve_2(input: &Vec<String>) -> i64 {
     input.iter().map(|s| solver(s, 12)).sum()
 }
 
-fn main() -> std::io::Result<()> {
-    let lines = read_input_file("day03-sample.input")?;
+fn samples() {
+    let lines = read_input_file("day03-sample.input");
     // lines.iter().for_each(|x| println!("{}", x));
 
     let sample_part_1 = solve_1(&lines);
@@ -44,19 +45,28 @@ fn main() -> std::io::Result<()> {
     let sample_part_2 = solve_2(&lines);
     println!("sample part 2: {}", sample_part_2);
     assert!(sample_part_2 == 3121910778619);
+}
 
-    let lines = read_input_file("day03.input")?;
-    // lines.iter().for_each(|x| println!("{}", x));
+fn main() -> std::io::Result<()> {
+    let lines = read_input_file("day03.input");
 
-    let part_1 = solve_1(&lines);
-    println!("part 1: {}", part_1);
-    assert!(part_1 == 17613);
+    let solve_1_wrapper = |lines: &Vec<String>| {
+        let ans = solve_1(lines);
+        println!("part1: {}", ans);
+        assert_eq!(ans, 17613);
+    };
+    let solve_2_wrapper = |lines: &Vec<String>| {
+        let ans = solve_2(lines);
+        assert_eq!(ans, 175304218462560);
+        println!("part2: {}", ans);
+    };
 
-    let part_2 = solve_2(&lines);
-    println!("part 2: {}", part_2);
-    assert!(part_2 == 175304218462560);
-
-    Ok(())
+    aoc_run(
+        samples,
+        solve_1_wrapper,
+        solve_2_wrapper,
+        lines
+    )
 }
 
 #[cfg(test)]

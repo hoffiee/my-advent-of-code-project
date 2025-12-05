@@ -1,6 +1,7 @@
 use std::ops::RangeInclusive;
 
 use aoc_utils::*;
+use aoc_runner::aoc_run;
 
 fn split_on_empty(input: &Vec<String>) -> Vec<Vec<String>> {
     input.into_iter().fold(Vec::new(), |mut acc, s| {
@@ -84,8 +85,8 @@ fn solve_2(input: &Vec<String>) -> i64 {
     merged_ranges.iter().fold(0, |acc, range| acc + range_len(&range))
 }
 
-fn main() -> std::io::Result<()> {
-    let lines = read_input_file("day05-sample.input")?;
+fn samples() {
+    let lines = read_input_file("day05-sample.input");
     // lines.iter().for_each(|x| println!("{}", x));
 
     let sample_part_1 = solve_1(&lines);
@@ -95,19 +96,29 @@ fn main() -> std::io::Result<()> {
     let sample_part_2 = solve_2(&lines);
     println!("sample part 2: {}", sample_part_2);
     assert!(sample_part_2 == 14);
+}
 
-    let lines = read_input_file("day05.input")?;
+fn main() -> std::io::Result<()> {
+    let lines = read_input_file("day05.input");
     // lines.iter().for_each(|x| println!("{}", x));
 
-    let part_1 = solve_1(&lines);
-    println!("part 1: {}", part_1);
-    assert!(part_1 == 735);
+    let solve_1_wrapper = |lines: &Vec<String>| {
+        let ans = solve_1(lines);
+        println!("part1: {}", ans);
+        assert_eq!(ans, 735);
+    };
+    let solve_2_wrapper = |lines: &Vec<String>| {
+        let ans = solve_2(lines);
+        assert_eq!(ans, 344306344403172);
+        println!("part2: {}", ans);
+    };
 
-    let part_2 = solve_2(&lines);
-    println!("part 2: {}", part_2);
-    assert!(part_2 == 344306344403172);
-
-    Ok(())
+    aoc_run(
+        samples,
+        solve_1_wrapper,
+        solve_2_wrapper,
+        lines
+    )
 }
 
 #[cfg(test)]

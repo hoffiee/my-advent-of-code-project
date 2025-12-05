@@ -1,10 +1,15 @@
 use std::fs::File;
 use std::io::{BufReader, BufRead};
 
-pub fn read_input_file(path: &str) -> std::io::Result<Vec<String>> {
-    let file = File::open(path)?;
+pub fn read_input_file(path: &str) -> Vec<String> {
+    let file = match File::open(path) {
+        Ok(ok) => ok,
+        Err(e) => panic!("IO error opening {}: {}", path, e),
+    };
     let reader = BufReader::new(file);
-    reader.lines().collect()
+    reader.lines()
+        .map(|line| line.unwrap_or_else(|e| panic!("Read error in {}: {}", path, e)))
+        .collect()
 }
 
 #[cfg(test)]

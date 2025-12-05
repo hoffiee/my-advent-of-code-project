@@ -1,4 +1,5 @@
 use aoc_utils::*;
+use aoc_runner::aoc_run;
 
 fn invalid_id(id: i64) -> bool {
     let id = id.to_string();
@@ -93,8 +94,8 @@ fn solve_2(input: &Vec<String>) -> i64 {
     sum
 }
 
-fn main() -> std::io::Result<()> {
-    let lines = read_input_file("day02-sample.input")?;
+fn samples() {
+    let lines = read_input_file("day02-sample.input");
     // lines.iter().for_each(|x| println!("{}", x));
 
     let sample_part_1 = solve_1(&lines);
@@ -104,19 +105,29 @@ fn main() -> std::io::Result<()> {
     let sample_part_2 = solve_2(&lines);
     println!("sample part 2: {}", sample_part_2);
     assert!(sample_part_2 == 4174379265);
+}
 
-    let lines = read_input_file("day02.input")?;
+fn main() -> std::io::Result<()> {
+    let lines = read_input_file("day02.input");
     // lines.iter().for_each(|x| println!("{}", x));
 
-    let part_1 = solve_1(&lines);
-    println!("part 1: {}", part_1);
-    assert!(part_1 == 24043483400);
+    let solve_1_wrapper = |lines: &Vec<String>| {
+        let ans = solve_1(lines);
+        println!("part1: {}", ans);
+        assert_eq!(ans, 24043483400);
+    };
+    let solve_2_wrapper = |lines: &Vec<String>| {
+        let ans = solve_2(lines);
+        assert_eq!(ans, 38262920235);
+        println!("part2: {}", ans);
+    };
 
-    let part_2 = solve_2(&lines);
-    println!("part 2: {}", part_2);
-    assert!(part_2 == 38262920235);
-
-    Ok(())
+    aoc_run(
+        samples,
+        solve_1_wrapper,
+        solve_2_wrapper,
+        lines
+    )
 }
 
 #[cfg(test)]

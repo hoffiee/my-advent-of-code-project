@@ -2,6 +2,7 @@
 * TODO refactor
 */
 use aoc_utils::*;
+use aoc_runner::aoc_run;
 
 fn valid_point(point: (i64, i64), dim: (i64, i64)) -> bool {
     let (rz, cz) = dim;
@@ -132,8 +133,9 @@ fn solve_2(input: &Vec<String>) -> i64 {
     sum
 }
 
-fn main() -> std::io::Result<()> {
-    let lines = read_input_file("day04-sample.input")?;
+
+fn samples() {
+    let lines = read_input_file("day04-sample.input");
     // lines.iter().for_each(|x| println!("{}", x));
 
     let sample_part_1 = solve_1(&lines);
@@ -143,19 +145,31 @@ fn main() -> std::io::Result<()> {
     let sample_part_2 = solve_2(&lines);
     println!("sample part 2: {}", sample_part_2);
     assert!(sample_part_2 == 43);
+}
 
-    let lines = read_input_file("day04.input")?;
+
+fn main() -> std::io::Result<()> {
+
+    let lines = read_input_file("day04.input");
     // lines.iter().for_each(|x| println!("{}", x));
 
-    let part_1 = solve_1(&lines);
-    println!("part 1: {}", part_1);
-    assert!(part_1 == 1495);
+    let solve_1_wrapper = |lines: &Vec<String>| {
+        let ans = solve_1(lines);
+        println!("part1: {}", ans);
+        assert_eq!(ans, 1495);
+    };
+    let solve_2_wrapper = |lines: &Vec<String>| {
+        let ans = solve_2(lines);
+        assert_eq!(ans, 8768);
+        println!("part2: {}", ans);
+    };
 
-    let part_2 = solve_2(&lines);
-    println!("part 2: {}", part_2);
-    assert!(part_2 == 8768);
-
-    Ok(())
+    aoc_run(
+        samples,
+        solve_1_wrapper,
+        solve_2_wrapper,
+        lines
+    )
 }
 
 #[cfg(test)]

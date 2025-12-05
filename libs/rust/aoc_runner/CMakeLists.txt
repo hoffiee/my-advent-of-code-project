@@ -1,0 +1,1 @@
+aoc_rust_add_test(aoc_rust_runner)

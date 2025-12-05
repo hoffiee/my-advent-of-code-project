@@ -1,4 +1,5 @@
 use aoc_utils::*;
+use aoc_runner::aoc_run;
 
 fn get_number_from_string(s: &str) -> Option<i64> {
     let digits: String = s.chars().filter(|c| c.is_ascii_digit()).collect();
@@ -67,8 +68,8 @@ fn solve_2(input: &Vec<String>) -> i64 {
     count
 }
 
-fn main() -> std::io::Result<()> {
-    let lines = read_input_file("day01-sample.input")?;
+fn samples() {
+    let lines = read_input_file("day01-sample.input");
     // lines.iter().for_each(|x| println!("{}", x));
 
     let sample_part_1 = solve_1(&lines);
@@ -78,19 +79,29 @@ fn main() -> std::io::Result<()> {
     let sample_part_2 = solve_2(&lines);
     println!("sample part 2: {}", sample_part_2);
     assert!(sample_part_2 == 6);
+}
 
-    let lines = read_input_file("day01.input")?;
+fn main() -> std::io::Result<()> {
+    let lines = read_input_file("day01.input");
     // lines.iter().for_each(|x| println!("{}", x));
 
-    let part_1 = solve_1(&lines);
-    println!("part 1: {}", part_1);
-    assert!(part_1 == 1105);
+    let solve_1_wrapper = |lines: &Vec<String>| {
+        let ans = solve_1(lines);
+        println!("part1: {}", ans);
+        assert_eq!(ans, 1105);
+    };
+    let solve_2_wrapper = |lines: &Vec<String>| {
+        let ans = solve_2(lines);
+        assert_eq!(ans, 6599);
+        println!("part2: {}", ans);
+    };
 
-    let part_2 = solve_2(&lines);
-    println!("part 2: {}", part_2);
-    assert!(part_2 == 6599);
-
-    Ok(())
+    aoc_run(
+        samples,
+        solve_1_wrapper,
+        solve_2_wrapper,
+        lines
+    )
 }
 
 #[cfg(test)]
