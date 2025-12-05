@@ -1,14 +1,7 @@
 /**
 * TODO refactor
 */
-use std::fs::File;
-use std::io::{BufReader, BufRead};
-
-fn read_input_file(path: &str) -> std::io::Result<Vec<String>> {
-    let file = File::open(path)?;
-    let reader = BufReader::new(file);
-    reader.lines().collect()
-}
+use aoc_utils::*;
 
 fn valid_point(point: (i64, i64), dim: (i64, i64)) -> bool {
     let (rz, cz) = dim;

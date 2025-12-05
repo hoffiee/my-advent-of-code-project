@@ -17,3 +17,5 @@ bench.db
 # TODO fix Cmake so that these aren't put into src/
 src/**/target/
 src/**/Cargo.lock
+libs/rust/**/target/
+libs/rust/**/Cargo.lock

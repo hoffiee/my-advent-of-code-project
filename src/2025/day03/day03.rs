@@ -1,11 +1,4 @@
-use std::fs::File;
-use std::io::{BufReader, BufRead};
-
-fn read_input_file(path: &str) -> std::io::Result<Vec<String>> {
-    let file = File::open(path)?;
-    let reader = BufReader::new(file);
-    reader.lines().collect()
-}
+use aoc_utils::*;
 
 fn find_max(battery_slice: &str) -> (i64, usize) {
     battery_slice
