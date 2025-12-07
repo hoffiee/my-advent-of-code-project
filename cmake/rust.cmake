@@ -64,7 +64,7 @@ macro(aoc_rust_add_test)
     )
 
     add_custom_target(${ARGV0}-runtest
-        COMMAND cargo test --verbose
+        COMMAND env CARGO_TARGET_DIR=${CMAKE_CURRENT_BINARY_DIR} cargo test --verbose
         DEPENDS ${ARGV0}-test
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         COMMENT "Running Rust test ${ARGV0} with Cargo (${RUST_PROFILE})"
