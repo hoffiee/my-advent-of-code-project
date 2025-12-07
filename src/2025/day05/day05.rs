@@ -168,6 +168,7 @@ mod tests {
         let res = solve_2(&lines);
         assert_eq!(res, 10);
     }
+
     #[test]
     fn solve_2_test_4() {
         let lines = vec![
