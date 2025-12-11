@@ -2,7 +2,7 @@ import datetime as dt
 
 
 def tasks_per_year(year: int) -> int:
-    """ Puzzles from 2025 is only 12 days"""
+    """Puzzles from 2025 is only 12 days"""
     if year >= 2025:
         return 24
     return 50
@@ -10,7 +10,7 @@ def tasks_per_year(year: int) -> int:
 
 def eventStatus() -> None:
     events_stars = {
-        2025: 16,
+        2025: 18,
         2024: 50,
         2023: 44,
         2022: 30,
@@ -23,7 +23,7 @@ def eventStatus() -> None:
         2015: 30,
     }
     targets_stars = {
-        2025: 14,
+        2025: 24,
         2024: 50,
         2023: 30,
         2022: 30,
@@ -46,13 +46,15 @@ def eventStatus() -> None:
 
     out: str = f"Going on for {years} years"
 
-    total_amount_of_stars: int = sum([tasks_per_year(year) for year in range(start_year, last_year+1)])
+    total_amount_of_stars: int = sum(
+        [tasks_per_year(year) for year in range(start_year, last_year + 1)]
+    )
     out += f" (available stars: {total_amount_of_stars})\n"
     out += f"Got a total of {sum(events_stars.values())} stars, "
     out += f"got {events_stars.get(last_year)} stars in year {max(events_stars.items())[0]}\n"
     out += (
-        f"total of {sum(targets_stars.values()) - sum(events_stars.values())} stars left to complete to reach targets" +
-        f" ({sum(targets_stars.values()) - sum(events_stars.values())} in total)"
+        f"total of {sum(targets_stars.values()) - sum(events_stars.values())} stars left to complete to reach targets"
+        + f" ({sum(targets_stars.values()) - sum(events_stars.values())} in total)"
     )
     print(out)
 
