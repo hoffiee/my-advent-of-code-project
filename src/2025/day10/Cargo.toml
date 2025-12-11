@@ -1,0 +1,14 @@
+[package]
+name = "day10"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+aoc_runner = { path = "../../../libs/rust/aoc_runner" }
+aoc_utils = { path = "../../../libs/rust/aoc_utils" }
+good_lp = "1.14.2"
+regex = "1.12.2"
+
+[[bin]]
+name = "2025_day10"
+path = "day10.rs"
