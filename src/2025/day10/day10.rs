@@ -1,5 +1,4 @@
 use regex::Regex;
-use std::collections::VecDeque;
 
 // TODO: Ensure sudo apt-get install coinor-cbc coinor-libcbc-dev is checked from Cmake for this
 // target!
@@ -8,7 +7,7 @@ use good_lp::{Expression, Solution, SolverModel, constraint, default_solver, var
 use aoc_runner::aoc_run;
 use aoc_utils::*;
 
-fn parse_input(line: &String) -> (String, Vec<Vec<i64>>, String) {
+fn parse_input(line: &String) -> (u32, Vec<Vec<i64>>, String) {
     let re_light_state = Regex::new(r"\[(.*?)\]").unwrap();
     let re_buttons = Regex::new(r"\(([0-9,\s]+)\)").unwrap();
     let re_joltage = Regex::new(r"\{(.*?)\}").unwrap();
@@ -18,6 +17,18 @@ fn parse_input(line: &String) -> (String, Vec<Vec<i64>>, String) {
         None => panic!("Failed to capture light state"),
     };
     assert!(light_states.len() > 0);
+    assert!(light_states.len() <= 16);
+
+    let mut light_state: u32 = 0;
+    for (i, c) in light_states.chars().enumerate() {
+        if i >= std::mem::size_of_val(&light_state) * 8 {
+            panic!("Size not big enough!");
+        }
+
+        if c == '#' {
+            light_state |= 1u32 << (i as u32);
+        }
+    }
 
     let joltage_req = match re_joltage.captures(line) {
         Some(caps) => caps[1].to_string(),
@@ -37,14 +48,7 @@ fn parse_input(line: &String) -> (String, Vec<Vec<i64>>, String) {
     assert!(buttons.len() > 0);
     let buttons = buttons;
 
-    (light_states, buttons, joltage_req)
-}
-
-// TODO: Change to representing the state as a integer instead and do XOR?
-fn press(state: &mut Vec<bool>, button: &Vec<i64>) {
-    for ind in button {
-        state[*ind as usize] = !state[*ind as usize];
-    }
+    (light_state, buttons, joltage_req)
 }
 
 fn solve_1(input: &Vec<String>) -> i64 {
@@ -53,38 +57,31 @@ fn solve_1(input: &Vec<String>) -> i64 {
     for line in input {
         let (light_states, buttons, _) = parse_input(line);
 
-        // BFS search, will find the first that reaches the correct state?
-        // TODO Optimization, can I cache this somehow? currently 9!!! seconds.. As of writing this
-        // it's the 3 longest runtime and takes 10% of the total runtime of all tasks since I've
-        // done since 2015...
-        // TODO: Optimization: Can I parallelize the outer loop to reduce runtime?
-        let state: Vec<bool> = vec![false; light_states.len()];
-        let state_target: Vec<bool> = light_states.chars().map(|c| matches!(c, '#')).collect();
-        // seems that the state fits within an integer
-        assert!(state_target.len() < 32);
-
-        let mut queue: VecDeque<(Vec<bool>, Vec<i64>, i64)> = VecDeque::new();
-
+        // Translate buttons to bitmaps
+        let mut button_bitmaps: Vec<u32> = Vec::new();
         for button in &buttons {
-            queue.push_back((state.clone(), button.clone(), 1));
+            let mut button_bitmap: u32 = 0;
+            for x in button {
+                button_bitmap |= 1u32 << (*x as u32);
+            }
+            button_bitmaps.push(button_bitmap);
         }
 
-        while !queue.is_empty() {
-            if let Some((mut curr_state, button_press, mut presses)) = queue.pop_front() {
-                press(&mut curr_state, &button_press);
-                if curr_state == state_target {
-                    sum += presses;
-                    break;
-                }
-                presses += 1;
-                for button in &buttons {
-                    queue.push_back((curr_state.clone(), button.clone(), presses));
+        let mut min_count = u32::MAX;
+        for i in 0..(1usize << button_bitmaps.len()) {
+            let mut r: u32 = 0;
+            for j in 0..button_bitmaps.len() {
+                if ((1usize << j) & i) > 0 {
+                    r ^= button_bitmaps[j];
                 }
             }
+            if r == light_states {
+                min_count = std::cmp::min(min_count, i.count_ones());
+            }
         }
+        sum += min_count;
     }
-
-    sum
+    sum as i64
 }
 
 fn solve_2(input: &Vec<String>) -> i64 {
