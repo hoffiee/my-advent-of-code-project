@@ -7,10 +7,13 @@ pub fn read_input_file(path: &str) -> Vec<String> {
         Err(e) => panic!("IO error opening {}: {}", path, e),
     };
     let reader = BufReader::new(file);
-    reader
+    let out: Vec<String> = reader
         .lines()
         .map(|line| line.unwrap_or_else(|e| panic!("Read error in {}: {}", path, e)))
-        .collect()
+        .collect();
+
+    assert!(out.len() > 0, "No content in the file");
+    out
 }
 
 #[cfg(test)]

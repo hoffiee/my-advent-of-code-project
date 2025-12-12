@@ -137,7 +137,6 @@ fn solve_2(input: &Vec<String>) -> i64 {
 }
 
 fn samples() {
-    // TODO Set assert that output from this file is non-empty
     let lines = read_input_file("day10-sample.input");
 
     let sample_part_1 = solve_1(&lines);
