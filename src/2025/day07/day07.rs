@@ -3,14 +3,23 @@ use std::collections::HashMap;
 use aoc_runner::aoc_run;
 use aoc_utils::*;
 
-// TODO Generalize and move utils
-#[derive(Debug, Clone, PartialEq, Eq, Hash, Copy)]
-struct Point {
-    x: i32,
-    y: i32,
+// #[derive(Debug, Clone, PartialEq, Eq, Hash, Copy)]
+// struct Point {
+//     x: i32,
+//     y: i32,
+// }
+//
+// #[derive(Debug, Clone, PartialEq, Eq, Hash, Copy)]
+// struct Point(pub Point2d);
+//
+type Point = Point2d;
+
+trait ValidPoint {
+    fn is_valid(&self, dim: &Point) -> bool;
+    fn next(&self, dim: &Point) -> Option<Point>;
 }
 
-impl Point {
+impl ValidPoint for Point {
     fn is_valid(&self, dim: &Point) -> bool {
         if (self.x < 0) || (dim.x <= self.x) {
             return false;
@@ -32,31 +41,20 @@ impl Point {
 
 fn parse_input(input: &Vec<String>) -> (HashMap<Point, i64>, Point, Point) {
     let dim = Point {
-        x: input[0].len() as i32,
-        y: input.len() as i32,
+        x: input[0].len() as i64,
+        y: input.len() as i64,
     };
 
-    // TODO Utils function that extracts points from a map
-    let mut start = Point { x: 0, y: 0 };
-    for x in 0..dim.x {
-        if input[0].chars().nth(x as usize).unwrap() == 'S' {
-            start = Point { x: x, y: 0 };
-            break;
-        }
-    }
-    let start = start;
+    let points = extract_points_from_map::<i64>(&input, &vec!['S', '^']);
+    assert!(points.len() == 2);
+
+    let start = points.get(&'S')
+        .and_then(|inner| inner.keys().next().copied())
+        .expect("Expected a starting point from S");
     assert!(start.x != 0);
 
-    let mut splits: HashMap<Point, i64> = HashMap::new();
-    for y in 0..dim.y {
-        for x in 0..dim.x {
-            if input[y as usize].chars().nth(x as usize).unwrap() == '^' {
-                splits.insert(Point { x, y }, 0);
-            }
-        }
-    }
+    let splits = points.get(&'^').unwrap().clone();
     assert!(splits.len() > 0);
-    let splits = splits;
 
     (splits, dim, start)
 }

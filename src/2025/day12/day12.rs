@@ -1,29 +1,6 @@
 use aoc_runner::aoc_run;
 use aoc_utils::*;
 
-// TODO move to utils
-fn split_by_empty_lines(lines: &[String]) -> Vec<Vec<String>> {
-    let mut groups = Vec::new();
-    let mut current_group = Vec::new();
-
-    for line in lines {
-        let trimmed = line.trim();
-        if trimmed.is_empty() {
-            if !current_group.is_empty() {
-                groups.push(std::mem::take(&mut current_group));
-            }
-        } else {
-            current_group.push(line.clone());
-        }
-    }
-
-    if !current_group.is_empty() {
-        groups.push(current_group);
-    }
-
-    groups
-}
-
 #[derive(Debug)]
 struct Shape {
     area: i64,
