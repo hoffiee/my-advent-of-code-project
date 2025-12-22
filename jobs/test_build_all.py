@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#!/usr/bin/env python3
 
 from argparse import Namespace
 from tools.cmake_utils import cmake_build
