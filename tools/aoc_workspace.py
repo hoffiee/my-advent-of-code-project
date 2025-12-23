@@ -48,22 +48,6 @@ def setup_day(args, forward_args):
     SetupTemplateDay(forward_args)
 
 
-def used_file_extensions(args, forward_args):
-    """
-    Python variant of the cmake alternative that I had before.
-    """
-    from collections import Counter
-
-    extensions = []
-    for dirpath, dirnames, filenames in os.walk("src"):
-        for file in filenames:
-            _, ext = os.path.splitext(file)
-            extensions.append(ext)
-    counts = Counter(extensions)
-    for ext, count in counts.most_common():
-        print(f"{count:>4} | {ext}")
-
-
 def main():
     parser = argparse.ArgumentParser(
         prog="aoc workspace run entrypoint",
@@ -97,12 +81,6 @@ def main():
 
     parser_setup_build = subparsers.add_parser("setup", help="Setup build system")
     parser_setup_build.set_defaults(func=cmake_setup)
-
-    parser_setup_build = subparsers.add_parser(
-        "used_file_extensions",
-        help="Summarizes and displays amount of files for each extension",
-    )
-    parser_setup_build.set_defaults(func=used_file_extensions)
 
     parser_test = subparsers.add_parser("test", help="TODO")
     parser_test.add_argument(
