@@ -68,7 +68,13 @@ def eventStatus() -> None:
     print(f"in {(endofyear - today).days} days before the end of this year")
 
 
-__all__ = ["eventStatus"]
+def register_subcommand(subparsers):
+    parser = subparsers.add_parser(
+        "status",
+        description="Displays star targets and status",
+        help="Displays star targets and status",
+    )
 
-if __name__ == "__main__":
+
+def run(args):
     eventStatus()
