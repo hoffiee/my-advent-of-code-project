@@ -1,16 +1,16 @@
 /**
  * https://adventofcode.com/2019/day/13
  */
+#include <chrono>
 #include <icecream.hpp>
 #include <string>
-#include <vector>
-#include <chrono>
 #include <thread>
+#include <vector>
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 #include "intcode_computer.h"
+#include "string_utils.h"
 
 namespace aoc::y2019::d13 {
 
@@ -28,7 +28,7 @@ int64_t solve_1(std::vector<std::string> inp) {
 
     int64_t count{0};
     for (std::size_t i{0}; i < output.size(); i += 3) {
-        if (output.at(i+2) == 2) {
+        if (output.at(i + 2) == 2) {
             count++;
         }
     }
@@ -41,7 +41,7 @@ int64_t print(std::vector<int64_t> const& output, bool const draw) {
     int64_t max_y{0};
     for (std::size_t i{0}; i < output.size(); i += 3) {
         int64_t const x{output.at(i)};
-        int64_t const y{output.at(i+1)};
+        int64_t const y{output.at(i + 1)};
         if (x == -1 && y == 0) {
             continue;
         }
@@ -53,17 +53,17 @@ int64_t print(std::vector<int64_t> const& output, bool const draw) {
 
     for (std::size_t i{0}; i < output.size(); i += 3) {
         int64_t const x{output.at(i)};
-        int64_t const y{output.at(i+1)};
+        int64_t const y{output.at(i + 1)};
         if (x == -1 && y == 0) {
-            score = output.at(i+2);
+            score = output.at(i + 2);
             continue;
         }
-        screen.at(y).at(x) = output.at(i+2);
+        screen.at(y).at(x) = output.at(i + 2);
     }
 
     bool blocks_left{false};
-    for (std::size_t y{0}; y < screen.size(); y++ ) {
-        for (std::size_t x{0}; x < screen.front().size(); x++ ) {
+    for (std::size_t y{0}; y < screen.size(); y++) {
+        for (std::size_t x{0}; x < screen.front().size(); x++) {
             char toprint{' '};
             switch (screen.at(y).at(x)) {
                 // wall
@@ -121,11 +121,10 @@ int64_t calculate_joystick_output(std::vector<int64_t> const& output) {
     std::optional<int64_t> paddle{std::nullopt};
     for (std::size_t i{0}; i < output.size(); i += 3) {
         int64_t const x{output.at(i)};
-        int64_t const obj{output.at(i+2)};
+        int64_t const obj{output.at(i + 2)};
         if (obj == 3) {
             paddle = x;
-        }
-        else if (obj == 4) {
+        } else if (obj == 4) {
             ball = x;
         }
     }
@@ -134,11 +133,7 @@ int64_t calculate_joystick_output(std::vector<int64_t> const& output) {
 
     auto diff = ball.value() - paddle.value();
 
-    return std::clamp(
-        diff,
-        static_cast<int64_t>(-1),
-        static_cast<int64_t>(1)
-    );
+    return std::clamp(diff, static_cast<int64_t>(-1), static_cast<int64_t>(1));
 }
 
 int64_t solve_2(std::vector<std::string> inp) {
@@ -165,8 +160,7 @@ int64_t solve_2(std::vector<std::string> inp) {
     return score;
 }
 
-void samples() {
-}
+void samples() {}
 
 };  // namespace aoc::y2019::d13
 
