@@ -8,18 +8,6 @@ from tools.cmake_utils import cmake_setup, cmake_build
 # from tools.go_utils import setup_aoc_fetch
 
 
-def format(args, forward_args):
-    if not any([args.cpp, args.python, args.go]):
-        args.cpp = True
-        args.python = True
-        args.go = True
-
-    build_path = os.path.join("build/debug")
-    if not os.path.exists(build_path):
-        cmake_setup(args, forward_args)
-    subprocess.run(["ninja", "format"], cwd=build_path, check=True)
-
-
 def lint(args, forward_args):
     print("Not supported yet.")
     return
@@ -64,12 +52,6 @@ def main():
     )
     parser_build.add_argument("targets", nargs="+", help="List of targets to build")
     parser_build.set_defaults(func=cmake_build)
-
-    parser_format = subparsers.add_parser("format", help="format command")
-    parser_format.add_argument("--cpp", action="store_true", help="format C++")
-    parser_format.add_argument("--python", action="store_true", help="format Python")
-    parser_format.add_argument("--go", action="store_true", help="format Go")
-    parser_format.set_defaults(func=format)
 
     parser_setup_day = subparsers.add_parser("setup_day", add_help=False)
     parser_setup_day.set_defaults(func=setup_day)
