@@ -8,11 +8,6 @@ from tools.cmake_utils import cmake_setup, cmake_build
 # from tools.go_utils import setup_aoc_fetch
 
 
-def lint(args, forward_args):
-    print("Not supported yet.")
-    return
-
-
 def ctest_test(args=None, forward_args=None) -> int:
     build_path = os.path.join("build/debug")
     if args.release:
