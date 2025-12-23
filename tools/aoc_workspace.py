@@ -3,9 +3,7 @@ import argparse
 import subprocess
 import os
 
-from tools.cmake_utils import cmake_setup, cmake_build
-
-# from tools.go_utils import setup_aoc_fetch
+from tools.cmake_utils import cmake_setup
 
 
 def ctest_test(args=None, forward_args=None) -> int:
@@ -31,16 +29,6 @@ def main():
         description="Intended to be an entrypoint for various activities",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
-
-    parser_build = subparsers.add_parser("build", help="build command")
-    parser_build.add_argument(
-        "--release", action="store_true", help="Build in release mode"
-    )
-    parser_build.add_argument(
-        "--debug", action="store_true", help="Build in debug mode"
-    )
-    parser_build.add_argument("targets", nargs="+", help="List of targets to build")
-    parser_build.set_defaults(func=cmake_build)
 
     parser_setup_day = subparsers.add_parser("setup_day", add_help=False)
     parser_setup_day.set_defaults(func=setup_day)

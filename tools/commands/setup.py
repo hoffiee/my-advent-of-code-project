@@ -14,9 +14,11 @@ register-python-argcomplete entrypoint.py >> ~/.zshrc
 
 """
 
+
 def register_subcommand(subparsers):
-    parser = subparsers.add_parser('setup', help='Setup Advent of Code repo')
+    parser = subparsers.add_parser("setup", help="TODO")
     # parser.set_defaults(func=run)
+
 
 def run(args):
     raise NotImplementedError("implement this feature")
