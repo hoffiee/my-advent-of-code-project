@@ -73,7 +73,7 @@ target_link_libraries(openmp-wrapper
 
 # == Eigen
 # Install with apt or package manager?
-find_package(Eigen3 3.3 REQUIRED NO_MODULE)
+find_package(Eigen3 REQUIRED NO_MODULE)
 add_library(eigen-wrapper INTERFACE EXCLUDE_FROM_ALL)
 target_link_libraries(eigen-wrapper
     INTERFACE
