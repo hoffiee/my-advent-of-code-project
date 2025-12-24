@@ -14,9 +14,7 @@ def ctest_test(args=None, forward_args=None) -> int:
 
 def register_subcommand(subparsers):
     parser = subparsers.add_parser("test", help="TODO: Run tests")
-    parser.add_argument(
-        "--release", action="store_true", help="Test in release mode"
-    )
+    parser.add_argument("--release", action="store_true", help="Test in release mode")
     parser.add_argument("--debug", action="store_true", help="Test in debug mode")
     parser.set_defaults(func=ctest_test)
 

@@ -18,12 +18,11 @@ register-python-argcomplete entrypoint.py >> ~/.zshrc
 from tools.cmake_utils import cmake_setup
 
 
-
 def register_subcommand(subparsers):
     parser = subparsers.add_parser(
         "setup",
         description="TODO setup method for setting up this repo",
-        help="TODO setup method for setting up this repo"
+        help="TODO setup method for setting up this repo",
     )
 
     # parser_setup_day = subparsers.add_parser("setup_day")
