@@ -26,7 +26,7 @@ def load_module_from_file(file_path):
     return module
 
 def main():
-    parser = argparse.ArgumentParser(description="Dynamic tool runner")
+    parser = argparse.ArgumentParser(description="Advent of code commands")
     subparsers = parser.add_subparsers(dest='command', help='Available tools')
 
     tools_dir = Path("tools/commands")
@@ -52,6 +52,10 @@ def main():
     argcomplete.autocomplete(parser)
 
     args = parser.parse_args()
+
+    # TODO: alternative way to run it
+    # args, forward_args = parser.parse_known_args()
+    # args.func(args, forward_args)
 
     # Execute the selected tool
     if args.command:

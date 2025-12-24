@@ -32,7 +32,3 @@ activate_sign
 export PYTHONPATH="${PYTHONPATH}:$(git rev-parse --show-toplevel 2> /dev/null)"
 
 source tools/aoc_completion.sh
-
-aoc() {
-    python3 tools/aoc_workspace.py "$@"
-}
