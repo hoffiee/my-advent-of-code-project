@@ -1,5 +1,6 @@
 #!/bin/bash
 # TODO: Create help/usage
+# TODO Move into tools/commands
 
 bench_year() {
     path=$(git rev-parse --show-toplevel)
