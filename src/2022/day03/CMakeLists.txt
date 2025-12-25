@@ -8,7 +8,7 @@ target_link_libraries(${TASK}
     PRIVATE
     icecream
     aoc_runner
-    aoc-utils
+    aoc_utils
 )
 
 add_custom_target(${TASK}-run

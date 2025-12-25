@@ -22,9 +22,9 @@ add_executable(${TASK} main.cpp)
 target_link_libraries(${TASK}
     lib-${TASK}
     icecream
-    aoc-utils
+    aoc_utils
     aoc_runner
-    string-utils
+    string_utils
 )
 
 add_custom_target(${TASK}-run
