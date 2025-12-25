@@ -9,7 +9,7 @@ target_link_libraries(${TASK}
     icecream
     string-utils
     aoc-utils
-    aoc-runner
+    aoc_runner
 )
 
 add_custom_target(${TASK}-run

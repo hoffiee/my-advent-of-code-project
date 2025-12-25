@@ -3,7 +3,7 @@
 """
 As I run things in venv for packages as well as want to be able to run this
 from aoc bench, I use this launcher. Altough it should probably be located in
-libs together with aoc-runner
+libs together with aoc_runner
 
 TOOD: move it there
 """

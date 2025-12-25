@@ -11,7 +11,7 @@ add_executable(${TASK} ${AOC_DAY}.cpp)
 target_link_libraries(${TASK}
     PRIVATE
     icecream
-    aoc-runner
+    aoc_runner
     lib-intcode-computer
     aoc-utils
     string-utils

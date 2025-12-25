@@ -7,7 +7,7 @@ target_link_libraries(${TASK}
     PRIVATE
     lib-intcode-computer
     icecream
-    aoc-runner
+    aoc_runner
     aoc-utils
     string-utils
 )

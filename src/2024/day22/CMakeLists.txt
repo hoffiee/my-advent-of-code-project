@@ -10,7 +10,7 @@ target_link_libraries(${TASK}
     PRIVATE
     icecream
     string-utils
-    aoc-runner
+    aoc_runner
     aoc-utils
     openmp-wrapper
 )

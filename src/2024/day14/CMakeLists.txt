@@ -8,7 +8,7 @@ target_link_libraries(${TASK}
     PRIVATE
     lodepng
     icecream
-    aoc-runner
+    aoc_runner
     aoc-utils
     string-utils
 )
