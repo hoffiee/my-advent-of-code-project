@@ -16,8 +16,3 @@ add_subdirectory(day14)
 add_subdirectory(day15)
 add_subdirectory(day18)
 add_subdirectory(day21)
-
-add_custom_target(${AOC_YEAR}-runtest
-    COMMAND ctest --output-on-failure
-    WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
-)
