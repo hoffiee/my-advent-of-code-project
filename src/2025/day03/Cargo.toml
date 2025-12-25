@@ -5,7 +5,7 @@ edition = "2024"
 
 [dependencies]
 aoc_runner = { path = "../../../libs/aoc_runner/rust" }
-aoc_utils = { path = "../../../libs/rust/aoc_utils" }
+aoc_utils = { path = "../../../libs/aoc_utils/rust" }
 
 [[bin]]
 name = "2025_day03"
