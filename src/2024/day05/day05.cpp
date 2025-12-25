@@ -17,7 +17,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 bool valid_line(std::unordered_map<int64_t, std::vector<int64_t>> dependencies,
                 std::unordered_map<int64_t, bool> printed, std::vector<int64_t> pages) {
@@ -105,7 +104,7 @@ int solve_1(std::vector<std::string> inp) {
         }
 
         if (reading_updates) {
-            auto pages{string_utils::numbers_from_string(line)};
+            auto pages{aoc::string::numbers_from_string(line)};
             if (!valid_line(dependencies, printed, pages)) {
                 continue;
             }
@@ -138,7 +137,7 @@ int64_t solve_2(std::vector<std::string> inp) {
         }
 
         if (reading_updates) {
-            auto pages{string_utils::numbers_from_string(line)};
+            auto pages{aoc::string::numbers_from_string(line)};
             if (valid_line(dependencies, printed, pages)) {
                 continue;
             }
@@ -181,7 +180,7 @@ int64_t solve_2_sort(std::vector<std::string> inp) {
         }
 
         if (reading_updates) {
-            auto pages{string_utils::numbers_from_string(line)};
+            auto pages{aoc::string::numbers_from_string(line)};
             std::vector<int64_t> updated{pages};
             // Sort according to the order in rules
             std::sort(updated.begin(), updated.end(), [&rules](int64_t lhs, int64_t rhs) {

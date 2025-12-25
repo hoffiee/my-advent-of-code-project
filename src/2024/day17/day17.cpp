@@ -22,7 +22,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 struct Computer {
     uint64_t register_a_{};
@@ -36,11 +35,11 @@ struct Computer {
     uint64_t correct_{};
 
     Computer(std::vector<std::string> inp) {
-        register_a_ = string_utils::unumbers_from_string(inp[0]).front();
-        register_b_ = string_utils::unumbers_from_string(inp[1]).front();
-        register_c_ = string_utils::unumbers_from_string(inp[2]).front();
+        register_a_ = aoc::string::unumbers_from_string(inp[0]).front();
+        register_b_ = aoc::string::unumbers_from_string(inp[1]).front();
+        register_c_ = aoc::string::unumbers_from_string(inp[2]).front();
 
-        for (auto num : string_utils::unumbers_from_string(inp[4])) {
+        for (auto num : aoc::string::unumbers_from_string(inp[4])) {
             program_.push_back(num);
         }
         // Give some space for larger programs get expensive for part 2
@@ -186,7 +185,7 @@ std::optional<uint64_t> solve_2_rec(std::vector<std::string> const& inp, std::ve
 // solved after going through a few solutions, I found hyper neutrino to be quite good at explaining. I didn't really
 // know where to start by myself so started to look at some hints
 uint64_t solve_2(std::vector<std::string> inp) {
-    auto program = string_utils::unumbers_from_string(inp[4]);
+    auto program = aoc::string::unumbers_from_string(inp[4]);
     assert(program.size() > 1);
 
     std::vector<std::string> modified{inp.begin(), inp.end()};
@@ -219,7 +218,7 @@ int64_t cost_function(std::vector<uint64_t> const& program, std::vector<uint64_t
 }
 
 uint64_t solve_2_fuzzing(std::vector<std::string> inp) {
-    auto program = string_utils::unumbers_from_string(inp[4]);
+    auto program = aoc::string::unumbers_from_string(inp[4]);
     assert(program.size() > 1);
 
     int64_t last_cost{INT64_MAX};

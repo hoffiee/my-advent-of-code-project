@@ -13,7 +13,6 @@ target_include_directories(lib-${TASK}
 
 target_link_libraries(lib-${TASK}
     PRIVATE
-    string_utils
     aoc_utils
     icecream
 )
@@ -25,7 +24,6 @@ target_link_libraries(${TASK}
     icecream
     aoc_runner
     aoc_utils
-    string_utils
 )
 
 add_custom_target(${TASK}-run

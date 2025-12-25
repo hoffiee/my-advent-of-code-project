@@ -10,7 +10,6 @@
 #include <numeric>
 
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 static std::vector<std::vector<int>> parse_line(const std::string& line) {
     auto split_line = aoc::string::split(line, ' ');

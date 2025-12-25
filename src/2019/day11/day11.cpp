@@ -9,7 +9,6 @@
 #include "aoc_runner.h"
 #include "aoc_utils.h"
 #include "intcode_computer.h"
-#include "string_utils.h"
 
 namespace aoc::y2019::d11 {
 
@@ -105,7 +104,7 @@ std::pair<Grid, Dim> paint(IntcodeComputer& comp, int const start_panel_color) {
 int64_t solve_1(std::vector<std::string> inp) {
     assert(inp.size() == 1);
 
-    auto program = string_utils::numbers_from_string(inp.at(0));
+    auto program = aoc::string::numbers_from_string(inp.at(0));
     IntcodeComputer comp{program};
 
     auto [grid, _] = paint(comp, 0);
@@ -115,7 +114,7 @@ int64_t solve_1(std::vector<std::string> inp) {
 int64_t solve_2(std::vector<std::string> inp) {
     assert(inp.size() == 1);
 
-    auto program = string_utils::numbers_from_string(inp.at(0));
+    auto program = aoc::string::numbers_from_string(inp.at(0));
     IntcodeComputer comp{program};
 
     auto const [grid, dim] = paint(comp, 1);

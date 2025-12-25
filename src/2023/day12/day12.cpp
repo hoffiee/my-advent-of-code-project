@@ -9,7 +9,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 namespace aoc::y2023::d12 {
 
@@ -79,7 +78,7 @@ int64_t solve_1(std::vector<std::string> inp) {
     for (auto const& line : inp) {
         auto tmp = aoc::string::split(line, ' ');
         auto rec = tmp[0];
-        std::vector<size_t> cfg = string_utils::unumbers_from_string(tmp[1]);
+        std::vector<size_t> cfg = aoc::string::unumbers_from_string(tmp[1]);
         count += count_arrangements(rec, cfg);
     }
     return count;

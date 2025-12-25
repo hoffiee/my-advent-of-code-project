@@ -11,10 +11,9 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 int64_t solve_1(std::vector<std::string> const& inp) {
-    auto numbers = string_utils::numbers_from_string(inp[0]);
+    auto numbers = aoc::string::numbers_from_string(inp[0]);
     return std::accumulate(numbers.cbegin(), numbers.cend(), static_cast<int64_t>(0));
 }
 

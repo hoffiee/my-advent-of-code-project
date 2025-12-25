@@ -31,6 +31,10 @@ namespace print {
 
 namespace string {
 
+// TODO: Generalize as template
+std::vector<int64_t> numbers_from_string(std::string str);
+std::vector<uint64_t> unumbers_from_string(std::string str);
+
 // TODO numbers from string (templated type)
 // TODO Words from string
 // TODO filter characters/words?

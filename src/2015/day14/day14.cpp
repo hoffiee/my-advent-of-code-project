@@ -13,14 +13,13 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 namespace aoc::y2015::d14 {
 
 int64_t solve_1(std::vector<std::string> const& inp, int64_t seconds) {
     int64_t longest_distance{0};
     for (auto const& line : inp) {
-        auto const numbers = string_utils::numbers_from_string(line);
+        auto const numbers = aoc::string::numbers_from_string(line);
         assert(numbers.size() == 3);
         int64_t speed{numbers.at(0)};
         int64_t travel_time{numbers.at(1)};
@@ -70,7 +69,7 @@ struct Reindeer {
 int64_t solve_2(std::vector<std::string> const& inp, int64_t seconds) {
     std::vector<Reindeer> reindeers{};
     for (auto const& line : inp) {
-        auto const numbers = string_utils::numbers_from_string(line);
+        auto const numbers = aoc::string::numbers_from_string(line);
         assert(numbers.size() == 3);
         reindeers.emplace_back(Reindeer{numbers.at(0), numbers.at(1), numbers.at(2)});
     }

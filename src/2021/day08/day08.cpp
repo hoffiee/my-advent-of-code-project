@@ -11,7 +11,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 int64_t solve_1(std::vector<std::string> inp) {
     int64_t count{0};

@@ -14,12 +14,11 @@
 #include "aoc_runner.h"
 #include "aoc_utils.h"
 #include "intcode_computer.h"
-#include "string_utils.h"
 
 namespace aoc::y2019::d5 {
 
 int64_t solve_1(std::vector<std::string> const& inp) {
-    auto instr = string_utils::numbers_from_string(inp[0]);
+    auto instr = aoc::string::numbers_from_string(inp[0]);
     IntcodeComputer comp{instr};
     comp.set_input(1);
     comp.exec();
@@ -27,7 +26,7 @@ int64_t solve_1(std::vector<std::string> const& inp) {
 }
 
 int64_t solve_2(std::vector<std::string> const& inp) {
-    auto instr = string_utils::numbers_from_string(inp[0]);
+    auto instr = aoc::string::numbers_from_string(inp[0]);
     IntcodeComputer comp{instr};
     comp.set_input(5);
     comp.exec();
@@ -36,7 +35,7 @@ int64_t solve_2(std::vector<std::string> const& inp) {
 
 void samples() {
     // TODO: Fix some checks
-    // auto instr = string_utils::numbers_from_string("3,9,8,9,10,9,4,9,99,-1,8");
+    // auto instr = aoc::string::numbers_from_string("3,9,8,9,10,9,4,9,99,-1,8");
     // IntcodeComputer comp{instr};
     // comp.exec(8);
     // IC(comp.output_);

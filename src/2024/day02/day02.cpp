@@ -10,7 +10,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 bool safe_level(std::vector<int64_t> vec) {
     bool safe_level{true};
@@ -30,7 +29,7 @@ bool safe_level(std::vector<int64_t> vec) {
 int solve_1(std::vector<std::string> inp) {
     int count{0};
     for (auto const& line : inp) {
-        auto vec = string_utils::numbers_from_string(line);
+        auto vec = aoc::string::numbers_from_string(line);
         if (safe_level(vec)) {
             count++;
         }
@@ -41,7 +40,7 @@ int solve_1(std::vector<std::string> inp) {
 int solve_2(std::vector<std::string> inp) {
     int count{0};
     for (auto const& line : inp) {
-        auto vec = string_utils::numbers_from_string(line);
+        auto vec = aoc::string::numbers_from_string(line);
         if (safe_level(vec)) {
             count++;
             continue;

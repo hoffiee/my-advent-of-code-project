@@ -36,7 +36,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 struct Target {
     int64_t a_{};
@@ -48,7 +47,7 @@ struct Target {
     int64_t det_{};
 
     Target(std::string const& inp) {
-        auto numbers = string_utils::numbers_from_string(inp);
+        auto numbers = aoc::string::numbers_from_string(inp);
         assert(numbers.size() == 6);
 
         a_ = numbers[0];

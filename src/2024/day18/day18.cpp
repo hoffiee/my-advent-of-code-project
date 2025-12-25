@@ -10,7 +10,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 // TODO Move to helper and create a template? feels like I can reduce it quite alot given the amount of grid problems
 using Pos = std::complex<int64_t>;
@@ -151,7 +150,7 @@ int64_t solve_1(std::vector<std::string> inp, bool sample = false) {
 
     Grid grid(size, size);
     for (size_t byte{0}; byte < bytes; byte++) {
-        auto numbers = string_utils::numbers_from_string(inp[byte]);
+        auto numbers = aoc::string::numbers_from_string(inp[byte]);
         assert(numbers.size() == 2);
         grid.add_obstacle({numbers[0], numbers[1]});
     }
@@ -171,7 +170,7 @@ std::string solve_2(std::vector<std::string> inp, bool sample = false) {
     Grid grid(size, size);
     size_t byte{0};
     for (; byte < bytes; byte++) {
-        auto numbers = string_utils::numbers_from_string(inp[byte]);
+        auto numbers = aoc::string::numbers_from_string(inp[byte]);
         assert(numbers.size() == 2);
         grid.add_obstacle({numbers[0], numbers[1]});
     }
@@ -186,7 +185,7 @@ std::string solve_2(std::vector<std::string> inp, bool sample = false) {
 
         // search for next obstacles that lands on path
         for (; byte < inp.size(); byte++) {
-            auto numbers = string_utils::numbers_from_string(inp[byte]);
+            auto numbers = aoc::string::numbers_from_string(inp[byte]);
             assert(numbers.size() == 2);
             Pos cand{numbers[0], numbers[1]};
             grid.add_obstacle(cand);

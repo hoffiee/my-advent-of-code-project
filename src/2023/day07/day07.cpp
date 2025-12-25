@@ -9,7 +9,6 @@
 #include <map>
 
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 enum class HandType : int {
     undetermined = 0,

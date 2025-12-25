@@ -32,7 +32,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 namespace aoc::y2023::d25 {
 

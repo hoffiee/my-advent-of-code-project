@@ -10,7 +10,6 @@
 #include "aoc_runner.h"
 #include "aoc_utils.h"
 #include "intcode_computer.h"
-#include "string_utils.h"
 
 namespace aoc::y2019::d13 {
 
@@ -18,7 +17,7 @@ int64_t solve_1(std::vector<std::string> inp) {
     static_cast<void>(inp);
     assert(inp.size() == 1);
 
-    auto program = string_utils::numbers_from_string(inp.at(0));
+    auto program = aoc::string::numbers_from_string(inp.at(0));
 
     IntcodeComputer comp(program);
 
@@ -140,7 +139,7 @@ int64_t solve_2(std::vector<std::string> inp) {
     static_cast<void>(inp);
     assert(inp.size() == 1);
 
-    auto program = string_utils::numbers_from_string(inp.at(0));
+    auto program = aoc::string::numbers_from_string(inp.at(0));
     program.at(0) = 2;
 
     // TODO: Handle the growing state to speed up, keep track of the state and

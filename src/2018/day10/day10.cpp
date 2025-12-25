@@ -14,7 +14,6 @@
 #include "aoc_runner.h"
 #include "aoc_utils.h"
 #include "lodepng.h"
-#include "string_utils.h"
 
 using Pos = std::complex<int64_t>;
 
@@ -23,7 +22,7 @@ struct Points {
     Pos vel_{};
 
     Points(std::string const& desc) {
-        auto numbers = string_utils::numbers_from_string(desc.c_str());
+        auto numbers = aoc::string::numbers_from_string(desc.c_str());
         assert(numbers.size() == 4);
         pos_ = Pos{numbers[0], numbers[1]};
         vel_ = Pos{numbers[2], numbers[3]};

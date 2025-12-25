@@ -22,7 +22,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 // TODO move to utils
 struct TupleHash {
@@ -102,7 +101,7 @@ struct Memory {
             if (key.front() != mem) {
                 continue;
             }
-            auto num = string_utils::numbers_from_string(gate.name_)[0];
+            auto num = aoc::string::numbers_from_string(gate.name_)[0];
             gate.value_ = static_cast<uint64_t>((val & (1 << num)) > 0);
         }
     }
@@ -115,7 +114,7 @@ struct Memory {
             if (key.front() != 'z') {
                 continue;
             }
-            auto num = string_utils::numbers_from_string(gate.name_)[0];
+            auto num = aoc::string::numbers_from_string(gate.name_)[0];
             val |= get_value(key) << num;
         }
         return val;

@@ -17,7 +17,6 @@
 #include "aoc_runner.h"
 #include "aoc_utils.h"
 #include "intcode_computer.h"
-#include "string_utils.h"
 
 namespace aoc::y2019::d7 {
 
@@ -39,7 +38,7 @@ struct Amplifier {
 };
 
 int64_t solve_1(std::vector<std::string> const& inp) {
-    auto program = string_utils::numbers_from_string(inp[0]);
+    auto program = aoc::string::numbers_from_string(inp[0]);
 
     std::vector<int> phases = {0, 1, 2, 3, 4};
 
@@ -67,7 +66,7 @@ int64_t solve_1(std::vector<std::string> const& inp) {
 }
 
 int64_t solve_2(std::vector<std::string> const& inp) {
-    auto program = string_utils::numbers_from_string(inp[0]);
+    auto program = aoc::string::numbers_from_string(inp[0]);
 
     std::vector<int> phases = {5, 6, 7, 8, 9};
     int64_t max{0};

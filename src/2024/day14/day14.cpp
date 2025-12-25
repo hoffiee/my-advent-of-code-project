@@ -12,7 +12,6 @@
 #include "aoc_runner.h"
 #include "aoc_utils.h"
 #include "lodepng.h"
-#include "string_utils.h"
 
 using Pos = std::complex<int64_t>;
 
@@ -24,7 +23,7 @@ struct Robot {
 
     Robot(std::string const& desc, std::complex<int> grid_sz)
         : grid_sz_{grid_sz}, ignore_{grid_sz_.real() / 2, grid_sz_.imag() / 2} {
-        auto numbers = string_utils::numbers_from_string(desc.c_str());
+        auto numbers = aoc::string::numbers_from_string(desc.c_str());
         assert(numbers.size() == 4);
         p_ = Pos{numbers[0], numbers[1]};
         v_ = Pos{numbers[2], numbers[3]};

@@ -4,7 +4,6 @@
 #include AOC_HEADER
 
 #include <omp.h>
-#include <string_utils.h>
 
 #include <climits>
 #include <icecream.hpp>

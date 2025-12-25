@@ -10,7 +10,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 // TODO Add to utils, fix so that I can template the amount of tuples?
 struct TupleHash {
@@ -46,7 +45,7 @@ int64_t solve_1(std::vector<std::string> inp, int64_t steps = 2000) {
     int64_t ans{0};
 #pragma omp parallel for reduction(+ : ans)
     for (auto line : inp) {
-        auto num = string_utils::numbers_from_string(line).front();
+        auto num = aoc::string::numbers_from_string(line).front();
         for (int64_t step{0}; step < steps; step++) {
             num = secret_number(num);
         }
@@ -61,7 +60,7 @@ int64_t solve_2(std::vector<std::string> inp, size_t steps = 2000) {
 
 #pragma omp parallel for
     for (size_t row = 0; row < inp.size(); row++) {
-        auto num = string_utils::numbers_from_string(inp[row]).front();
+        auto num = aoc::string::numbers_from_string(inp[row]).front();
         auto& dgs = digits[row];
         auto& dfs = diffs[row];
         dgs[0] = num % 10;

@@ -15,7 +15,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 uint64_t nr_of_digits(uint64_t number) {
     if (number == 0) return 1;
@@ -23,7 +22,7 @@ uint64_t nr_of_digits(uint64_t number) {
 }
 
 std::unordered_map<uint64_t, uint64_t> create_stones(std::string const& inp) {
-    auto numbers = string_utils::numbers_from_string(inp);
+    auto numbers = aoc::string::numbers_from_string(inp);
     std::unordered_map<uint64_t, uint64_t> stones{};
     for (auto num : numbers) {
         stones[num]++;

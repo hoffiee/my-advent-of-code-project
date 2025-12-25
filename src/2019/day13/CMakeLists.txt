@@ -9,7 +9,6 @@ target_link_libraries(${TASK}
     aoc_runner
     aoc_utils
     lib-intcode-computer
-    string_utils
 )
 
 add_custom_target(${TASK}-run

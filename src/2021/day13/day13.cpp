@@ -7,7 +7,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 namespace aoc::y2021::d13 {
 
@@ -27,7 +26,7 @@ std::pair<Grid, Folds> parse(std::vector<std::string> const& inp) {
             continue;
         }
         if (parsing_points) {
-            auto points = string_utils::numbers_from_string(line);
+            auto points = aoc::string::numbers_from_string(line);
             assert(points.size() == 2u);
             assert(points.at(0) >= 0);
             assert(points.at(1) >= 0);

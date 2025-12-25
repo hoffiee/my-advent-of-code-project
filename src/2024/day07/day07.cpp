@@ -14,7 +14,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 int64_t op3(int64_t lhs, int64_t rhs) {
     return lhs * std::pow(10, static_cast<int64_t>(std::ceil(std::log10(rhs + 1)))) + rhs;
@@ -40,7 +39,7 @@ int64_t solver(std::vector<std::string> const& inp, bool third = false) {
     int64_t sum{0};
 #pragma omp parallel for reduction(+ : sum)
     for (auto& line : inp) {
-        auto numbers = string_utils::numbers_from_string(line);
+        auto numbers = aoc::string::numbers_from_string(line);
         int64_t results{numbers[0]};
         numbers.erase(numbers.begin());
         if (test_sequence(results, 0, numbers, third)) {

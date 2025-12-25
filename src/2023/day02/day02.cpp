@@ -12,7 +12,6 @@
 #include <sstream>
 
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 static std::vector<int> get_counts(std::string hand) {
     int cubes = 0;

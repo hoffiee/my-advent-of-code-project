@@ -11,7 +11,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 std::tuple<std::vector<int64_t>, int64_t, int64_t> parse_tree(std::vector<int64_t> numbers) {
     if (numbers.size() == 0) {
@@ -49,13 +48,13 @@ std::tuple<std::vector<int64_t>, int64_t, int64_t> parse_tree(std::vector<int64_
 }
 
 int64_t solve_1(std::vector<std::string> const& inp) {
-    auto numbers = string_utils::numbers_from_string(inp[0]);
+    auto numbers = aoc::string::numbers_from_string(inp[0]);
     auto out = parse_tree(numbers);
     return std::get<1>(out);
 }
 
 int64_t solve_2(std::vector<std::string> const& inp) {
-    auto numbers = string_utils::numbers_from_string(inp[0]);
+    auto numbers = aoc::string::numbers_from_string(inp[0]);
     auto out = parse_tree(numbers);
     return std::get<2>(out);
 }

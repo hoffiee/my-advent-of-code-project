@@ -20,7 +20,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 namespace aoc::y2022::d11 {
 
@@ -70,7 +69,7 @@ struct Monkey {
         assert(opers.at(0) == "");
         assert(opers.at(1) == "old");
         operator_ = opers.at(2).front();
-        auto const numbers = string_utils::numbers_from_string(oper);
+        auto const numbers = aoc::string::numbers_from_string(oper);
         if (numbers.size() > 0) {
             assert(numbers.size() == 1u);
             value_ = numbers.front();
@@ -114,17 +113,17 @@ int64_t solve_1(std::vector<std::string> inp) {
 
         monkeys.at(i).index_ = static_cast<int64_t>(i);
 
-        for (auto const item : string_utils::numbers_from_string(inp.at(offset + 1))) {
+        for (auto const item : aoc::string::numbers_from_string(inp.at(offset + 1))) {
             monkeys.at(i).items_.push(item);
         }
 
         auto const oper = aoc::string::split(inp.at(offset + 2), '=');
         monkeys.at(i).set_oper(oper.back());
 
-        monkeys.at(i).divisible_by_ = string_utils::numbers_from_string(inp.at(offset + 3)).at(0);
+        monkeys.at(i).divisible_by_ = aoc::string::numbers_from_string(inp.at(offset + 3)).at(0);
 
-        monkeys.at(i).throw_test_true_ = string_utils::numbers_from_string(inp.at(offset + 4)).at(0);
-        monkeys.at(i).throw_test_false_ = string_utils::numbers_from_string(inp.at(offset + 5)).at(0);
+        monkeys.at(i).throw_test_true_ = aoc::string::numbers_from_string(inp.at(offset + 4)).at(0);
+        monkeys.at(i).throw_test_false_ = aoc::string::numbers_from_string(inp.at(offset + 5)).at(0);
     }
 
     std::size_t rounds{20};
@@ -155,18 +154,18 @@ int64_t solve_2(std::vector<std::string> inp) {
 
         monkeys.at(i).index_ = static_cast<int64_t>(i);
 
-        for (auto const item : string_utils::numbers_from_string(inp.at(offset + 1))) {
+        for (auto const item : aoc::string::numbers_from_string(inp.at(offset + 1))) {
             monkeys.at(i).items_.push(item);
         }
 
         auto const oper = aoc::string::split(inp.at(offset + 2), '=');
         monkeys.at(i).set_oper(oper.back());
 
-        monkeys.at(i).divisible_by_ = string_utils::numbers_from_string(inp.at(offset + 3)).at(0);
+        monkeys.at(i).divisible_by_ = aoc::string::numbers_from_string(inp.at(offset + 3)).at(0);
         product *= monkeys.at(i).divisible_by_;
 
-        monkeys.at(i).throw_test_true_ = string_utils::numbers_from_string(inp.at(offset + 4)).at(0);
-        monkeys.at(i).throw_test_false_ = string_utils::numbers_from_string(inp.at(offset + 5)).at(0);
+        monkeys.at(i).throw_test_true_ = aoc::string::numbers_from_string(inp.at(offset + 4)).at(0);
+        monkeys.at(i).throw_test_false_ = aoc::string::numbers_from_string(inp.at(offset + 5)).at(0);
     }
 
     for (std::size_t i{0}; i < nr_of_monkeys; i++) {

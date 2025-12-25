@@ -10,7 +10,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 namespace aoc::y2019::d12 {
 
@@ -74,7 +73,7 @@ struct Moon {
 std::vector<Moon> parse_input(std::vector<std::string> const& inp) {
     std::vector<Moon> moons{};
     for (auto const& line : inp) {
-        auto const parsed = string_utils::numbers_from_string(line);
+        auto const parsed = aoc::string::numbers_from_string(line);
         assert(parsed.size() == 3);
         moons.emplace_back(Moon{parsed});
     }

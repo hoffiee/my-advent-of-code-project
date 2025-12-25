@@ -11,7 +11,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 struct Pixels {
     std::vector<std::vector<bool>> pixels_;
@@ -81,14 +80,14 @@ int64_t solve(std::vector<std::string> const& inp, int64_t width = 50, int64_t h
 
     for (auto const& line : inp) {
         if (line.starts_with("rect")) {
-            auto numbers = string_utils::numbers_from_string(line);
+            auto numbers = aoc::string::numbers_from_string(line);
             assert(numbers.size() == 2);
             pixels.add(numbers[0], numbers[1]);
             continue;
         }
         if (line.starts_with("rotate")) {
             auto words = aoc::string::split(line, ' ');
-            auto numbers = string_utils::numbers_from_string(line);
+            auto numbers = aoc::string::numbers_from_string(line);
 
             switch (words[1][0]) {
                 case 'c': {

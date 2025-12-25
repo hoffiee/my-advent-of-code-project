@@ -14,7 +14,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 namespace aoc::y2022::d09 {
 
@@ -159,7 +158,7 @@ int64_t solve_1(std::vector<std::string> inp) {
     Node head(1);
     std::unordered_set<Pos, Pos::Hash> visited{Pos{0, 0}};
     for (auto const& line : inp) {
-        auto const steps = string_utils::numbers_from_string(line);
+        auto const steps = aoc::string::numbers_from_string(line);
         assert(steps.at(0) > 0);
         assert(steps.size() == 1u);
 
@@ -209,7 +208,7 @@ int64_t solve_2(std::vector<std::string> inp) {
     Node head(9);
     std::unordered_set<Pos, Pos::Hash> visited{Pos{0, 0}};
     for (auto const& line : inp) {
-        auto const steps = string_utils::numbers_from_string(line);
+        auto const steps = aoc::string::numbers_from_string(line);
         assert(steps.at(0) > 0);
         assert(steps.size() == 1u);
 

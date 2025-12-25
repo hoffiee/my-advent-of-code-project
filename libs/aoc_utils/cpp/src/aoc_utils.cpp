@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <numeric>
+#include <regex>
 #include <sstream>
 
 std::vector<std::string> aoc::utils::read_input(std::string const& filename) {
@@ -36,6 +37,41 @@ int64_t aoc::math::mod(int64_t a, int64_t b) {
     auto const babs = std::abs(b);
     return ((a % babs) + babs) % babs;
 }
+
+
+namespace aoc {
+namespace string {
+
+std::vector<int64_t> numbers_from_string(std::string str) {
+    std::vector<int64_t> out{};
+
+    std::regex number_regex(R"(-?\d+)");
+    std::sregex_iterator current_match(str.begin(), str.end(), number_regex);
+    std::sregex_iterator last_match{};
+
+    while (current_match != last_match) {
+        out.emplace_back(std::stoll(current_match->str()));
+        current_match++;
+    }
+    return out;
+}
+
+std::vector<uint64_t> unumbers_from_string(std::string str) {
+    std::vector<uint64_t> out{};
+
+    std::regex number_regex(R"(-?\d+)");
+    std::sregex_iterator current_match(str.begin(), str.end(), number_regex);
+    std::sregex_iterator last_match{};
+
+    while (current_match != last_match) {
+        out.emplace_back(std::stoll(current_match->str()));
+        current_match++;
+    }
+    return out;
+}
+}  // namespace string
+}  // namespace aoc
+
 
 std::string aoc::string::join(std::vector<std::string> const& vec, std::string const delim) {
     std::string out{};

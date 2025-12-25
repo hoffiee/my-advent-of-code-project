@@ -9,7 +9,6 @@
 #include <sstream>
 
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 struct Vec3 {
     int64_t x;

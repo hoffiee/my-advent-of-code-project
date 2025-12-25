@@ -12,7 +12,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 using Pos = std::pair<size_t, size_t>;
 using Grid = std::vector<std::vector<int>>;

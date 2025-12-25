@@ -20,7 +20,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "string_utils.h"
 
 struct MarbleBoard {
     std::list<int64_t> container_{0};
@@ -67,7 +66,7 @@ void print(MarbleBoard const& inp, int64_t player = 0, int64_t marble = 0) {
 }
 
 int64_t solve(std::vector<std::string> const& inp, int64_t multiplier = 1) {
-    auto numbers = string_utils::numbers_from_string(inp[0]);
+    auto numbers = aoc::string::numbers_from_string(inp[0]);
     assert(numbers.size() == 2);
 
     int64_t players = numbers[0];
