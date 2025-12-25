@@ -10,7 +10,6 @@
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"
-#include "math_utils.h"
 #include "string_utils.h"
 
 namespace aoc::y2019::d12 {
@@ -158,7 +157,7 @@ int64_t solve_2(std::vector<std::string> inp) {
     }
 
     assert(periodicity_dimensions_found >= 3);
-    return math_utils::lcm(periodicity);
+    return aoc::math::lcm(periodicity);
 }
 
 void samples() {

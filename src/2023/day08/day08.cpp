@@ -3,7 +3,7 @@
  */
 #include AOC_HEADER
 
-#include <math_utils.h>
+#include <aoc_utils.h>
 #include <omp.h>
 
 #include <icecream.hpp>
@@ -119,6 +119,6 @@ int64_t solve_2(std::vector<std::string> inp) {
     for (size_t i = 0; i < steps.size(); i++) {
         steps.at(i) = steps_to_target(graph.map, instructions, current_nodes.at(i), condition);
     }
-    int64_t count = math_utils::lcm(steps);
+    int64_t count = aoc::math::lcm(steps);
     return count;
 }

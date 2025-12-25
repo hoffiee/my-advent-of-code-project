@@ -11,7 +11,6 @@ target_link_libraries(${TASK}
     aoc_runner
     aoc_utils
     string_utils
-    math_utils
 )
 
 add_custom_target(${TASK}-run
