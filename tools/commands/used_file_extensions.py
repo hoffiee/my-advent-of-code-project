@@ -1,4 +1,5 @@
 import os
+import subprocess
 from collections import Counter
 
 
@@ -8,10 +9,10 @@ def used_file_extensions(args):
     """
 
     extensions = []
-    for dirpath, dirnames, filenames in os.walk("src"):
-        for file in filenames:
-            _, ext = os.path.splitext(file)
-            extensions.append(ext)
+    for file in subprocess.check_output(["git", "ls-files"]).decode().splitlines():
+        _, ext = os.path.splitext(file)
+        extensions.append(ext)
+
     counts = Counter(extensions)
     for ext, count in counts.most_common():
         print(f"{count:>4} | {ext}")
