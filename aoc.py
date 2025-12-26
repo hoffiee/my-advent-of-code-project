@@ -7,12 +7,15 @@ proper `entr` workflow.
 
 import os
 import argparse
+import subprocess
 import importlib.util
 import sys
 from pathlib import Path
 
 # PYTHON_ARGCOMPLETE_OK
 import argcomplete  # Enables tab completion
+
+sys.path.insert(0, subprocess.check_output(['git', 'rev-parse', '--show-toplevel']).decode().strip())
 
 def load_module_from_file(file_path):
     """Dynamically import a Python module from a file path."""

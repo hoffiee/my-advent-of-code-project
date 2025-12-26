@@ -69,8 +69,6 @@ pub fn aoc_run(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     #[test]
     fn smoke() {
         assert!(true);
