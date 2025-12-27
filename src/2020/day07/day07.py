@@ -2,7 +2,7 @@ import re
 import sys
 from functools import cache
 
-from libs.python.aoc_runner import aoc_runner
+from libs.aoc_runner.python import aoc_runner
 
 
 def read_and_parse_lines(filename):

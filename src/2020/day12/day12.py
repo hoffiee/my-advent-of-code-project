@@ -2,7 +2,7 @@ import math
 import numpy as np
 import sys
 
-from libs.python.aoc_runner import aoc_runner
+from libs.aoc_runner.python import aoc_runner
 
 
 def read_and_parse_lines(filename: str) -> list[str]:

@@ -1,6 +1,6 @@
 import sys
 
-from libs.python.aoc_runner import aoc_runner
+from libs.aoc_runner.python import aoc_runner
 
 # Examples
 ex_1 = ["R2", "L3"]

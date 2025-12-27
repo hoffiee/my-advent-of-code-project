@@ -1,7 +1,7 @@
 import json
 import sys
 
-from libs.python.aoc_runner import aoc_runner
+from libs.aoc_runner.python import aoc_runner
 
 
 def solve(data, validate=False):
@@ -35,12 +35,14 @@ def solve(data, validate=False):
 def sol1(lines):
     data = json.loads(lines[0])
     part, _ = solve(data)
+    assert part == 119433
     return part
 
 
 def sol2(lines):
     data = json.loads(lines[0])
     part, _ = solve(data, True)
+    assert part == 68466
     return part
 
 

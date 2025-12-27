@@ -1,7 +1,7 @@
 import sys
 from functools import reduce
 
-from libs.python.aoc_runner import aoc_runner
+from libs.aoc_runner.python import aoc_runner
 
 
 def read_and_split_into_groups(filename):

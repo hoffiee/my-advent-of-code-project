@@ -3,7 +3,7 @@
 import re
 import sys
 
-from libs.python.aoc_runner import aoc_runner
+from libs.aoc_runner.python import aoc_runner
 
 
 def sol1(list_of_pairs: list[tuple[set[int], set[int]]]) -> int:

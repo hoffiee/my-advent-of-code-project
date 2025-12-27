@@ -5,7 +5,7 @@ import sympy
 import sys
 from typing import Dict, Union, Tuple, List
 
-from libs.python.aoc_runner import aoc_runner
+from libs.aoc_runner.python import aoc_runner
 
 
 def expr(sys_eq, monkey: str) -> str:
