@@ -53,10 +53,14 @@ int main(int argc, char** argv) {
     auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
-        std::cout << "part 1: " << solver(inp) << std::endl;
+        auto const res = solver(inp, false);
+        assert(res == 66343330034722);
+        std::cout << "part 1: " << res << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
-        std::cout << "part 2: " << solver(inp, true) << std::endl;
+        auto const res = solver(inp, true);
+        assert(res == 637696070419031);
+        std::cout << "part 2: " << res << std::endl;
     };
 
     return aoc::run(

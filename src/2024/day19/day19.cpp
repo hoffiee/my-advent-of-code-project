@@ -110,10 +110,14 @@ int main(int argc, char** argv) {
     auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
-        std::cout << "part 1: " << solve_1(inp) << std::endl;
+        auto const res = solve_1(inp);
+        assert(res == 322);
+        std::cout << "part 1: " << res << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
-        std::cout << "part 2: " << solve_2(inp, false) << std::endl;
+        auto const res = solve_2(inp, false);
+        assert(res == 715514563508258);
+        std::cout << "part 2: " << res << std::endl;
     };
 
     return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);

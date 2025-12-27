@@ -325,13 +325,16 @@ int main(int argc, char** argv) {
     auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
-        std::cout << "part 1: " << solve_1(inp).output() << std::endl;
+        auto const res = solve_1(inp).output();
+        assert(res == "7,0,7,3,4,1,3,0,1");
+        std::cout << "part 1: " << res << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
-        auto part2 = solve_2_fuzzing(inp);
+        auto const res = solve_2_fuzzing(inp);
+
         // randomly fails sometimes, but that's part of it being a random approach..
-        assert(part2 == 156985331222018);
-        std::cout << "part 2: " << part2 << std::endl;
+        assert(res == 156985331222018);
+        std::cout << "part 2: " << res << std::endl;
     };
 
     return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
