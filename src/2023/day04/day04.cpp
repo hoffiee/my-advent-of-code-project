@@ -3,7 +3,6 @@
  */
 #include AOC_HEADER
 
-
 #include <cmath>
 #include <icecream.hpp>
 #include <numeric>

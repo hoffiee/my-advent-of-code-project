@@ -38,7 +38,6 @@ int64_t aoc::math::mod(int64_t a, int64_t b) {
     return ((a % babs) + babs) % babs;
 }
 
-
 namespace aoc {
 namespace string {
 
@@ -71,7 +70,6 @@ std::vector<uint64_t> unumbers_from_string(std::string str) {
 }
 }  // namespace string
 }  // namespace aoc
-
 
 std::string aoc::string::join(std::vector<std::string> const& vec, std::string const delim) {
     std::string out{};

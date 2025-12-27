@@ -57,7 +57,6 @@ TEST(AOC_UTILS_TEST, test_math_mod) {
     ASSERT_EQ(aoc::math::mod(-7, -10), 3);
 }
 
-
 TEST(AOC_UTILS_STRING_TEST, test_int_from_strings_no_numbers) {
     std::string inp = {"abc"};
     auto out = aoc::string::numbers_from_string(inp);
