@@ -1,7 +1,5 @@
 #include <algorithm>
 #include <cassert>
-#include <chrono>
-#include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -79,12 +77,14 @@ int main(int argc, char** argv) {
     auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
-        auto part1 = solve_1(inp);
-        std::cout << "part 1: " << part1 << std::endl;
+        auto const res = solve_1(inp);
+        assert(res == 8153);
+        std::cout << "part 1: " << res << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
-        auto part2 = solve_2(inp);
-        std::cout << "part 2: " << part2 << std::endl;
+        auto const res = solve_2(inp);
+        assert(res == 2342);
+        std::cout << "part 2: " << res << std::endl;
     };
 
     return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);

@@ -257,7 +257,7 @@ void samples() {
     auto sample = aoc::utils::read_input(AOC_SAMPLE_INPUT);
     auto tmp = read_and_parse_data(sample);
     assert(solve_1(tmp) == 64);
-    // assert(solve_2(tmp) == 58);
+    assert(solve_2(tmp) == 58);
 }
 
 int main(int argc, char** argv) {
@@ -265,13 +265,15 @@ int main(int argc, char** argv) {
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto tmp = read_and_parse_data(inp);
-        auto part1 = solve_1(tmp);
-        std::cout << "part 1: " << part1 << std::endl;
+        auto res = solve_1(tmp);
+        assert(res == 3500);
+        std::cout << "part 1: " << res << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto tmp = read_and_parse_data(inp);
-        auto part2 = solve_2(tmp);
-        std::cout << "part 2: " << part2 << std::endl;
+        auto res = solve_2(tmp);
+        assert(res > 1684);
+        std::cout << "part 2: " << res << std::endl;
     };
 
     return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);

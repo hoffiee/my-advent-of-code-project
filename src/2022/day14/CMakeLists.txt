@@ -17,4 +17,5 @@ add_custom_target(${TASK}-run
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
 
-aoc_bench_add_target(${TASK})
+# Disable until fixed
+# aoc_bench_add_target(${TASK})

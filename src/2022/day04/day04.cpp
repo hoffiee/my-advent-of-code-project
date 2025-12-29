@@ -52,13 +52,15 @@ int main(int argc, char** argv) {
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto tmp = read_and_parse_data(inp);
-        auto part1 = solve_1(tmp);
-        std::cout << "part 1: " << part1 << std::endl;
+        auto const res = solve_1(tmp);
+        assert(res == 466);
+        std::cout << "part 1: " << res << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto tmp = read_and_parse_data(inp);
-        auto part2 = solve_2(tmp);
-        std::cout << "part 2: " << part2 << std::endl;
+        auto const res = solve_2(tmp);
+        assert(res == 865);
+        std::cout << "part 2: " << res << std::endl;
     };
 
     return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);

@@ -1,50 +1,22 @@
-/* Current brute force for part 2, currently took 277 days when I calculated
- * it, so scrap that. Search space is too large */
 /**
- * 4000000
- * 1979192 1946558
- * 1978843 1946558
- * 1979223 1946558
- * 1980389 1946558
- * 2013874 1946558
- *
- * Am I around 2'000'000 ?
- *
- * stopped at 2933907 (t4) and produced 13350458933736. It wasn't correct. It
- * was too high. So after looking into other solutions and solving this, the
- * correct was 13350458933732, which is off by 4. So this was really close.
+ * Didn't figure this one out so this is an second attempt when reading other
+ * solutions as well to get some inspiration and finding new techniques etc.
  */
-#include <chrono>
 #include <fstream>
 #include <iostream>
-
-/* Solution includes */
 #include <algorithm>
 #include <cassert>
-#include <climits>
-#include <cstdint>
-#include <map>
-#include <mutex>
 #include <numeric>
 #include <optional>
-#include <random>
 #include <sstream>
-#include <stdexcept>
-#include <thread>
-#include <unordered_map>
-#include <vector>
 
-namespace {
-using std::cout;
-using std::endl;
-using std::string;
-using std::vector;
-}  // namespace
+#include "aoc_runner.h"
+#include "aoc_utils.h"
 
 struct Position {
     int64_t x;
     int64_t y;
-    int64_t distance_to(Position point) { return std::abs(x - point.x) + std::abs(y - point.y); }
+    int64_t distance(Position point) const { return std::abs(x - point.x) + std::abs(y - point.y); }
     friend std::istream& operator>>(std::istream& is, Position& pos) {
         is >> pos.x >> pos.y;
         return is;
@@ -53,58 +25,122 @@ struct Position {
         os << "[" << pos.x << "," << pos.y << "]";
         return os;
     }
-    bool operator==(const Position& pos) const { return (x == pos.x) && (y == pos.y); }
 };
 
-struct hash_fn {
-    std::size_t operator()(const Position& pos) const {
-        std::size_t h1 = std::hash<int64_t>()(pos.x);
-        std::size_t h2 = std::hash<int64_t>()(pos.y);
-
-        return h1 ^ h2;
+struct Interval {
+    int64_t min;
+    int64_t max;
+    bool subsumes(const Interval& other) const { return min <= other.min && other.max <= max; }
+    bool overlaps(const Interval& other) const {
+        return (min <= other.min && other.min <= max) || (min <= other.max && other.max <= max) ||
+               other.subsumes(*this);
     }
-};
-
-struct Beacon {
-    Position cord;
-    friend std::istream& operator>>(std::istream& is, Beacon& beacon) {
-        is >> beacon.cord;
-        return is;
+    friend auto operator==(const Interval& lhs, const Interval& rhs) {
+        return lhs.min == rhs.min && lhs.max == rhs.max;
     }
-    friend std::ostream& operator<<(std::ostream& os, Beacon& beacon) {
-        os << beacon.cord;
-        return os;
-    }
+    friend auto operator<(const Interval& lhs, const Interval& rhs) { return lhs.min < rhs.min; }
+    Interval join(const Interval& other) const { return Interval{std::min(other.min, min), std::max(other.max, max)}; }
+    int64_t length() const { return max - min; }
 };
 
 struct Sensor {
-    Position cord{};
-    Beacon beacon{};
+    Position position{};
+    Position beacon{};
 
-    int64_t distance() { return cord.distance_to(beacon.cord); }
-    bool is_in_range_to(Position& pos);
+    /* Calculate the interval covered by this Sensor */
+    std::optional<Interval> coverage_at_row(int64_t y_coord) const {
+        int64_t beacon_distance = position.distance(beacon);
+        if (std::abs(position.y - y_coord) > beacon_distance) {
+            return std::nullopt;
+        }
+        return Interval{position.x - (beacon_distance - std::abs(position.y - y_coord)),
+                        position.x + (beacon_distance - std::abs(position.y - y_coord))};
+    }
     friend std::istream& operator>>(std::istream& is, Sensor& sensor) {
-        is >> sensor.cord >> sensor.beacon;
+        is >> sensor.position.x >> sensor.position.y >> sensor.beacon.x >> sensor.beacon.y;
         return is;
     }
     friend std::ostream& operator<<(std::ostream& os, Sensor& sensor) {
-        os << "Sensor" << sensor.cord << " beacon" << sensor.beacon
-           << " dist: " << sensor.cord.distance_to(sensor.beacon.cord);
+        os << "[" << sensor.position.x << "," << sensor.position.y << "](" << sensor.beacon.x << "," << sensor.beacon.y
+           << ")";
         return os;
     }
 };
 
-bool Sensor::is_in_range_to(Position& pos) { return distance() >= cord.distance_to(pos); }
+static std::vector<Interval> coverage_at_row(const std::vector<Sensor>& sensors, int64_t y_coord) {
+    /* Go over all sensors, get their intervals and filter out empty ones */
+    auto has_value = [](const auto& opt) { return opt.has_value(); };
+    auto get_value = [](const auto& opt) { return *opt; };
+    auto coverage_at = [y_coord](const auto& sensor) { return sensor.coverage_at_row(y_coord); };
 
-static vector<Sensor> read_and_parse_data(string filename) {
+    std::vector<std::optional<Interval>> intervals;
+    std::transform(sensors.begin(), sensors.end(), std::back_inserter(intervals), coverage_at);
+
+    /* a filter or a copy_if would be much neater here.*/
+    std::vector<Interval> valid_intervals;
+    for (auto& opt : intervals) {
+        if (has_value(opt)) {
+            valid_intervals.emplace_back(get_value(opt));
+        }
+    }
+    std::sort(valid_intervals.begin(), valid_intervals.end());
+
+    std::vector<Interval> merged;
+    auto it = valid_intervals.begin();
+    Interval prev = *it;
+    ++it;
+    while (it != valid_intervals.end()) {
+        Interval curr = *it;
+        if (prev.overlaps(curr)) {
+            prev = prev.join(curr);
+        } else {
+            merged.push_back(prev);
+            prev = curr;
+        }
+        ++it;
+    }
+    merged.push_back(prev);
+    return merged;
+}
+
+static int64_t count_covered_spaces_at_coord(const std::vector<Sensor>& sensors, int64_t y_coord) {
+    auto result = coverage_at_row(sensors, y_coord);
+    auto sum = [](int64_t acc, const Interval& interval) { return acc + interval.length(); };
+    return std::accumulate(result.begin(), result.end(), static_cast<int64_t>(0), sum);
+}
+
+static int64_t tuning_frequence(const std::vector<Sensor>& sensors, int64_t max) {
+    int64_t out = 0;
+    for (int64_t y = 0; y < max + 1; ++y) {
+        auto intervals = coverage_at_row(sensors, y);
+        if (intervals.size() > 1) {
+            out = (intervals.front().max + 1) * 4'000'000 + y;
+            break;
+        }
+    }
+    return out;
+}
+
+static void test() {
+    std::vector<Sensor> sensors{{{2, 18}, {-2, 15}},  {{9, 16}, {10, 16}},  {{13, 2}, {15, 3}},   {{12, 14}, {10, 16}},
+                                {{10, 20}, {10, 16}}, {{14, 17}, {10, 16}}, {{8, 7}, {2, 10}},    {{2, 0}, {2, 10}},
+                                {{0, 11}, {2, 10}},   {{20, 14}, {25, 17}}, {{17, 20}, {21, 22}}, {{16, 7}, {15, 3}},
+                                {{14, 3}, {15, 3}},   {{20, 1}, {15, 3}}};
+    assert(sensors.at(6).coverage_at_row(-3) == std::nullopt);
+    assert((sensors.at(6).coverage_at_row(-2) == Interval{8, 8}));
+    assert((sensors.at(6).coverage_at_row(7) == Interval{-1, 17}));
+    assert(count_covered_spaces_at_coord(sensors, 10) == 26);
+}
+
+static std::vector<Sensor> read_and_parse_data(std::string filename) {
     std::ifstream input;
     input.open(filename);
     if (!input.is_open()) {
         std::cout << "couldn't read file" << std::endl;
         return {};
     }
-    string line;
-    vector<Sensor> out;
+    std::string line;
+    std::vector<Sensor> out;
     while (getline(input, line)) {
         std::stringstream ss(line);
         Sensor sensor;
@@ -114,227 +150,31 @@ static vector<Sensor> read_and_parse_data(string filename) {
     return out;
 }
 
-static int64_t solution_1(vector<Sensor> sensors, int64_t row) {
-    std::sort(sensors.begin(), sensors.end(),
-              [](const Sensor& lhs, const Sensor& rhs) { return lhs.cord.y < rhs.cord.y; });
-
-    sensors.erase(std::remove_if(sensors.begin(), sensors.end(),
-                                 [row](Sensor& sens) { return sens.distance() < std::abs(sens.cord.y - row); }),
-                  sensors.end());
-
-    std::map<int64_t, int64_t> marks;
-    int64_t min = INT64_MAX;
-    int64_t max = INT64_MIN;
-    for (auto sensor : sensors) {
-        /* 2*n + 1, for n distance from y and sensor max reach  */
-        int64_t dist = sensor.distance() - std::abs(sensor.cord.y - row);
-        if (dist < 0) {
-            throw std::logic_error("what have I done here?");
-        }
-        int64_t ncalc = 2 * dist + 1;
-        vector<int64_t> indexes_to_mark(ncalc);
-        std::iota(indexes_to_mark.begin(), indexes_to_mark.end(), sensor.cord.x - ncalc / 2);
-
-        for (auto index : indexes_to_mark) {
-            marks[index] = index;
-            if (index < min) {
-                min = index;
-            }
-            if (index > max) {
-                max = index;
-            }
-        }
-    }
-    for (auto& it : sensors) {
-        if (it.beacon.cord.y == row) {
-            if (marks.contains(it.beacon.cord.x)) {
-                marks.erase(it.beacon.cord.y);
-            }
-        }
-    }
-    return marks.size();
-}
-
-__attribute__((unused)) static int64_t solution_2(vector<Sensor> sensors, int64_t coordinate_max) {
-    cout << endl;
-
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> dist6(0, coordinate_max);
-
-    Position candidate{0, 0};
-    while (true) {
-        candidate.x = dist6(rng);
-        candidate.y = dist6(rng);
-        // cout << candidate << endl;
-
-        bool in_range = false;
-        for (auto& sensor : sensors) {
-            in_range = in_range || sensor.is_in_range_to(candidate);
-            if (in_range) {
-                break;
-            }
-        }
-
-        if (!in_range) {
-            break;
-        }
-    }
-    return 4000000 * candidate.x + candidate.y;
-}
-
-__attribute__((unused)) static int64_t solution_2_2(vector<Sensor> sensors, int64_t coordinate_max) {
-    cout << endl;
-
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> dist6(0, coordinate_max);
-
-    std::unordered_map<Position, bool, hash_fn> checked;
-
-    Position candidate{0, 0};
-    int count = 0;
-
-    for (; candidate.y <= coordinate_max; ++candidate.y) {
-        for (; candidate.x <= coordinate_max; ++candidate.x) {
-        }
-    }
-    while (true) {
-        candidate.x = dist6(rng);
-        candidate.y = dist6(rng);
-
-        if (checked.find(candidate) != checked.end()) {
-            continue;
-        }
-        // cout << candidate << "havent checked this one yet" << endl;
-        checked[candidate] = true;
-        if (++count >= 1000) {
-            count = 0;
-            cout << "\r" << checked.size();
-        }
-
-        bool in_range = false;
-        for (auto& sensor : sensors) {
-            in_range = in_range || sensor.is_in_range_to(candidate);
-            if (in_range) {
-                break;
-            }
-        }
-
-        if (!in_range) {
-            break;
-        }
-    }
-    cout << endl;
-    return 4000000 * candidate.x + candidate.y;
-}
-
-std::mutex g_mutex;
-static void worker_func(vector<Sensor> sensors, bool* search, Position* return_pos, int64_t start, int64_t step,
-                        int64_t max, bool print_process) {
-    Position candidate{0, start};
-    bool found = false;
-    int count = 0;
-    for (; *search && candidate.y <= max; candidate.y += step) {
-        candidate.x = 0;
-        if (print_process) {
-            if (++count > 5) {
-                cout << "\r" << candidate.y;
-            }
-        }
-        for (; *search && candidate.x <= max; ++candidate.x) {
-            bool in_range = false;
-            for (auto& sensor : sensors) {
-                in_range = in_range || sensor.is_in_range_to(candidate);
-                if (in_range) {
-                    break;
-                }
-            }
-
-            if (!in_range) {
-                found = true;
-                *search = false;
-                break;
-            }
-        }
-    }
-
-    if (found) {
-        std::lock_guard<std::mutex> lock(g_mutex);
-        *return_pos = candidate;
-    }
-}
-
-__attribute__((unused)) static int64_t solution_2_3(vector<Sensor> sensors, int64_t coordinate_max) {
-    cout << endl;
-
-    Position candidate{0, 0};
-    bool search = true;
-
-    int64_t offset = 2933907;
-
-    std::thread t1(worker_func, sensors, &search, &candidate, offset + 0, 4, coordinate_max, false);
-    std::thread t2(worker_func, sensors, &search, &candidate, offset + 1, 4, coordinate_max, false);
-    std::thread t3(worker_func, sensors, &search, &candidate, offset + 2, 4, coordinate_max, false);
-    std::thread t4(worker_func, sensors, &search, &candidate, offset + 3, 4, coordinate_max, true);
-
-    t1.join();
-    t2.join();
-    t3.join();
-    t4.join();
-
-    cout << endl;
-    return 4000000 * candidate.x + candidate.y;
-}
-
-static void run_and_check_solutions(string task, int64_t (*solution_1)(vector<Sensor>), int64_t expected_1,
-                                    int64_t (*solution_2)(vector<Sensor>), int64_t expected_2) {
-    auto start_time = std::chrono::high_resolution_clock::now();
-
-    auto input = read_and_parse_data(task);
-    std::cout << task << std::endl;
-    std::cout << "\ttask 1: " << solution_1(input) << " (" << expected_1 << ")" << std::endl;
-    std::cout << "\ttask 2: " << solution_2(input) << " (" << expected_2 << ")" << std::endl;
-
-    auto end_time = std::chrono::high_resolution_clock::now();
-    std::cout << "execution time: "
-              << std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - start_time).count() << " ns"
-              << std::endl;
-}
-
-static void test() {
-    Position pos1{0, 0};
-    Position pos2{0, 0};
-    Position pos3{1, 0};
-    Position pos4{0, 1};
-    Position pos5{-1, 0};
-    Position pos6{0, -1};
-
-    assert(pos1 == pos2);
-    assert(!(pos1 == pos3));
-    assert(!(pos1 == pos4));
-    assert(!(pos1 == pos5));
-    assert(!(pos1 == pos6));
-
-    std::unordered_map<Position, bool, hash_fn> m;
-
-    m[pos1] = true;
-
-    assert(m.find(pos1) != m.end());
-    assert(m.find(pos2) != m.end());
-    assert(m.find(pos3) == m.end());
-    assert(m.find(pos4) == m.end());
-    assert(m.find(pos5) == m.end());
-    assert(m.find(pos6) == m.end());
-}
-
-int main(void) {
+void samples() {
     test();
-    auto solution_1_sample = [](vector<Sensor> in) { return solution_1(in, 10); };
-    auto solution_2_sample = [](vector<Sensor> in) { return solution_2_3(in, 20); };
-    run_and_check_solutions("day15-sample.preprocessed.input", solution_1_sample, 26, solution_2_sample, 56000011);
 
-    auto solution_1_puzzle = [](vector<Sensor> in) { return solution_1(in, 2000000); };
-    auto solution_2_puzzle = [](vector<Sensor> in) { return solution_2_3(in, 4000000); };
-    run_and_check_solutions("day15.preprocessed.input", solution_1_puzzle, 5176944, solution_2_puzzle, 0);
+    auto const tmp = read_and_parse_data("day15-sample.preprocessed.input");
+    auto const part1 = count_covered_spaces_at_coord(tmp, 10);
+    assert(part1 == 26);
+    auto const part2 = tuning_frequence(tmp, 40);
+    assert(part2 == 56000011);
+}
+
+int main(int argc, char** argv) {
+    auto input = aoc::utils::read_input(AOC_INPUT);
+
+    auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto const tmp = read_and_parse_data("day15.preprocessed.input");
+        auto const res = count_covered_spaces_at_coord(tmp, 2'000'000);
+        assert(res ==  5176944);
+        std::cout << "part 1: " << res << std::endl;
+    };
+    auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto tmp = read_and_parse_data("day15.preprocessed.input");
+        auto const res = tuning_frequence(tmp, 4'000'000);
+        assert(res ==  13350458933732);
+        std::cout << "part 2: " << res << std::endl;
+    };
+
+    return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
 }

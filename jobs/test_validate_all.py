@@ -5,6 +5,8 @@ such a way that they'll assert if they are incorrect, it's enough to kind of
 just run all solutions and see if any exists with a non-zero exit code.
 """
 
+# TODO: fails when one of the targets fails
+
 import subprocess
 import sys
 from argparse import Namespace

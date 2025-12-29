@@ -174,13 +174,15 @@ int main(int argc, char** argv) {
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto desc = read_and_parse_data(inp);
-        auto part1 = desc.root();
-        std::cout << "part 1: " << part1 << std::endl;
+        auto res = desc.root();
+        assert(res == 21208142603224);
+        std::cout << "part 1: " << res << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto desc = read_and_parse_data(inp);
-        auto part2 = find_number_to_yell(desc);
-        std::cout << "part 2: " << part2 << std::endl;
+        auto res = find_number_to_yell(desc);
+        assert(res == 3882224466191);
+        std::cout << "part 2: " << res << std::endl;
     };
 
     return aoc::run(argc, argv, samples, solve_1_wrapper, solve_2_wrapper, input);
