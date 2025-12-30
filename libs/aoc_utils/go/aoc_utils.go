@@ -20,6 +20,5 @@ func ReadInput(filename string) []string {
 		lines = append(lines, line)
 	}
 
-	return lines;
+	return lines
 }
-
