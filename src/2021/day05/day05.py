@@ -84,14 +84,26 @@ def samples():
     assert sol2(sample) == 12
 
 
+def solve_1(x):
+    res = sol1(x)
+    print(f"part 1: {res}")
+    assert res == 8622
+
+
+def solve_2(x):
+    res = sol2(x)
+    print(f"part 2: {res}")
+    assert res == 22037
+
+
 if __name__ == "__main__":
     with open("day05.input", "r", encoding="utf8") as f:
         inp = f.readlines()
     sys.exit(
         aoc_runner.aoc_runner(
             samples,
-            lambda x: print(f"problem 1: {sol1(x)}"),
-            lambda x: print(f"problem 2: {sol2(x)}"),
+            solve_1,
+            solve_2,
             inp,
         )
     )
