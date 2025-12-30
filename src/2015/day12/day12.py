@@ -32,22 +32,22 @@ def solve(data, validate=False):
     return sum, True
 
 
-def sol1(lines):
-    data = json.loads(lines[0])
-    part, _ = solve(data)
-    assert part == 119433
-    return part
-
-
-def sol2(lines):
-    data = json.loads(lines[0])
-    part, _ = solve(data, True)
-    assert part == 68466
-    return part
-
-
 def samples():
     pass
+
+
+def solve_1(x):
+    data = json.loads(x[0])
+    res, _ = solve(data)
+    print(f"part 1: {res}")
+    assert res == 119433
+
+
+def solve_2(x):
+    data = json.loads(x[0])
+    res, _ = solve(data, True)
+    print(f"part 2: {res}")
+    assert res == 68466
 
 
 if __name__ == "__main__":
@@ -56,8 +56,8 @@ if __name__ == "__main__":
     sys.exit(
         aoc_runner.aoc_runner(
             samples,
-            lambda x: print(f"problem 1: {sol1(x)}"),
-            lambda x: print(f"problem 2: {sol2(x)}"),
+            solve_1,
+            solve_2,
             inp,
         )
     )

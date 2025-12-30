@@ -17,13 +17,25 @@ def samples():
     assert solve("pqrstuv", 5) == 1048970
 
 
+def solve_1(x):
+    res = solve(x, 5)
+    print(f"part 1: {res}")
+    assert res == 346386
+
+
+def solve_2(x):
+    res = solve(x, 6)
+    print(f"part 2: {res}")
+    assert res == 9958218
+
+
 if __name__ == "__main__":
     inp = "iwrupvqb"
     sys.exit(
         aoc_runner.aoc_runner(
             samples,
-            lambda x: print(f"problem 1: {solve(x, 5)}"),
-            lambda x: print(f"problem 2: {solve(x, 6)}"),
+            solve_1,
+            solve_2,
             inp,
         )
     )

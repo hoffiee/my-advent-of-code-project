@@ -1,3 +1,4 @@
+#include <cassert>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -11,12 +12,14 @@ int main(int argc, char** argv) {
     auto input = aoc::utils::read_input("day06.preprocessed.input");
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
-        auto [part1, _] = solve(inp);
-        std::cout << "part 1: " << part1 << std::endl;
+        auto [res, _] = solve(inp);
+        assert(res == 543903);
+        std::cout << "part 1: " << res << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
-        auto [_, part2] = solve(inp);
-        std::cout << "part 2: " << part2 << std::endl;
+        auto [_, res] = solve(inp);
+        assert(res == 14687245);
+        std::cout << "part 2: " << res << std::endl;
     };
 
     return aoc::run(

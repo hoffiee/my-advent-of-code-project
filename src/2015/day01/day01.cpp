@@ -45,12 +45,14 @@ int main(int argc, char** argv) {
     auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
-        auto [part1, _] = solve(inp.front());
-        std::cout << "part 1: " << part1 << std::endl;
+        auto [res, _] = solve(inp.front());
+        assert(res == 74);
+        std::cout << "part 1: " << res << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
-        auto [_, part2] = solve(inp.front());
-        std::cout << "part 2: " << part2 << std::endl;
+        auto [_, res] = solve(inp.front());
+        assert(res == 1795);
+        std::cout << "part 2: " << res << std::endl;
     };
 
     return aoc::run(argc, argv, test, solve_1_wrapper, solve_2_wrapper, input);

@@ -1,4 +1,4 @@
-#include <fstream>
+#include <cassert>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -13,9 +13,13 @@ int main(int argc, char** argv) {
     auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto const res = solve_1(inp);
+        assert(res == 236);
         std::cout << "part 1: " << solve_1(inp) << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
+        auto const res = solve_2(inp);
+        assert(res == 51);
         std::cout << "part 2: " << solve_2(inp) << std::endl;
     };
 
