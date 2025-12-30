@@ -96,6 +96,18 @@ def samples():
     assert sol2(sample) == 60
 
 
+def solve_1(x):
+    res = sol1(x)
+    print(f"part 1: {res}")
+    assert res == "ahnofa"
+
+
+def solve_2(x):
+    res = sol2(x)
+    print(f"part 2: {res}")
+    assert res == 802
+
+
 if __name__ == "__main__":
     with open("day07.input", "r", encoding="utf8") as file:
         inp = file.read().splitlines()

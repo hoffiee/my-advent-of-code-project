@@ -1,3 +1,4 @@
+#include <cassert>
 #include <iostream>
 
 #include "aoc_runner.h"
@@ -9,12 +10,14 @@ int main(int argc, char** argv) {
     auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const&) -> void {
-        auto [part1, _] = solve(265149);
-        std::cout << "part 1: " << part1 << std::endl;
+        auto [res, _] = solve(265149);
+        assert(res == 438);
+        std::cout << "part 1: " << res << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const&) -> void {
-        auto [_, part2] = solve(265149);
-        std::cout << "part 2: " << part2 << std::endl;
+        auto [_, res] = solve(265149);
+        assert(res == 266330);
+        std::cout << "part 2: " << res << std::endl;
     };
 
     return aoc::run(argc, argv, []() {}, solve_1_wrapper, solve_2_wrapper, {});

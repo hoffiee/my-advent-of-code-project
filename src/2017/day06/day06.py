@@ -32,22 +32,23 @@ def solution(data):
     return 0, 0
 
 
-def sol1(data):
-    a, _ = solution(data)
-    return a
-
-
-def sol2(data):
-    _, b = solution(data)
-    return b
-
-
 def samples():
     with open("day06-sample.input", "r", encoding="utf8") as file:
         line = file.readline()
         sample = list(map(int, re.findall(r"\d+", line)))
-    assert sol1(sample) == 5
-    assert sol2(sample) == 4
+    assert solution(sample) == (5, 4)
+
+
+def solve_1(x):
+    res, _ = solution(x)
+    print(f"part 1: {res}")
+    assert res == 7864
+
+
+def solve_2(x):
+    _, res = solution(x)
+    print(f"part 2: {res}")
+    assert res == 1695
 
 
 if __name__ == "__main__":
@@ -57,8 +58,8 @@ if __name__ == "__main__":
     sys.exit(
         aoc_runner.aoc_runner(
             samples,
-            lambda x: print(f"problem 1: {sol1(x)}"),
-            lambda x: print(f"problem 2: {sol2(x)}"),
+            solve_1,
+            solve_2,
             inp,
         )
     )
