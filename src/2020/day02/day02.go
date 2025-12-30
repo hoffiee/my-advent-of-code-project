@@ -4,37 +4,24 @@
 package main
 
 import (
-	"bufio"
-	"flag"
+	"aoc/aoc_runner"
+	"aoc/aoc_utils"
 	"fmt"
 	"log"
-	"os"
 )
 
-func main() {
-	// https://gosamples.dev/read-file/
-	// file, err := os.Open("day02-sample.input")
-	file, err := os.Open("day02.input")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-
+func solver(input []string) (int, int) {
 	valid1 := 0
 	valid2 := 0
 
-	for scanner.Scan() {
-		line := scanner.Text()
+	for _, line := range input {
 		var a, b int
 		var password string
 		var letter rune
 		_, err := fmt.Sscanf(line, "%d-%d %c: %s", &a, &b, &letter, &password)
 		if err != nil {
-			fmt.Println(err)
+			log.Fatal(err)
 		}
-		fmt.Println(line, a, b, string(letter), password)
 
 		usage_of_char := 0
 		for _, char := range password {
@@ -59,14 +46,38 @@ func main() {
 
 	}
 
-	var part int
-	flag.IntVar(&part, "part", 0, "part")
-	flag.Parse()
+	return valid1, valid2
+}
 
-	if part == 0 || part == 1 {
-		fmt.Println(valid1)
+func samples() {
+	input := aoc_utils.ReadInput("day02-sample.input")
+	res1, res2 := solver(input)
+	if res1 != 2 {
+		panic("invalid results")
 	}
-	if part == 0 || part == 2 {
-		fmt.Println(valid2)
+	if res2 != 1 {
+		panic("invalid results")
 	}
+}
+
+// TODO: Setup as lambdas instead?
+func solve_1(input []string) {
+	res, _ := solver(input)
+	fmt.Println("Part 1:", res)
+	if res != 645 {
+		panic("invalid results")
+	}
+}
+
+func solve_2(input []string) {
+	_, res := solver(input)
+	fmt.Println("Part 2:", res)
+	if res != 737 {
+		panic("invalid results")
+	}
+}
+
+func main() {
+	input := aoc_utils.ReadInput("day02.input")
+	aoc_runner.Run(samples, solve_1, solve_2, input)
 }

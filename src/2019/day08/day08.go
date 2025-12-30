@@ -4,11 +4,9 @@
 package main
 
 import (
-	"bufio"
-	"flag"
+	"aoc/aoc_runner"
+	"aoc/aoc_utils"
 	"fmt"
-	"log"
-	"os"
 )
 
 const (
@@ -16,7 +14,11 @@ const (
 	cols = 25
 )
 
-func parse(line string) [][rows][cols]int {
+func parse(lines []string) [][rows][cols]int {
+	if len(lines) != 1 {
+		panic("Should only be one line")
+	}
+	line := lines[0]
 	size := len(line) / rows / cols
 	layers := make([][rows][cols]int, size)
 	for layer := range size {
@@ -31,7 +33,7 @@ func parse(line string) [][rows][cols]int {
 	return layers
 }
 
-func multiply(layer [rows][cols]int) {
+func multiply(layer [rows][cols]int) int {
 	digit_1_count := 0
 	digit_2_count := 0
 	for _, row := range layer {
@@ -44,10 +46,10 @@ func multiply(layer [rows][cols]int) {
 			}
 		}
 	}
-	fmt.Println("Results: ", digit_1_count*digit_2_count)
+	return digit_1_count * digit_2_count
 }
 
-func solve1(layers [][rows][cols]int) {
+func solve1(layers [][rows][cols]int) int {
 	min_number_of_zeroes := rows * cols
 	min_layer := 0
 	for l, layer := range layers {
@@ -65,7 +67,7 @@ func solve1(layers [][rows][cols]int) {
 			min_layer = l
 		}
 	}
-	multiply(layers[min_layer])
+	return multiply(layers[min_layer])
 }
 
 func solve2(layers [][rows][cols]int) {
@@ -96,30 +98,24 @@ func solve2(layers [][rows][cols]int) {
 	}
 }
 
+func samples() {}
+
+func solve_1(input []string) {
+	layers := parse(input)
+	res := solve1(layers)
+	fmt.Println("Part 1:", res)
+	// TODO Can I do my own assert that makes this a bit less verbose perhaps?
+	if res != 2904 {
+		panic("Wrong answer")
+	}
+}
+func solve_2(input []string) {
+	layers := parse(input)
+	solve2(layers)
+	fmt.Println("Part 2: See printout above")
+}
+
 func main() {
-	// https://gosamples.dev/read-file/
-	// file, err := os.Open("day08-sample.input")
-	file, err := os.Open("day08.input")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-
-	var part int
-	flag.IntVar(&part, "part", 0, "part")
-	flag.Parse()
-
-	for scanner.Scan() {
-		line := scanner.Text()
-		layers := parse(line)
-
-		if part == 0 || part == 1 {
-			solve1(layers)
-		}
-		if part == 0 || part == 2 {
-			solve2(layers)
-		}
-	}
+	input := aoc_utils.ReadInput("day08.input")
+	aoc_runner.Run(samples, solve_1, solve_2, input)
 }

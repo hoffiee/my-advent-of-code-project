@@ -7,11 +7,10 @@ part 2: Find the average position
 package main
 
 import (
-	"bufio"
-	"flag"
+	"aoc/aoc_runner"
+	"aoc/aoc_utils"
 	"fmt"
 	"log"
-	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -61,50 +60,59 @@ func AbsDiff(x, y int) int {
 	return x - y
 }
 
-func solve1(positions []int) {
+func solve1(positions []int) int {
 	position := findMedian(positions)
-	fmt.Println("position:", position)
 	cost := 0
 	for _, val := range positions {
 		addition := AbsDiff(val, position)
 		cost += addition
 	}
-	fmt.Println(cost)
+	return cost
 }
 
-func solve2(positions []int) {
+func solve2(positions []int) int {
 	position := findAverage(positions)
-	fmt.Println("position:", position)
 
 	cost := 0
 	for _, val := range positions {
 		addition := AbsDiff(val, position)
 		cost += addition * (addition + 1) / 2
 	}
-	fmt.Println(cost)
+	return cost
+}
+
+func samples() {
+	input := aoc_utils.ReadInput("day07-sample.input")
+	positions := parse(input[0])
+	res := solve1(positions)
+	if res != 37 {
+		panic("wrong answer")
+	}
+
+	res = solve2(positions)
+	if res != 168 {
+		panic("wrong answer")
+	}
+
+}
+func solve_1(input []string) {
+	positions := parse(input[0])
+	res := solve1(positions)
+	fmt.Println("Part 1:", res)
+	if res != 326132 {
+		panic("wrong answer")
+	}
+}
+func solve_2(input []string) {
+	positions := parse(input[0])
+	res := solve2(positions)
+	fmt.Println("Part 2:", res)
+	if res != 88612508 {
+		panic("wrong answer")
+	}
 }
 
 func main() {
-	file, err := os.Open("day07.input")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-
-	var part int
-	flag.IntVar(&part, "part", 0, "part")
-	flag.Parse()
-
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		line := scanner.Text()
-		input := parse(line)
-
-		if part == 0 || part == 1 {
-			solve1(input)
-		}
-		if part == 0 || part == 2 {
-			solve2(input)
-		}
-	}
+	input := aoc_utils.ReadInput("day07.input")
+	aoc_runner.Run(samples, solve_1, solve_2, input)
 }

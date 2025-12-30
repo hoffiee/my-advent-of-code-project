@@ -8,11 +8,10 @@ to deal with a growing list of Fishes
 package main
 
 import (
-	"bufio"
-	"flag"
+	"aoc/aoc_runner"
+	"aoc/aoc_utils"
 	"fmt"
 	"log"
-	"os"
 	"strconv"
 	"strings"
 )
@@ -55,7 +54,7 @@ func (f *Fishes) sum() int {
 	return out
 }
 
-func solve(initial_fishes []int, steps int) {
+func solve(initial_fishes []int, steps int) int {
 	fishes := Fishes{}
 	for _, val := range initial_fishes {
 		fishes[val] += 1
@@ -63,30 +62,45 @@ func solve(initial_fishes []int, steps int) {
 	for _ = range steps {
 		fishes = fishes.step()
 	}
-	fmt.Printf("%d fishes after %d days\n", fishes.sum(), steps)
+	// fmt.Printf("%d fishes after %d days\n", fishes.sum(), steps)
+	return fishes.sum()
+}
+
+func samples() {
+	input := aoc_utils.ReadInput("day06-sample.input")
+	fishes := parse(input[0])
+	res := solve(fishes, 80)
+	if res != 5934 {
+		panic("invalid results")
+	}
+
+	res = solve(fishes, 256)
+	if res != 26984457539 {
+		panic("invalid results")
+	}
+
+}
+func solve_1(input []string) {
+	// TODO Check valid length!
+	fishes := parse(input[0])
+	res := solve(fishes, 80)
+	fmt.Println("Part 1:", res)
+	if res != 365131 {
+		panic("invalid results")
+	}
+}
+
+func solve_2(input []string) {
+	// TODO Check valid length!
+	fishes := parse(input[0])
+	res := solve(fishes, 256)
+	fmt.Println("Part 2:", res)
+	if res != 1650309278600 {
+		panic("invalid results")
+	}
 }
 
 func main() {
-	// file, err := os.Open("day06-sample.input")
-	file, err := os.Open("day06.input")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-
-	var part int
-	flag.IntVar(&part, "part", 0, "part")
-	flag.Parse()
-
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		line := scanner.Text()
-		input := parse(line)
-		if part == 0 || part == 1 {
-			solve(input, 80)
-		}
-		if part == 0 || part == 2 {
-			solve(input, 256)
-		}
-	}
+	input := aoc_utils.ReadInput("day06.input")
+	aoc_runner.Run(samples, solve_1, solve_2, input)
 }
