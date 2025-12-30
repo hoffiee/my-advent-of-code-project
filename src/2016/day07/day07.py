@@ -67,6 +67,18 @@ def sol2(data):
     return count
 
 
+def solve_1(x):
+    res = sol1(x)
+    print(f"part 1: {res}")
+    assert res == 105
+
+
+def solve_2(x):
+    res = sol2(x)
+    print(f"part 2: {res}")
+    assert res == 258
+
+
 def samples():
     with open("day07-sample.input", "r", encoding="utf8") as file:
         lines = file.read().splitlines()
@@ -80,8 +92,8 @@ if __name__ == "__main__":
     sys.exit(
         aoc_runner.aoc_runner(
             samples,
-            lambda x: print(f"problem 1: {sol1(x)}"),
-            lambda x: print(f"problem 2: {sol2(x)}"),
+            solve_1,
+            solve_2,
             lines,
         )
     )
