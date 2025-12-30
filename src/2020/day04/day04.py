@@ -91,13 +91,25 @@ def samples() -> None:
     assert sol2(strict_invalid_passports) == 0
 
 
+def solve_1(x):
+    res = sol1(x)
+    print(f"part 1: {res}")
+    assert res == 219
+
+
+def solve_2(x):
+    res = sol2(x)
+    print(f"part 2: {res}")
+    assert res == 127
+
+
 if __name__ == "__main__":
     inp = read_and_parse("day04.input")
     sys.exit(
         aoc_runner.aoc_runner(
             samples,
-            lambda x: print(f"problem 1: {sol1(x)}"),
-            lambda x: print(f"problem 2: {sol2(x)}"),
+            solve_1,
+            solve_2,
             inp,
         )
     )

@@ -74,13 +74,25 @@ def samples() -> None:
     assert sol([3, 1, 2], 30000000) == 362
 
 
+def solve_1(x):
+    res = sol(x, 2020)
+    print(f"part 1: {res}")
+    assert res == 232
+
+
+def solve_2(x):
+    res = sol(x, 30000000)
+    print(f"part 2: {res}")
+    assert res == 18929178
+
+
 if __name__ == "__main__":
     inp = [2, 1, 10, 11, 0, 6]
     sys.exit(
         aoc_runner.aoc_runner(
             samples,
-            lambda x: print(f"problem 1: {sol(x, 2020)}"),
-            lambda x: print(f"problem 2: {sol(x, 30000000)}"),
+            solve_1,
+            solve_2,
             inp,
         )
     )
