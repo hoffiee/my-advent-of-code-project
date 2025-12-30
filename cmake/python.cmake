@@ -6,24 +6,25 @@ include(CMakePrintHelpers)
 cmake_print_variables(TOOLS_DIR)
 
 function(aoc_add_python_target TARGET_NAME PYTHON_SOURCE)
-    add_custom_target(${TARGET_NAME}
+    add_custom_target(${TARGET_NAME}-py
         COMMAND ${CMAKE_COMMAND} -E copy
             ${CMAKE_CURRENT_SOURCE_DIR}/${PYTHON_SOURCE}
             ${CMAKE_CURRENT_BINARY_DIR}/solve.py
         COMMAND ${CMAKE_COMMAND} -E copy
             ${TOOLS_DIR}/aoc-bench/py_launcher
-            ${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}
-        COMMENT "Copying python files for ${TARGET_NAME}"
+            ${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}-py
+        COMMENT "Copying python files for ${TARGET_NAME}-py"
+        DEPENDS venv-update
     )
 
-    add_custom_target(${TARGET_NAME}-run
-        COMMAND ./${TARGET_NAME}
-        DEPENDS ${TARGET_NAME}
+    add_custom_target(${TARGET_NAME}-py-run
+        COMMAND ./${TARGET_NAME}-py
+        DEPENDS ${TARGET_NAME}-py
     )
 endfunction()
 
 macro(aoc_add_python_test)
-    add_custom_target(${ARGV0}
+    add_custom_target(${ARGV0}-py-runtest
         COMMAND ${VENV_PYTEST} ${CMAKE_CURRENT_SOURCE_DIR}
         DEPENDS venv-update
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}

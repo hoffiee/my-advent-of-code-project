@@ -4,6 +4,6 @@ aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY})
 aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY}-sample)
 aoc_copy_input_file(${AOC_YEAR} ${AOC_DAY}-sample-1)
 
-aoc_add_python_target(${TASK}-py ${AOC_DAY}.py)
+aoc_add_python_target(${TASK} ${AOC_DAY}.py)
 
 aoc_bench_add_target(${TASK}-py)

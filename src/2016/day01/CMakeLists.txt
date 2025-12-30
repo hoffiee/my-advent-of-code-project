@@ -42,7 +42,7 @@ add_custom_target(${TASK}-runtest
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
 
-aoc_bench_add_target(${TASK})
+aoc_add_python_target(${TASK} ${AOC_DAY}.py)
 
-aoc_add_python_target(${TASK}-py ${AOC_DAY}.py)
+aoc_bench_add_target(${TASK})
 aoc_bench_add_target(${TASK}-py)
