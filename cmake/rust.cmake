@@ -29,12 +29,17 @@ else()
     set(CARGO_BUILD_ARG)
 endif()
 
+# To avoid lock on package cache define a job pool for Cargo so that only one
+# of these are run at the same time
+set(CMAKE_JOB_POOLS rust_cargo_pool=1 CACHE STRING "Rust Cargo pools")
+
 macro(aoc_rust_add_target)
     add_custom_command(
         OUTPUT ${ARGV0}_
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         COMMAND env CARGO_TARGET_DIR=${CMAKE_CURRENT_BINARY_DIR} cargo build ${CARGO_BUILD_ARG}
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_BINARY_DIR}/${RUST_PROFILE} ${CMAKE_CURRENT_BINARY_DIR}/
+        JOB_POOL rust_cargo_pool
         COMMENT "Building Rust executable ${ARGV0} with Cargo (${RUST_PROFILE})"
         VERBATIM
     )
@@ -55,6 +60,7 @@ macro(aoc_rust_add_test)
         OUTPUT ${ARGV0}-test_
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         COMMAND env CARGO_TARGET_DIR=${CMAKE_CURRENT_BINARY_DIR} cargo test --no-run
+        JOB_POOL rust_cargo_pool
         COMMENT "Building Rust test executable ${ARGV0} with Cargo (${RUST_PROFILE})"
         VERBATIM
     )
