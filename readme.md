@@ -12,13 +12,13 @@ Currently migrating this to have it's own work-space similar to python's
 virtual environment and have all tooling available through the command `aoc`.
 
 ```bash
-source tools/activate.sh
+source tools/activate.sh  # Necessary for python as for now
 
 # show usage and available commands
-aoc --help
+./aoc.py --help
 
 # and for example
-aoc build <target>
+./aoc.py build <target>
 ```
 
 
