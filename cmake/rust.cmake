@@ -20,10 +20,10 @@ set(CMAKE_JOB_POOLS rust_cargo_pool=1 CACHE STRING "Rust Cargo pools")
 
 macro(aoc_rust_add_target)
     if (NOT CARGO_EXECUTABLE)
-        message(WARNING "Cargo not found! Won't add target: " ${ARGV0})
+        message(WARNING "Cargo not found! Won't add target: " ${ARGV0}"-rs")
     else()
         add_custom_command(
-            OUTPUT ${ARGV0}_
+            OUTPUT ${ARGV0}-rs_
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
             COMMAND env CARGO_TARGET_DIR=${CMAKE_CURRENT_BINARY_DIR} cargo build ${CARGO_BUILD_ARG}
             COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_BINARY_DIR}/${RUST_PROFILE} ${CMAKE_CURRENT_BINARY_DIR}/
@@ -32,13 +32,13 @@ macro(aoc_rust_add_target)
             VERBATIM
         )
 
-        add_custom_target(${ARGV0} ALL
-            DEPENDS ${ARGV0}_
+        add_custom_target(${ARGV0}-rs ALL
+            DEPENDS ${ARGV0}-rs_
         )
 
-        add_custom_target(${ARGV0}-run
+        add_custom_target(${ARGV0}-rs-run
             COMMAND ./${RUST_PROFILE}/${ARGV0}
-            DEPENDS ${ARGV0}
+            DEPENDS ${ARGV0}-rs
             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         )
     endif()
@@ -46,7 +46,7 @@ endmacro()
 
 macro(aoc_rust_add_test)
     add_custom_command(
-        OUTPUT ${ARGV0}-test_
+        OUTPUT ${ARGV0}-rs-test_
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         COMMAND env CARGO_TARGET_DIR=${CMAKE_CURRENT_BINARY_DIR} cargo test --no-run
         JOB_POOL rust_cargo_pool
@@ -54,20 +54,20 @@ macro(aoc_rust_add_test)
         VERBATIM
     )
 
-    add_custom_target(${ARGV0}-test ALL
-        DEPENDS ${ARGV0}-test_
+    add_custom_target(${ARGV0}-rs-test ALL
+        DEPENDS ${ARGV0}-rs-test_
     )
 
-    add_custom_target(${ARGV0}-runtest
+    add_custom_target(${ARGV0}-rs-runtest
         COMMAND env CARGO_TARGET_DIR=${CMAKE_CURRENT_BINARY_DIR} cargo test --verbose
-        DEPENDS ${ARGV0}-test
+        DEPENDS ${ARGV0}-rs-test
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         COMMENT "Running Rust test ${ARGV0} with Cargo (${RUST_PROFILE})"
         VERBATIM
     )
 
     add_test(
-        NAME ${ARGV0}-test
+        NAME ${ARGV0}-rs-test
         COMMAND cargo test --verbose
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
