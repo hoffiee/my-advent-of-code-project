@@ -175,12 +175,14 @@ int main(int argc, char** argv) {
     auto input = aoc::utils::read_input(AOC_INPUT);
 
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
-        auto part1 = aoc::y2019::d12::solve_1(inp, 1000);
-        std::cout << "part 1: " << part1 << std::endl;
+        auto res = aoc::y2019::d12::solve_1(inp, 1000);
+        assert(res == 10635);
+        std::cout << "part 1: " << res << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
-        auto part2 = aoc::y2019::d12::solve_2(inp);
-        std::cout << "part 2: " << part2 << std::endl;
+        auto res = aoc::y2019::d12::solve_2(inp);
+        assert(res == 583523031727256);
+        std::cout << "part 2: " << res << std::endl;
     };
 
     return aoc::run(argc, argv, aoc::y2019::d12::samples, solve_1_wrapper, solve_2_wrapper, input);

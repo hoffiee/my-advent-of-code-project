@@ -17,17 +17,17 @@ int main(int argc, char** argv) {
         auto inst = aoc::string::numbers_from_string(inp[0]);
         inst.at(1) = 12;
         inst.at(2) = 2;
-        auto part1 = solve_1(inst);
-        IC(part1);
-        assert(part1 == 3516593);
-        std::cout << "part 1: " << part1 << std::endl;
+        auto res = solve_1(inst);
+        IC(res);
+        assert(res == 3516593);
+        std::cout << "part 1: " << res << std::endl;
     };
 
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto inst = aoc::string::numbers_from_string(inp[0]);
-        auto part2 = solve_2(inst);
-        assert(part2 == 7749);
-        std::cout << "part 2: " << part2 << std::endl;
+        auto res = solve_2(inst);
+        assert(res == 7749);
+        std::cout << "part 2: " << res << std::endl;
     };
 
     return aoc::run(
