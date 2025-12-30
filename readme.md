@@ -12,8 +12,6 @@ Currently migrating this to have it's own work-space similar to python's
 virtual environment and have all tooling available through the command `aoc`.
 
 ```bash
-source tools/activate.sh  # Necessary for python as for now
-
 # show usage and available commands
 ./aoc.py --help
 

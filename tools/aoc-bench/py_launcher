@@ -14,6 +14,9 @@ import sys
 from pathlib import Path
 
 
+sys.path.insert(0, subprocess.check_output(['git', 'rev-parse', '--show-toplevel']).decode().strip())
+
+
 def find_upstream_directory(target_dir):
     current_dir = os.getcwd()
     while True:
@@ -44,7 +47,7 @@ def run_script_in_venv(target_path):
 
     # Setup the path s.t. scripts can import libraries
     env = os.environ.copy()
-    env["PYTHONPATH"] = env.get("PYTHONPATH", "") + ":" + str(Path(__file__).resolve().parents[4])
+    env["PYTHONPATH"] = os.pathsep.join(sys.path)
 
     # TODO: Setup so that we exit with the return value of the subprocess
     subprocess.run([venv_python, target_path] + sys.argv[1:], env=env)
