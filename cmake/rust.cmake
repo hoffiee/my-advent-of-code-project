@@ -1,18 +1,3 @@
-# Rust target helpers
-
-# find_program(CARGO_EXECUTABLE cargo)
-# if(CARGO_EXECUTABLE)
-#     message(STATUS "Found cargo: ${CARGO_EXECUTABLE}")
-#     set(HAVE_CARGO TRUE)
-# else()
-#     message(STATUS "cargo not found; Rust targets will be skipped.")
-#     set(HAVE_CARGO FALSE)
-# endif()
-# if(HAVE_CARGO)
-#     # add_custom_command / add_custom_target for your Rust code here
-# endif()
-
-# Look for 'cargo' in PATH
 find_program(CARGO_EXECUTABLE cargo)
 
 if(NOT CARGO_EXECUTABLE)
@@ -34,25 +19,29 @@ endif()
 set(CMAKE_JOB_POOLS rust_cargo_pool=1 CACHE STRING "Rust Cargo pools")
 
 macro(aoc_rust_add_target)
-    add_custom_command(
-        OUTPUT ${ARGV0}_
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        COMMAND env CARGO_TARGET_DIR=${CMAKE_CURRENT_BINARY_DIR} cargo build ${CARGO_BUILD_ARG}
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_BINARY_DIR}/${RUST_PROFILE} ${CMAKE_CURRENT_BINARY_DIR}/
-        JOB_POOL rust_cargo_pool
-        COMMENT "Building Rust executable ${ARGV0} with Cargo (${RUST_PROFILE})"
-        VERBATIM
-    )
+    if (NOT CARGO_EXECUTABLE)
+        message(WARNING "Cargo not found! Won't add target: " ${ARGV0})
+    else()
+        add_custom_command(
+            OUTPUT ${ARGV0}_
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+            COMMAND env CARGO_TARGET_DIR=${CMAKE_CURRENT_BINARY_DIR} cargo build ${CARGO_BUILD_ARG}
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_BINARY_DIR}/${RUST_PROFILE} ${CMAKE_CURRENT_BINARY_DIR}/
+            JOB_POOL rust_cargo_pool
+            COMMENT "Building Rust executable ${ARGV0} with Cargo (${RUST_PROFILE})"
+            VERBATIM
+        )
 
-    add_custom_target(${ARGV0} ALL
-        DEPENDS ${ARGV0}_
-    )
+        add_custom_target(${ARGV0} ALL
+            DEPENDS ${ARGV0}_
+        )
 
-    add_custom_target(${ARGV0}-run
-        COMMAND ./${RUST_PROFILE}/${ARGV0}
-        DEPENDS ${ARGV0}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    )
+        add_custom_target(${ARGV0}-run
+            COMMAND ./${RUST_PROFILE}/${ARGV0}
+            DEPENDS ${ARGV0}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        )
+    endif()
 endmacro()
 
 macro(aoc_rust_add_test)
