@@ -33,7 +33,7 @@ def get_data(year):
     return part_df
 
 
-def plot(part_df):
+def plot(part_df, logarithmic = False):
     fig = make_subplots(rows=2, cols=1, shared_xaxes=False)
     fig.add_trace(
         go.Bar(x=part_df["entry"], y=part_df["mean_ms_1"], name="part 1"), row=1, col=1
@@ -52,6 +52,8 @@ def plot(part_df):
         row=1,
         col=1,
     )
+    if logarithmic:
+        fig.update_yaxes(type='log', row=1, col=1)
 
     fig.add_trace(
         go.Scatter(
@@ -88,7 +90,7 @@ def plot(part_df):
 
     fig.update_xaxes(dtick=1, title_text="[day]", row=2, col=1)
     fig.update_xaxes(dtick=1, row=1, col=1)
-    fig.update_yaxes(title_text="runtime [ms]", row=1, col=1)
+    fig.update_yaxes(title_text=f"runtime {'(logarithmic) ' if logarithmic else ''}[ms]", row=1, col=1)
     fig.update_yaxes(title_text="accumulated runtime [s]", row=2, col=1)
     fig.update_layout(title_text="Advent of Code runtimes")
     fig.show()
@@ -128,13 +130,18 @@ def main():
         action="store_true",
         help="Check the 5 solutions that takes the most time.",
     )
+    parser.add_argument(
+        "--log",
+        action="store_true",
+        help="Use Logarithmic scale for individual runtime",
+    )
     args = parser.parse_args()
 
     if args.contributor:
         biggest_contributor(args.year)
     else:
         df = get_data(args.year)
-        plot(df)
+        plot(df, args.log)
 
 
 if __name__ == "__main__":
