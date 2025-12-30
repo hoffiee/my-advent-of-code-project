@@ -1,5 +1,5 @@
-#include <iostream>
 #include <cassert>
+#include <iostream>
 
 #include "aoc_runner.h"
 #include "aoc_utils.h"

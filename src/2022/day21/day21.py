@@ -52,14 +52,25 @@ def samples():
     assert sol2(sample) == 301
 
 
+def solve_1(x):
+    print(f"part 1: {0} - Not solved here")
+    assert False
+
+
+def solve_2(x):
+    res = sol2(x)
+    print(f"part 2: {res}")
+    assert res == 3882224466191
+
+
 if __name__ == "__main__":
     with open("day21.input", "r", encoding="utf8") as f:
         inp = list(map(str.rstrip, f.readlines()))
     sys.exit(
         aoc_runner.aoc_runner(
             samples,
-            lambda x: print(f"problem 1: {0}"),
-            lambda x: print(f"problem 2: {sol2(x)}"),
+            solve_1,
+            solve_2,
             inp,
         )
     )

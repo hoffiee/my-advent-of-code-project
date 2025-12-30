@@ -180,13 +180,13 @@ int main(int argc, char** argv) {
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto tmp = read_and_parse_data(inp);
         auto res = solve_1(tmp);
-        assert(res ==  885);
+        assert(res == 885);
         std::cout << "part 1: " << res << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto tmp = read_and_parse_data(inp);
         auto res = solve_2(tmp);
-        assert(res ==  28691);
+        assert(res == 28691);
         std::cout << "part 2: " << res << std::endl;
     };
 

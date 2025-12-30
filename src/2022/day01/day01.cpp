@@ -2,9 +2,9 @@
  * https://adventofcode.com/2022/day/1
  */
 #include <algorithm>
+#include <cassert>
 #include <cstdint>
 #include <iostream>
-#include <cassert>
 #include <numeric>
 #include <string>
 #include <vector>

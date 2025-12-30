@@ -2,10 +2,10 @@
  * Didn't figure this one out so this is an second attempt when reading other
  * solutions as well to get some inspiration and finding new techniques etc.
  */
-#include <fstream>
-#include <iostream>
 #include <algorithm>
 #include <cassert>
+#include <fstream>
+#include <iostream>
 #include <numeric>
 #include <optional>
 #include <sstream>
@@ -166,13 +166,13 @@ int main(int argc, char** argv) {
     auto solve_1_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto const tmp = read_and_parse_data("day15.preprocessed.input");
         auto const res = count_covered_spaces_at_coord(tmp, 2'000'000);
-        assert(res ==  5176944);
+        assert(res == 5176944);
         std::cout << "part 1: " << res << std::endl;
     };
     auto solve_2_wrapper = [](std::vector<std::string> const& inp) -> void {
         auto tmp = read_and_parse_data("day15.preprocessed.input");
         auto const res = tuning_frequence(tmp, 4'000'000);
-        assert(res ==  13350458933732);
+        assert(res == 13350458933732);
         std::cout << "part 2: " << res << std::endl;
     };
 
