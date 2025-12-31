@@ -48,7 +48,8 @@ fn parse_input(input: &Vec<String>) -> (HashMap<Point, i64>, Point, Point) {
     let points = extract_points_from_map::<i64>(&input, &vec!['S', '^']);
     assert!(points.len() == 2);
 
-    let start = points.get(&'S')
+    let start = points
+        .get(&'S')
         .and_then(|inner| inner.keys().next().copied())
         .expect("Expected a starting point from S");
     assert!(start.x != 0);

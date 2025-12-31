@@ -1,5 +1,5 @@
 add_custom_target(format
-    DEPENDS format-cpp format-py format-go
+    DEPENDS format-cpp format-py format-go format-rust
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 

@@ -1,5 +1,5 @@
-use std::fs::File;
 use std::collections::HashMap;
+use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 pub fn read_input_file(path: &str) -> Vec<String> {
@@ -45,13 +45,22 @@ pub struct Point2d {
     pub y: i64,
 }
 
-pub fn extract_points_from_map<T: Default>(input: &Vec<String>, symbols: &Vec<char>) -> HashMap<char, HashMap<Point2d, T>> {
+pub fn extract_points_from_map<T: Default>(
+    input: &Vec<String>,
+    symbols: &Vec<char>,
+) -> HashMap<char, HashMap<Point2d, T>> {
     let mut out = HashMap::new();
     for y in 0..input.len() {
         for x in 0..input[0].len() {
             for symbol in symbols {
                 if input[y].chars().nth(x as usize).unwrap() == *symbol {
-                    out.entry(*symbol).or_insert_with(HashMap::new).entry(Point2d{x: x as i64, y: y as i64}).or_default();
+                    out.entry(*symbol)
+                        .or_insert_with(HashMap::new)
+                        .entry(Point2d {
+                            x: x as i64,
+                            y: y as i64,
+                        })
+                        .or_default();
                 }
             }
         }
@@ -86,12 +95,10 @@ mod tests {
         assert_eq!(res.get(&'S').unwrap().len(), 1);
         assert_eq!(res.get(&'^').unwrap().len(), 3);
 
-        assert!(res.get(&'S').unwrap().contains_key(&Point2d{x:3, y:0}));
-        assert!(res.get(&'^').unwrap().contains_key(&Point2d{x:3, y:1}));
-        assert!(res.get(&'^').unwrap().contains_key(&Point2d{x:1, y:2}));
-        assert!(res.get(&'^').unwrap().contains_key(&Point2d{x:5, y:2}));
+        assert!(res.get(&'S').unwrap().contains_key(&Point2d { x: 3, y: 0 }));
+        assert!(res.get(&'^').unwrap().contains_key(&Point2d { x: 3, y: 1 }));
+        assert!(res.get(&'^').unwrap().contains_key(&Point2d { x: 1, y: 2 }));
+        assert!(res.get(&'^').unwrap().contains_key(&Point2d { x: 5, y: 2 }));
         assert_eq!(res.get(&'.'), None);
     }
-
-
 }
