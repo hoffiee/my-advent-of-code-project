@@ -39,7 +39,6 @@ pub fn split_by_empty_lines(lines: &[String]) -> Vec<Vec<String>> {
     groups
 }
 
-// TODO Generalize and move utils
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Copy)]
 pub struct Point2d {
     pub x: i64,

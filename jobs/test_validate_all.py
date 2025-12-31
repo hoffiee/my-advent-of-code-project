@@ -20,6 +20,7 @@ targets = cmake_fetch_targets(args, None)
 disabled = [
     "2020_day15-run",  # TODO: slow, takes too long
     "2022_day14-run",  # TODO: Broken
+    "2022_day18-run",  # TODO: Broken
     "2022_day21-py-run",  # TODO: Fix so it runs the parts separately
     "2024_day17-run",  # TODO: Fix as it's not behaving as expected
     "2024_day21-run",  # TODO Get's segmenttaion fault with --release

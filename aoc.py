@@ -55,7 +55,7 @@ def main():
 
     args = parser.parse_args()
 
-    # TODO: alternative way to run it
+    # NOTE: alternative way to run it
     # args, forward_args = parser.parse_known_args()
     # args.func(args, forward_args)
 
