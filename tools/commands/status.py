@@ -59,7 +59,7 @@ def eventStatus() -> None:
     print(out)
 
     print(f"Stars left to complete: {sum(goal.values())}")
-    for key in sorted(goal.keys()):
+    for key in sorted(goal.keys(), reverse=True):
         if goal[key] > 0:
             print(f"\t{key}: {goal[key]}")
 
