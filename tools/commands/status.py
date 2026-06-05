@@ -10,6 +10,7 @@ def tasks_per_year(year: int) -> int:
 
 def eventStatus() -> None:
     events_stars = {
+        2026: 0,
         2025: 24,
         2024: 50,
         2023: 44,
@@ -23,6 +24,7 @@ def eventStatus() -> None:
         2015: 30,
     }
     targets_stars = {
+        2026: 24,
         2025: 24,
         2024: 50,
         2023: 50,
