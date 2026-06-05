@@ -15,7 +15,7 @@ add_compile_options(
 
     $<$<CONFIG:Release>:-O3>
     $<$<CONFIG:Release>:-march=native>
-    $<$<CONFIG:Release>:-flto>
+    $<$<CONFIG:Release>:-flto=auto>  # Set to auto to enable parallel workloads
 
     $<$<CONFIG:Debug>:-O0>
     $<$<CONFIG:Debug>:-Wall>
